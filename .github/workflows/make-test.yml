@@ -9,10 +9,8 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      -
-        name: Checkout
+      - name: Checkout
         uses: actions/checkout@v3
-      -
-        name: make test
-        run: cd Environment && make test
+      - name: Make step
+        run: make test
         shell: bash
