@@ -25,7 +25,7 @@ test                           Run the tests
 ```
 
 
-### Others
+### Appfiles
 
 #### iTerm2
 ```console
