@@ -1,100 +1,80 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => 通用设置
+" =>  autocmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" leader 键设置
-let mapleader = ","
-nmap <leader>w :w!<cr>
-noremap <leader>d dd
-noremap <leader>y yy
-" :W sudo saves the file 
-" (useful for handling the permission-denied error)
-command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
-
-" 快速到行首行尾快捷键
-noremap H ^
-noremap L $
-
-" 删除Windows ^M
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" 快速打开 ~/buffer 以进行临时写入
-map <leader>q :e ~/buffer<cr>
-" 快速打开 ~/buffer.md 以进行临时写入
-map <leader>x :e ~/buffer.md<cr>
-
-" ,ss 切换和取消切换拼写检查
-map <leader>ss :setlocal spell!<cr>
-
-
-" 命令行补全以增强模式运行
-set wildmenu
-" 命令模式下，使用 tab 补全命令
-set wildmode=longest:list,full
-
-" 当文件在外部被修改时，自动更新该文件
-set autoread
-" set autowrite
-
 " 打开自动定位到最后编辑的位置, 需要确认 .viminfo 当前用户可写
 if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" 总是显示状态栏
-set laststatus=2
-" 状态栏格式
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-" 在状态栏显示正在输入的命令
-set showcmd
-" 左下角显示当前vim模式
-set showmode
-" 显示状态栏标尺
-set ruler
-" 突出显示当前列与行
-set cursorcolumn
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => keymaps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = " "
+let maplocalleader = "\\"
+
+noremap H ^
+noremap L $
+nmap <leader>w :w!<cr>
+
+" delete Windows ^M
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" (useful for handling the permission-denied error)
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoread
+
+" UI
+set number
+set relativenumber
 set cursorline
-" 设定命令行的行数为1
-set cmdheight=1
+set splitbelow
+set splitright
+set laststatus=2
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
-""" 搜索配置
-" 命令的历史和最近搜索模式的历史
-set history=256
-" 搜索模式里忽略大小写
-set ignorecase
-" 搜索模式里包含大写字符，不使用ignorecase选项
-set smartcase
-" 搜索时高亮显示被找到的文本
+" indent
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+
+" search
+set incsearch
 set hlsearch
-" 输入搜索命令时，显示目前输入的模式的匹配位置。匹配的字符串被高亮
-set incsearch 
+set ignorecase
+set smartcase
+set history=512
 
-" 避免不必要的重绘，提升性能
-set lazyredraw 
-
-" 放弃时隐藏缓冲区
-set hid
-
-" 配置退格键
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" 插入括号时，短暂地跳转到匹配的对应括号 
-set showmatch 
-" 短暂跳转到匹配括号的时间
-set mat=2
-
-" 代码折叠
-set foldenable
-set foldmethod=indent
-set foldlevel=99
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => FileType Settings  文件类型设置
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 
+"set foldenable
+"set foldmethod=indent
+"set foldlevel=99
 " 载入文件类型插件 & 为特定文件类型载入相关缩进文件
 filetype on
 filetype plugin on
 filetype indent on
+
+" optimize
+set lazyredraw 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => FileType Settings  文件类型设置
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " 保存python文件时删除多余空格
 fun! <SID>StripTrailingWhitespaces()
@@ -180,8 +160,8 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " Enable syntax highlighting
 syntax enable
 set background=dark
-"colorscheme solarized
-colorscheme molokai
+colorscheme solarized
+"colorscheme molokai
 set t_Co=256
 
 " Set utf8 as standard encoding and en_US as the standard language

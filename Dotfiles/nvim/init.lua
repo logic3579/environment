@@ -1,9 +1,12 @@
+--vim.cmd("source ~/.config/nvim/.vimrc")
+-- lib
 local safeRequire = require("lib").safeRequire
 
 safeRequire("autocmd")
 safeRequire("keymap")
-safeRequire("lazynvim")
 safeRequire("option")
+-- lazy.vim
+safeRequire("lazynvim")
 
 -- plugins
 -- safeRequire(plugins.xxx)
