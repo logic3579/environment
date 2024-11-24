@@ -6,18 +6,6 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" clean extra spaces
-fun! CleanExtraSpaces()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    silent! %s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfun
-if has("autocmd")
-    autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
-endif
-
 " file header
 autocmd BufNewFile *.sh,*.py, exec ":call SetNewFileTitle()"
 let $author_name = "Yakir"
@@ -51,7 +39,9 @@ let maplocalleader = "\\"
 
 noremap H ^
 noremap L $
+
 nmap <leader>w :w!<cr>
+nmap <leader>q :q!<cr>
 
 " delete Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -94,8 +84,8 @@ syntax enable
 set encoding=utf8
 set ffs=unix,dos,mac
 set background=dark
+" colorscheme molokai
 colorscheme solarized
-"colorscheme molokai
 set t_Co=256
 
 " UI
@@ -147,8 +137,7 @@ set noswapfile
 " install -> git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-    "Plugin 'VundleVim/Vundle.vim'
-    "Plugin 'vim-syntastic/syntastic'
-    Plugin 'exvim/ex-colorschemes'
+    Plugin 'VundleVim/Vundle.vim'
+    Plugin 'vim-colors-solarized'
 call vundle#end()
 

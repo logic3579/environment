@@ -28,11 +28,10 @@ bash /tmp/fonts/install.sh
 annotation
 #####
 
-
-# oh-my-zsh Themes = https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
 
-export PATH=$PATH:BREW_BIN_PATH
+#export PATH=$PATH:BREW_BIN_PATH
+export PATH=$PATH:/opt/homebrew/bin
 export ZSH="$HOME/.oh-my-zsh"
 
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -45,6 +44,3 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 # source <(helm completion zsh)
 # source <(kubectl completion zsh)
-
-# Jetbrain Active
-___MY_VMOPTIONS_SHELL_FILE="${HOME}/.jetbrains.vmoptions.sh"; if [ -f "${___MY_VMOPTIONS_SHELL_FILE}" ]; then . "${___MY_VMOPTIONS_SHELL_FILE}"; fi

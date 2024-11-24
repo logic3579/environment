@@ -1,6 +1,6 @@
 return {
-    {
-        "altercation/vim-colors-solarized",
-        lazy = true,
-    },
+  {
+    "altercation/vim-colors-solarized",
+    lazy = true,
+  },
 }

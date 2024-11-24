@@ -1,15 +1,10 @@
 --vim.cmd("source ~/.config/nvim/.vimrc")
--- lib
-local safeRequire = require("lib").safeRequire
 
-safeRequire("autocmd")
-safeRequire("keymap")
-safeRequire("option")
--- lazy.vim
-safeRequire("lazynvim")
-
--- plugins
--- safeRequire(plugins.xxx)
+local safeRequire = require("config.lib").safeRequire
+safeRequire("config.option")
+safeRequire("config.keymap")
+safeRequire("config.autocmd")
+safeRequire("config.lazynvim") -- lazy.vim
 
 
 -- color scheme
