@@ -1,107 +1,117 @@
 MAINTAINER = yakir
-APPFILES = $(CURDIR)/Appfiles
-DOTFILES = $(CURDIR)/Dotfiles
+APPFILES = $(CURDIR)/appfiles
+DOTFILES = $(CURDIR)/dotfiles
 OS_NAME := $(shell uname)
+#DEPS := requirements
 
 
-# check os
+# check os and setting package
 ifeq ($(OS_NAME), Linux)
-    ifeq ($(shell cat /etc/*release | grep -i 'debian' | wc -l), 1)
+    # check sudo command
+    ifeq ($(shell command -v sudo 2> /dev/null),)
+	CMD_PREFIX := su root -c 
+    else
+	CMD_PREFIX := sudo
+    endif
+
+    ifneq ($(strip $(shell cat /etc/*release | grep -i 'debian')),)
         PACKAGE_CMD := apt install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make vim zsh
-    else ifeq ($(shell cat /etc/*release | grep -i 'fedora' | wc -l), 1)
+        PACKAGE_NAME := git subversion curl telnet wget cmake make
+    else ifneq ($(strip $(shell cat /etc/*release | grep -i 'fedora')),)
         PACKAGE_CMD := dnf install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make vim zsh
+        PACKAGE_NAME := git subversion curl telnet wget cmake make
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME), Darwin)
     PACKAGE_CMD := brew install
-    PACKAGE_NAME := git subversion telnet wget
-    APP_NAME := iterm2 sublime-text obsidian visual-studio-code istat-menus keepassxc raycast xmind
+    PACKAGE_NAME := git subversion curl telnet wget
+    APP_NAME := iterm2 raycast obsidian visual-studio-code keepassxc
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
 
 
 
-.PHONY: all test clean initenv
-all: test install clean ## Execute test, install, clean
+# main 
+.PHONY: all package application clean test
+all: test package application clean ## Test then install package and application
 
-install: install-package install-fonts vimrc zshrc install-app ## Operation system environment init then install application(only for MacOS).
-	@echo "##### Install start #####"
-	@echo "##### Install end   #####"
+# dependencies
+dependencies:  ## Install dependencies
+	@echo "##### Install dependencies start #####"
+	@echo ">>> Install powerline-fonts"
+	git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts; \
+	/tmp/fonts/install.sh
+	@echo "##### Install dependencies end   #####"
+
+#package: dependencies neovim vim zsh ## Install all package
+package:  ## Install dependencies and all package
+	@echo "##### Install package start #####"
+	@if [ "$(OS_NAME)" = "Darwin" ]; then \
+		sudo spctl --master-disable; \
+		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
+	fi; \
+	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
+	@echo "##### Install package end   #####"
+
+application:  ## Install application and init config(Only for MacOS)
+	@echo "##### Install application start #####"
+	@if [ "$(OS_NAME)" != "Darwin" ]; then \
+		echo "Unsupported operating system!"; \
+	else \
+		$(PACKAGE_CMD) $(APP_NAME); \
+	fi;
+	@echo "##### Install application end   #####"
+
+neovim:  ## Install neovim and init nvim config
+	@echo "##### Install neovim start #####"
+	#$(CMD_PREFIX) $(PACKAGE_CMD) neovim;
+	ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
+	nvim +Lazy +qall;
+	@echo "##### Install neovim end   #####"
+
+vim:  ## Install vim and init .vimrc
+	@echo "##### Install vim start #####"
+	$(CMD_PREFIX) $(PACKAGE_CMD) vim; \
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
+	ln -s $(DOTFILES)/vimrc $(HOME)/.vimrc; \
+	vim +PluginInstall +qall; \
+	mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
+	@echo "##### Install vim end   #####"
+
+zsh: oh-my-zsh  ## Install zsh and init .zshrc
+	@echo "##### Install zsh start #####"
+	$(CMD_PREFIX) $(PACKAGE_CMD) zsh; \
+	ln -s $(DOTFILES)/zshrc $(HOME)/.zshrc; \
+	source $(HOME)/.zshrc
+	@echo "##### Install zsh end   #####"
+
+oh-my-bash:
+	@echo ">>> Install oh-my-bash and plugins"
+	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"
+
+oh-my-zsh:
+	@echo ">>> Install oh-my-zsh and plugins"
+	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
+	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting;
 
 test: ## Run the tests
 	@echo "##### Test start #####"
 	@echo $(APPFILES)
 	@echo $(DOTFILES)
 	@echo $(OS_NAME)
-	@echo su root -c "$(PACKAGE_CMD) $(PACKAGE_NAME)"
-	@echo $(PACKAGE_CMD) $(APP_NAME)
+	@echo $(CMD_PREFIX)
+	@echo $(PACKAGE_CMD)
+	@echo $(PACKAGE_NAME)
+	@echo $(APP_NAME)
 	@echo "##### Test end   #####"
 
 clean: ## Clean tmp files
 	@echo "##### Clean start #####"
 	rm -rf /tmp/fonts/
 	@echo "##### Clean end   #####"
-
-
-##### depend #####
-.PHONY: install-fonts install-package install-app vimrc zshrc
-
-install-fonts:
-	@echo "##### Install fonts start #####"
-	@git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts; \
-	/tmp/fonts/install.sh
-	@echo "##### Install fonts end   #####"
-
-install-package:
-	@echo "##### Install package start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ]; then \
-		sudo spctl --master-disable; \
-		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	fi;
-	@su root -c "$(PACKAGE_CMD) $(PACKAGE_NAME)"
-	@echo "##### Install package end   #####"
-
-install-app:
-	@echo "##### Install application start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ]; then \
-		$(PACKAGE_CMD) $(APP_NAME); \
-	fi;
-	@echo "##### Install application end   #####"
-
-vimrc:
-	@echo "##### Install vimrc start #####"
-	@git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
-    ln -s $(DOTFILES)/.vimrc $(HOME)/.vimrc; \
-	vim +PluginInstall +qall;
-	@echo "##### Install vimrc end   #####"
-
-zshrc: oh-my-zsh
-	@echo "##### Install zshrc start #####"
-	@git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
-    ln -s $(DOTFILES)/.zshrc $(HOME)/.zshrc; \
-	if which brew &> /dev/null; then \
-		BREW_BIN_PATH=$$(dirname `which brew`); \
-		sed -i "" "s#BREW_BIN_PATH#$$BREW_BIN_PATH#" $(HOME)/.zshrc || sed -i "s#BREW_BIN_PATH#$$BREW_BIN_PATH#" $(HOME)/.zshrc; \
-	else \
-		sed -i "" "s#:BREW_BIN_PATH##" $(HOME)/.zshrc || sed -i "s#:BREW_BIN_PATH##" $(HOME)/.zshrc; \
-	fi;
-	source $(HOME)/.zshrc
-	@echo "##### Install zshrc end   #####"
-
-oh-my-bash:
-	@echo "##### Install oh-my-bash start #####"
-	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"
-	@echo "##### Install oh-my-bash end   #####"
-
-oh-my-zsh:
-	@echo "##### Install oh-my-zsh start #####"
-	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"
-	@echo "##### Install oh-my-zsh end   #####"
 
 
 .PHONY: help
