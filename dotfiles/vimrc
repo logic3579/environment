@@ -79,14 +79,13 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " => options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " colorscheme and fonts
-" fonts install -> https://github.com/powerline/fonts
+colorscheme solarized
 syntax enable
 set encoding=utf8
 set ffs=unix,dos,mac
 set background=dark
-" colorscheme molokai
-colorscheme solarized
 set t_Co=256
+set termguicolors
 
 " UI
 set mouse=a
@@ -134,10 +133,9 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" install -> git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'VundleVim/Vundle.vim'
-    Plugin 'vim-colors-solarized'
+    Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 

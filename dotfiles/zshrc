@@ -30,7 +30,6 @@ annotation
 
 ZSH_THEME="agnoster"
 
-#export PATH=$PATH:BREW_BIN_PATH
 export PATH=$PATH:/opt/homebrew/bin
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -42,5 +41,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# Custom settings
 # source <(helm completion zsh)
 # source <(kubectl completion zsh)
