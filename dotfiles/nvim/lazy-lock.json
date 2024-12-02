@@ -1,7 +1,16 @@
 {
+<<<<<<< HEAD:dotfiles/nvim/lazy-lock.json
   "lazy.nvim": { "branch": "main", "commit": "56ead98e05bb37a4ec28930a54d836d033cf00f2" },
+=======
+  "colorbuddy.nvim": { "branch": "master", "commit": "8b968581e5c19d22a861d5f3fe5dbd83394fa681" },
+  "lazy.nvim": { "branch": "main", "commit": "7967abe55752aa90532e6bb4bd4663fe27a264cb" },
+  "mason-lspconfig.nvim": { "branch": "main", "commit": "43894adcf10bb1190c2184bd7c1750e8ea2b3dce" },
+  "mason.nvim": { "branch": "main", "commit": "e2f7f9044ec30067bc11800a9e266664b88cda22" },
+  "monokai.nvim": { "branch": "master", "commit": "b8bd44d5796503173627d7a1fc51f77ec3a08a63" },
+  "neosolarized.nvim": { "branch": "main", "commit": "742deb0b2b1e110b09494206611509e3992aac35" },
+  "nvim-lspconfig": { "branch": "master", "commit": "064221eed39e7dc81cf1d27c0d016f4b29a9aad1" },
+>>>>>>> 187781e (Add nvim lsp config):Dotfiles/nvim/lazy-lock.json
   "persistence.nvim": { "branch": "main", "commit": "f6aad7dde7fcf54148ccfc5f622c6d5badd0cc3d" },
   "plenary.nvim": { "branch": "master", "commit": "2d9b06177a975543726ce5c73fca176cedbffe9d" },
-  "telescope.nvim": { "branch": "master", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" },
-  "vim-colors-solarized": { "branch": "master", "commit": "528a59f26d12278698bb946f8fb82a63711eec21" }
+  "telescope.nvim": { "branch": "master", "commit": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026" }
 }
