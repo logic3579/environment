@@ -20,7 +20,7 @@ return {
         lazy = true,
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pylsp" },
+                ensure_installed = { "lua_ls", "pylsp", "gopls" }, -- add lsp-server here
             })
         end
     },
@@ -31,7 +31,7 @@ return {
             "williamboman/mason-lspconfig.nvim",
         },
         config = function()
-            require("mylspconfig")
+            require("config.mylspconfig")
         end,
     },
 }
