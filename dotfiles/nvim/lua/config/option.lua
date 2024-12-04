@@ -24,6 +24,7 @@ opt.number = true         -- show absolute line number
 opt.relativenumber = true -- show relative line number
 opt.ruler = false         -- Disable the default ruler
 opt.scrolloff = 4         -- Lines of context
+opt.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions" -- auto-session plugin
 opt.shiftround = true     -- Round indent
 opt.shiftwidth = 4        -- Size of an indent
 --opt.showmode = false -- Dont show mode since we have a statusline
@@ -39,3 +40,4 @@ opt.tabstop = 4           -- Number of spaces tabs count for
 opt.termguicolors = true  -- True color support
 opt.virtualedit = "block" -- Allow cursor to move where there is no text in visual block mode
 --opt.wrap = false -- Disable line wrap
+
