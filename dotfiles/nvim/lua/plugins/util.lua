@@ -12,6 +12,5 @@ return {
             -- allowed_dirs = { '/some/dir/', '/projects/*' },
             suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
         }
-    }
-
+    },
 }

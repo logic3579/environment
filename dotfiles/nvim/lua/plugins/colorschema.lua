@@ -13,5 +13,5 @@ return {
         dependencies = {
             "tjdevries/colorbuddy.nvim",
         },
-    }
+    },
 }
