@@ -1,8 +1,8 @@
-MAINTAINER = yakir
-APPFILES = $(CURDIR)/appfiles
-DOTFILES = $(CURDIR)/dotfiles
+MAINTAINER := yakir
+APPFILES := $(CURDIR)/appfiles
+DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname)
-#DEPS := requirements
+DATE = $(shell DATE)
 
 
 # check os and setting package
