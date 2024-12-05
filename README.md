@@ -7,9 +7,9 @@ icon: bullseye-arrow
 
 [![GitHub Actions](https://img.shields.io/github/actions/workflow/status/yakir3/environment/make-test.yml?label=make-test&logo=github&logoColor=white)](https://github.com/yakir3/environment/actions/workflows/make-test.yml)
 
-Use Makefile to environtment init and install application.
+Use Makefile to init environment and install application.
 
-Application record.
+Application config record.
 
 ## How To Use
 
@@ -18,91 +18,54 @@ Application record.
 Help info `make help`.
 ```console
 $ make help
-all                            Execute test, install, clean
+all                            Test then install package and application
+application                    Install application and init config(Only for MacOS)
 clean                          Clean tmp files
-install                        Operation system environment init then install application(only for MacOS).
+dependencies                   Install dependencies
+neovim                         Install neovim and init nvim config
+package                        Install dependencies and all package
 test                           Run the tests
+vim                            Install vim and init .vimrc
+zsh                            Install zsh and init .zshrc
 ```
 
 
-### Appfiles
+### Application Config
 
 #### iTerm2
 ```console
 # Import config
-Appfiles/iterm2/iterm2Profile.json
+appfiles/iterm2/iterm2Profile.json
 
 # Import iterm2-color
-Appfiles/iterm2/Solarized_Darcula.itermcolors
-Appfiles/iterm2/HaX0R_GR33N.itermcolors
+appfiles/iterm2/Solarized_Darcula.itermcolors
+appfiles/iterm2/HaX0R_GR33N.itermcolors
 ```
 
-#### SecureCRT
+#### wireguard
 ```console
-Appfiles/SecureCRT.xml
+appfiles/wireguard
 ```
 
 #### sublime-text
 ```console
-Appfiles/Preferences.sublime-settings
+appfiles/Preferences.sublime-settings
 ```
 
-#### Visual Studio Code
+#### SecureCRT
 ```console
-Appfiles/vscode.code-profile
+appfiles/SecureCRT.xml
 ```
 
 #### Raycast
 ```console
 # Import config
-Appfiles/raycast.rayconfig
+appfiles/raycast.rayconfig
 ```
 
-#### k3s
-```bash
-# Kernel module
-lsmod |grep -E "nf_conntrack|br_netfilter"
-
-# Master
-curl -sfL https://get.k3s.io | sh -
-cat /var/lib/rancher/k3s/server/node-token  # join token
-# Disable traefik
-kubectl -n kube-system delete helmcharts.helm.cattle.io traefik
-kubectl -n kube-system delete helmcharts.helm.cattle.io traefik-crd
-kubectl -n kube-system delete pod --field-selector=status.phase==Succeeded 
-# Modify /etc/systemd/system/k3s.service
-ExecStart=/usr/local/bin/k3s \
-    server \
-    --disable traefik \
-    --disable traefik-crd \
-##restart k3s server
-rm /var/lib/rancher/k3s/server/manifests/traefik.yaml
-systemctl daemon-reload
-systemctl restart k3s
-
-# Worker
-curl -sfL https://get.k3s.io | K3S_URL=https://k3s_server_ip:6443 K3S_TOKEN=k3s_server_token sh -
-
-# Get kubectl and helm client
-apt install bash-completion
-curl -LO https://dl.k8s.io/release/v1.27.3/bin/linux/amd64/kubectl
-wget https://get.helm.sh/helm-v3.11.0-linux-amd64.tar.gz
-cat >> ~/.bashrc << "EOF"
-complete -o default -F __start_kubectl k
-source <(kubectl completion bash)
-source <(helm completion bash)
-EOF
-
-# kubectl client config
-mkdir ~/.kube
-cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
-kubectl get pod -A
-helm list
-```
-
-#### Windows
+#### Visual Studio Code
 ```console
-Appfiles/windows-config
+appfiles/vscode.code-profile
 ```
 
 
