@@ -1,14 +1,17 @@
 return {
     {
-        "nvim-neo-tree/neo-tree.nvim",
-        branch = "v3.x",
-        cmd = "Neotree",
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
         dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-            "MunifTanjim/nui.nvim",
-            "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-        }
+            "nvim-tree/nvim-web-devicons",
+        },
+        keys = {
+            { "<Leader>m", ":NvimTreeToggle<CR>", { desc = "nvim-tree toggle" } },
+        },
+        config = function()
+            require("nvim-tree").setup {}
+        end,
     },
     {
         'nvim-telescope/telescope.nvim',
@@ -19,6 +22,6 @@ return {
             { "<Leader>p",  ":Telescope find_files<CR>", { desc = "find files" } },
             { "<Leader>P",  ":Telescope live_grep<CR>",  { desc = "grep file" } },
             { "<Leader>rs", ":Telescope resume<CR>",     { desc = "resume" } },
-        }
+        },
     },
 }
