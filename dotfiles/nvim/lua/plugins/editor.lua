@@ -20,7 +20,7 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
-            { "<Leader>m", ":NvimTreeToggle<CR>", { desc = "nvim-tree toggle" } },
+            { "<Leader>m", ":NvimTreeToggle<CR>", { desc = "toggle nvim-tree" } },
         },
         config = function()
             require("nvim-tree").setup {}
@@ -30,10 +30,31 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         -- keys = {
-        --     {"<leader>hs", ":Gitsigns.stage_hunk<CR>"},
+        --     {"<leader>hs", ":Gitsigns stage_hunk<CR>"},
         -- },
         config = function()
             require("gitsigns").setup {
+            }
+        end,
+    },
+    --  nvim-treesitter
+    {
+        "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require("nvim-treesitter.configs").setup {
+                ensure_installed = {
+                    "bash",
+                    "go",
+                    "json",
+                    "lua",
+                    "make",
+                    "markdown",
+                    "python",
+                    "yaml",
+                    "vim",
+                },
+                sync_install = false,
+                auto_install = true,
             }
         end,
     },

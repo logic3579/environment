@@ -1,4 +1,5 @@
 return {
+    -- session
     {
         'rmagatti/auto-session',
         lazy = false,
