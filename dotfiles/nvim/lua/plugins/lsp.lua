@@ -1,4 +1,5 @@
 return {
+    -- lsp installer
     {
         "williamboman/mason.nvim",
         cmd = { "Mason", "MasonInstall" },
@@ -24,6 +25,7 @@ return {
             })
         end
     },
+    -- lsp
     {
         "neovim/nvim-lspconfig",
         event = { "BufReadPre", "BufNewFile" },

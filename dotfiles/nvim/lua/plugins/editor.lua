@@ -1,4 +1,5 @@
 return {
+    -- fuzzy finder
     {
         'nvim-telescope/telescope.nvim',
         tag = '0.1.8',
@@ -10,6 +11,7 @@ return {
             { "<Leader>rs", ":Telescope resume<CR>",     { desc = "resume" } },
         },
     },
+    --  file explorer
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -24,6 +26,20 @@ return {
             require("nvim-tree").setup {}
         end,
     },
+    -- statusline
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require("lualine").setup {
+                options = {
+                    theme = "solarized_dark",
+                },
+                extensions = { "nvim-tree" },
+            }
+        end,
+    },
+    -- tabline
     {
         "akinsho/bufferline.nvim",
         version = "*",

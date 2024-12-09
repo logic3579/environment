@@ -1,4 +1,5 @@
 return {
+    -- neovim lua development
     {
         "folke/lazydev.nvim",
         ft = "lua", -- only load on lua files
@@ -10,6 +11,7 @@ return {
             },
         },
     },
+    -- editing support
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -20,6 +22,7 @@ return {
             })
         end,
     },
+    -- completion
     {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter" },
