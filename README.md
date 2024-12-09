@@ -77,3 +77,5 @@ appfiles/vscode.code-profile
 > 4. [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
 > 5. [oh-my-bash](https://github.com/ohmybash/oh-my-bash)
 > 6. [Vim Awesome](https://vimawesome.com/)
+> 7. [Neovim Awesome](https://github.com/rockerBOO/awesome-neovim)
+> 8. [Nerd Fonts](https://www.nerdfonts.com/)

@@ -40,6 +40,8 @@ all: test package application clean ## Test then install package and application
 # dependencies
 dependencies:  ## Install dependencies
 	@echo "##### Install dependencies start #####"
+	#@echo ">>> Install nerd-fonts"
+	#https://www.nerdfonts.com/
 	@echo ">>> Install powerline-fonts"
 	git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts; \
 	/tmp/fonts/install.sh

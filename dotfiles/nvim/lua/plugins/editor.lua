@@ -49,11 +49,11 @@ return {
         },
         config = function()
             require("bufferline").setup {
-                indicator = {
-                    icon = "▎",
-                    style = "underline",
-                },
                 options = {
+                    indicator = {
+                        icon = "▎",
+                        style = "underline",
+                    },
                     offsets = {
                         {
                             filetype = "NvimTree",
