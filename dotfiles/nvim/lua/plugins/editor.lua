@@ -26,6 +26,17 @@ return {
             require("nvim-tree").setup {}
         end,
     },
+    -- git support
+    {
+        "lewis6991/gitsigns.nvim",
+        -- keys = {
+        --     {"<leader>hs", ":Gitsigns.stage_hunk<CR>"},
+        -- },
+        config = function()
+            require("gitsigns").setup {
+            }
+        end,
+    },
     -- statusline
     {
         'nvim-lualine/lualine.nvim',
