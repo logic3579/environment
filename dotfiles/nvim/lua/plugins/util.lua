@@ -9,6 +9,8 @@ return {
             { '<leader>sw',  '<cmd>SessionSave<CR>',           desc = 'Save session' },
         },
         opts = {
+            auto_save = false,
+            -- auto_restore_last_session = false,
             -- allowed_dirs = { '/some/dir/', '/projects/*' },
             suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
         }
