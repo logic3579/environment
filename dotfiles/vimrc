@@ -37,11 +37,19 @@ endfun
 let mapleader = " "
 let maplocalleader = "\\"
 
-noremap H ^
-noremap L $
+" Set key mappings
+nnoremap <silent> H ^
+nnoremap <silent> L $
 
-nmap <leader>w :w!<cr>
-nmap <leader>q :q!<cr>
+" Save file with <C-s>
+inoremap <silent> <C-s> <cmd>w<cr><esc>
+xnoremap <silent> <C-s> <cmd>w<cr><esc>
+nnoremap <silent> <C-s> <cmd>w<cr><esc>
+snoremap <silent> <C-s> <cmd>w<cr><esc>
+
+" Quit all with <leader>qq
+nnoremap <silent> <leader>ww <cmd>wq!<cr>
+nnoremap <silent> <leader>qq <cmd>qa<cr>
 
 " delete Windows ^M
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
