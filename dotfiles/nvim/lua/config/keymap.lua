@@ -43,7 +43,8 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 -- new file
 --map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
--- quit
+-- save quit && quit all
+map("n", "<leader>ww", "<cmd>wq!<cr>", { desc = "Save and Quit All" })
 map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- tabs
