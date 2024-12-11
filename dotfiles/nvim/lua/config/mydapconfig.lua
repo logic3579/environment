@@ -16,7 +16,8 @@ dap.adapters.python = function(cb, config)
     else
         cb({
             type = "executable",
-            command = "python3",
+            -- command = "python3",
+            command = "./venv/bin/python",
             args = { "-m", "debugpy.adapter" },
             options = {
                 source_filetype = "python",
@@ -79,16 +80,6 @@ dapui.setup({
     controls = {
         enabled = true,
         element = "repl",
-        icons = {
-            pause = "",
-            play = "",
-            step_into = "",
-            step_over = "",
-            step_out = "",
-            step_back = "",
-            run_last = "↻",
-            terminate = "□",
-        },
     },
     floating = {
         max_height = 0.9,
