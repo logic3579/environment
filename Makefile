@@ -26,7 +26,7 @@ ifeq ($(OS_NAME), Linux)
 else ifeq ($(OS_NAME), Darwin)
     PACKAGE_CMD := brew install
     PACKAGE_NAME := git subversion curl telnet wget
-    APP_NAME := iterm2 raycast obsidian visual-studio-code keepassxc
+    APP_NAME := iterm2 wezterm raycast obsidian visual-studio-code keepassxc
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
