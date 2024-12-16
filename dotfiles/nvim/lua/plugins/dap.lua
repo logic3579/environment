@@ -23,9 +23,9 @@ return {
         },
         config = function()
             require("config/mydapconfig")
-            -- require("nvim-dap-virtual-text").setup(){
-            --     commented = true,
-            -- }
+            require("nvim-dap-virtual-text").setup({
+                commented = true,
+            })
         end,
     },
     {
@@ -35,11 +35,11 @@ return {
             "nvim-neotest/nvim-nio"
         },
         keys = {
-            { "<leader>du", function() require("dapui").toggle({}) end,  desc = "Dap UI" },
-            { "<leader>de", function() require("dapui").eval() end,      desc = "Eval",  mode = { "n", "v" } },
+            { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
+            { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
         },
     },
     {
-       "theHamsta/nvim-dap-virtual-text",
+        "theHamsta/nvim-dap-virtual-text",
     },
 }

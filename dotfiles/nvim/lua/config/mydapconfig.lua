@@ -42,14 +42,24 @@ dap.configurations.python = {
             end
         end,
     },
+    {
+        type = "python",
+        request = "attach",
+        name = "Attach remote",
+        connect = function()
+            local host = vim.fn.input("Host [127.0.0.1]: ")
+            host = host ~= "" and host or "127.0.0.1"
+            local port = tonumber(vim.fn.input("Port [5678]: ")) or 5678
+            return { host = host, port = port }
+        end,
+    },
 }
 
 -- dap-ui
 dapui.setup({
     expand_lines = true,
-    icons = { expanded = "", collapsed = "", circular = "", current_frame = "" },
+    icons = { expanded = "", collapsed = "", current_frame = "" },
     mappings = {
-        -- Use a table to apply multiple mappings
         expand = { "<CR>", "<2-LeftMouse>" },
         open = "o",
         remove = "d",
@@ -90,8 +100,8 @@ dapui.setup({
         },
     },
     render = {
-        max_type_length = nil, -- Can be integer or nil.
-        max_value_lines = 100, -- Can be integer or nil.
+        max_type_length = nil,
+        max_value_lines = 100,
     },
 })
 dap.listeners.before.attach.dapui_config = function()
