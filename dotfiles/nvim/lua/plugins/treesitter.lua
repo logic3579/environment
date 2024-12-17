@@ -5,7 +5,7 @@ return {
             "nvim-treesitter/nvim-treesitter",
         },
         config = function()
-            require("nvim-treesitter.configs").setup {
+            require("nvim-treesitter.configs").setup({
                 textobjects = {
                     swap = {
                         enable = true,
@@ -36,13 +36,13 @@ return {
                         include_surrounding_whitespace = true,
                     },
                 },
-            }
+            })
         end,
     },
     {
         "nvim-treesitter/nvim-treesitter",
         config = function()
-            require("nvim-treesitter.configs").setup {
+            require("nvim-treesitter.configs").setup({
                 ensure_installed = {
                     "bash",
                     "go",
@@ -68,7 +68,16 @@ return {
                         node_decremental = "<bs>",
                     },
                 },
-            }
+            })
         end,
     },
+    {
+        "kylechui/nvim-surround",
+        version = "*",
+        event = "VeryLazy",
+        config = function()
+            require("nvim-surround").setup({
+            })
+        end
+    }
 }
