@@ -3,7 +3,9 @@ local dap, dapui = require("dap"), require("dapui")
 -- -- dap python
 -- dap.adapters.python = function(cb, config)
 --     if config.request == "attach" then
+--         ---@diagnostic disable-next-line: undefined-field
 --         local port = (config.connect or config).port
+--         ---@diagnostic disable-next-line: undefined-field
 --         local host = (config.connect or config).host or "127.0.0.1"
 --         cb({
 --             type = "server",
@@ -18,6 +20,7 @@ local dap, dapui = require("dap"), require("dapui")
 --             type = "executable",
 --             -- command = "python3",
 --             command = "./venv/bin/python",
+--             command = os.getenv("VIRTUAL_ENV") .. "/bin/python"
 --             args = { "-m", "debugpy.adapter" },
 --             options = {
 --                 source_filetype = "python",
@@ -38,7 +41,7 @@ local dap, dapui = require("dap"), require("dapui")
 --             elseif vim.fn.executable(cwd .. "/.venv/bin/python") == 1 then
 --                 return cwd .. "/.venv/bin/python"
 --             else
---                 return "python3"
+--                 return "/usr/bin/python3"
 --             end
 --         end,
 --     },
@@ -54,6 +57,9 @@ local dap, dapui = require("dap"), require("dapui")
 --         end,
 --     },
 -- }
+
+-- -- dap-go
+-- -- https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#go-using-delve-directly
 
 -- dap-ui
 dapui.setup({

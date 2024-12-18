@@ -57,7 +57,14 @@ return {
     {
         "mfussenegger/nvim-dap-python",
         config = function()
-            require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+            local data_path = vim.fn.stdpath("data")
+            require("dap-python").setup(data_path .. "/mason/packages/debugpy/venv/bin/python")
+        end,
+    },
+    {
+        "leoluz/nvim-dap-go",
+        config = function()
+            require("dap-go").setup()
         end,
     },
 }
