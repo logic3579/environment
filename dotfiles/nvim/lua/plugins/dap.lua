@@ -1,6 +1,11 @@
 return {
     {
         "mfussenegger/nvim-dap",
+        dependencies = {
+            "rcarriga/nvim-dap-ui",
+            "nvim-neotest/nvim-nio",
+            "theHamsta/nvim-dap-virtual-text",
+        },
         keys = {
             { "<leader>d",  "",                                                                                   desc = "+debug",                 mode = { "n", "v" } },
             { "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
@@ -30,16 +35,29 @@ return {
     },
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = {
-            "mfussenegger/nvim-dap",
-            "nvim-neotest/nvim-nio"
-        },
         keys = {
             { "<leader>du", function() require("dapui").toggle({}) end, desc = "Dap UI" },
             { "<leader>de", function() require("dapui").eval() end,     desc = "Eval",  mode = { "n", "v" } },
         },
     },
+    -- dap installer
     {
-        "theHamsta/nvim-dap-virtual-text",
+        "jay-babu/mason-nvim-dap.nvim",
+        dependencies = "mason.nvim",
+        cmd = { "DapInstall", "DapUninstall" },
+        config = function()
+            require("mason-nvim-dap").setup({
+                automatic_installation = false,
+                handlers = {},
+                ensure_installed = { "python", "delve" } -- add dap-server here
+            })
+        end,
+    },
+    -- dap-python
+    {
+        "mfussenegger/nvim-dap-python",
+        config = function()
+            require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
+        end,
     },
 }
