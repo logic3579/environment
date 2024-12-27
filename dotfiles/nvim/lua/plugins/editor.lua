@@ -16,8 +16,8 @@ return {
         cmd = "Telescope",
         dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
-            { "<Leader>ff", ":Telescope find_files<CR>", { desc = "find files" } },
-            { "<Leader>fg", ":Telescope live_grep<CR>",  { desc = "grep file" } },
+            { "<Leader>ff", "<cmd>Telescope find_files<CR>", { desc = "find files" } },
+            { "<Leader>fg", "<cmd>Telescope live_grep<CR>",  { desc = "grep file" } },
         },
     },
     --  file explorer
@@ -29,7 +29,7 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
-            { "<Leader>m", ":NvimTreeToggle<CR>", { desc = "toggle nvim-tree" } },
+            { "<Leader>e", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle nvim-tree explorer" } },
         },
         config = function()
             require("nvim-tree").setup {}
@@ -38,9 +38,10 @@ return {
     -- git support
     {
         "lewis6991/gitsigns.nvim",
-        -- keys = {
-        --     {"<leader>hs", ":Gitsigns stage_hunk<CR>"},
-        -- },
+        keys = {
+            { "<leader>gp", function() require("gitsigns").nav_hunk("prev") end,     desc = "Prev Hunk"},
+            { "<leader>gn", function() require("gitsigns").nav_hunk("next") end,     desc = "Next Hunk"},
+        },
         config = function()
             require("gitsigns").setup {
                 signcolumn = true,
@@ -50,13 +51,22 @@ return {
             }
         end,
     },
+    -- show keybindings
     {
         "folke/which-key.nvim",
         event = "VeryLazy",
         opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
+            preset = "classic",
+            spec = {
+                { "<leader>c", group = " Code",              mode = { "n", "x" } },
+                { "<leader>d", group = " Debug | Diagnosis", mode = { "n", "v" } },
+                { "<leader>f", group = " Find | File" },
+                { "<leader>s", group = " Session" },
+                { "<leader>w", group = " windows" },
+                -- { "<leader>W", group = "Workspace" },
+                -- { "<leader>t", group = "Toggle" },
+                { "<leader>g", group = " Git" },
+            },
         },
         keys = {
             {
@@ -66,6 +76,6 @@ return {
                 end,
                 desc = "Buffer Local Keymaps (which-key)",
             },
-        }
+        },
     }
 }
