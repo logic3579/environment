@@ -1,20 +1,20 @@
 return {
     -- powerful comment
     {
-        'numToStr/Comment.nvim',
+        "numToStr/Comment.nvim",
         opts = {
             -- add any options here
         },
         config = function()
-            require('Comment').setup()
+            require("Comment").setup()
         end
     },
     -- fuzzy finder
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.8',
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.8",
         cmd = "Telescope",
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
             { "<Leader>ff", ":Telescope find_files<CR>", { desc = "find files" } },
             { "<Leader>fg", ":Telescope live_grep<CR>",  { desc = "grep file" } },
@@ -66,6 +66,6 @@ return {
                 end,
                 desc = "Buffer Local Keymaps (which-key)",
             },
-        },
+        }
     }
 }

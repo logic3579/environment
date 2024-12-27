@@ -3,17 +3,17 @@ local opts = { remap = false, silent = true }
 
 
 -- better line start/end
-map('n', 'H', '^', opts)
-map('n', 'L', '$', opts)
+map("n", "H", "^", opts)
+map("n", "L", "$", opts)
 
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 -- windows
-map("n", "<leader>s", "<C-W>s", { desc = "Split Window Below", remap = true })
-map("n", "<leader>v", "<C-W>v", { desc = "Split Window Right", remap = true })
-map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
+map("n", "<leader>s", "<C-W>s", { desc = "[S]plit Window Below", remap = true })
+map("n", "<leader>v", "<C-W>v", { desc = "[S]plit Window Right", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "[W]indow [D]elete", remap = true })
 
 -- Move to window using the <ctrl> hjkl keys
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
@@ -27,14 +27,17 @@ map("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
 map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
 map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
+-- clear hlsearch
+map("n", "<leader><Esc>", "<cmd>nohlsearch<cr>")
+
 -- save file
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
 -- better indenting
 map("v", "<", "<gv")
 map("v", ">", ">gv")
-map('v', '<', '<gv', opts)
-map('v', '>', '>gv', opts)
+map("v", "<", "<gv", opts)
+map("v", ">", ">gv", opts)
 
 -- commenting
 map("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
@@ -42,6 +45,12 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 
 -- new file
 --map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
+
+-- diagnostic
+map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
+map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
+map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostics [E]rror message" })
+map("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics [Q]uickfix" })
 
 -- save quit && quit all
 map("n", "<leader>ww", "<cmd>wq!<cr>", { desc = "Save and Quit All" })
