@@ -9,7 +9,7 @@ DATE = $(shell DATE)
 ifeq ($(OS_NAME), Linux)
     # check sudo command
     ifeq ($(shell command -v sudo 2> /dev/null),)
-	CMD_PREFIX := su root -c 
+	CMD_PREFIX := su root -c
     else
 	CMD_PREFIX := sudo
     endif
