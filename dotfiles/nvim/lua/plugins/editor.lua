@@ -39,11 +39,29 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         keys = {
-            { "<leader>gp", function() require("gitsigns").nav_hunk("prev") end,     desc = "Prev Hunk"},
-            { "<leader>gn", function() require("gitsigns").nav_hunk("next") end,     desc = "Next Hunk"},
+            { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk" },
+            { "<leader>gk", function() require("gitsigns").nav_hunk("prev") end, desc = "Prev Hunk" },
+            { "<leader>gj", function() require("gitsigns").nav_hunk("next") end, desc = "Next Hunk" },
         },
         config = function()
             require("gitsigns").setup {
+                signs = {
+                    add          = { text = "+" },
+                    change       = { text = "~" },
+                    delete       = { text = "_" },
+                    topdelete    = { text = "‾" },
+                    changedelete = { text = "~" },
+                    untracked    = { text = "┆" },
+                },
+                signs_staged = {
+                    add          = { text = "+" },
+                    change       = { text = "~" },
+                    delete       = { text = "_" },
+                    topdelete    = { text = "‾" },
+                    changedelete = { text = "~" },
+                    untracked    = { text = "┆" },
+                },
+                signs_staged_enable = true,
                 signcolumn = true,
                 numhl = true,
                 linehl = false,
@@ -62,7 +80,7 @@ return {
                 { "<leader>d", group = " Debug | Diagnosis", mode = { "n", "v" } },
                 { "<leader>f", group = " Find | File" },
                 { "<leader>s", group = " Session" },
-                { "<leader>w", group = " windows" },
+                { "<leader>w", group = " Windows" },
                 -- { "<leader>W", group = "Workspace" },
                 -- { "<leader>t", group = "Toggle" },
                 { "<leader>g", group = " Git" },

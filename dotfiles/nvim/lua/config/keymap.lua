@@ -53,8 +53,8 @@ map("n", "<leader>dof", vim.diagnostic.open_float, { desc = "Show diagnostics me
 map("n", "<leader>dqf", vim.diagnostic.setloclist, { desc = "Open diagnostics Quickfix" })
 
 -- tabs
-map("n", "<leader><tab>p", "<C-o>", { desc = "Previous Tab", remap = false })
-map("n", "<leader><tab>n", "<C-i>", { desc = "Next Tab", remap = false })
+map("n", "<leader><tab>k", "<C-o>", { desc = "Previous Tab", remap = false })
+map("n", "<leader><tab>j", "<C-i>", { desc = "Next Tab", remap = false })
 --map("n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 --map("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 --map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
