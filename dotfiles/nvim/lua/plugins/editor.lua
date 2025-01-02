@@ -18,6 +18,7 @@ return {
         keys = {
             { "<Leader>ff", "<cmd>Telescope find_files<CR>", { desc = "find files" } },
             { "<Leader>fg", "<cmd>Telescope live_grep<CR>",  { desc = "grep file" } },
+            { "<leader>f/",  "<cmd>Telescope current_buffer_fuzzy_find<CR>",  { desc = "search current buffer" }},
         },
     },
     --  file explorer
@@ -39,7 +40,7 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         keys = {
-            { "<leader>gp", function() require("gitsigns").preview_hunk() end, desc = "Preview Hunk" },
+            { "<leader>gp", function() require("gitsigns").preview_hunk() end,   desc = "Preview Hunk" },
             { "<leader>gk", function() require("gitsigns").nav_hunk("prev") end, desc = "Prev Hunk" },
             { "<leader>gj", function() require("gitsigns").nav_hunk("next") end, desc = "Next Hunk" },
         },
@@ -79,11 +80,12 @@ return {
                 { "<leader>c", group = " Code",              mode = { "n", "x" } },
                 { "<leader>d", group = " Debug | Diagnosis", mode = { "n", "v" } },
                 { "<leader>f", group = " Find | File" },
-                { "<leader>s", group = " Session" },
-                { "<leader>w", group = " Windows" },
-                -- { "<leader>W", group = "Workspace" },
-                -- { "<leader>t", group = "Toggle" },
                 { "<leader>g", group = " Git" },
+                { "<leader>s", group = " Session" },
+                { "<leader><tab>", group = " Tab" },
+                { "<leader>w", group = " Windows" },
+                -- { "<leader>t", group = " Toggle" },
+                -- { "<leader>W", group = " Workspace" },
             },
         },
         keys = {
