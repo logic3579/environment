@@ -75,7 +75,7 @@ neovim:  ## Install neovim and init nvim config
 
 tmux:  ## Install tmux and init .tmux.conf
 	@echo "##### Install tmux start #####"
-	echo $(CMD_PREFIX) $(PACKAGE_CMD) tmux; \
+	$(CMD_PREFIX) $(PACKAGE_CMD) tmux; \
 	ln -s $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
 	@echo "##### Install tmux end   #####"
 
