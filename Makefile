@@ -9,9 +9,9 @@ DATE = $(shell DATE)
 ifeq ($(OS_NAME), Linux)
     # check sudo command
     ifeq ($(shell command -v sudo 2> /dev/null),)
-	CMD_PREFIX := su root -c
+        CMD_PREFIX := su root -c
     else
-	CMD_PREFIX := sudo
+        CMD_PREFIX := sudo
     endif
 
     ifneq ($(strip $(shell cat /etc/*release | grep -i 'debian')),)
@@ -72,6 +72,12 @@ neovim:  ## Install neovim and init nvim config
 	ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
 	@echo "##### Install neovim end   #####"
+
+tmux:  ## Install tmux and init .tmux.conf
+	@echo "##### Install tmux start #####"
+	echo $(CMD_PREFIX) $(PACKAGE_CMD) tmux; \
+	ln -s $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
+	@echo "##### Install tmux end   #####"
 
 vim:  ## Install vim and init .vimrc
 	@echo "##### Install vim start #####"

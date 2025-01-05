@@ -21,7 +21,7 @@ return {
         lazy = true,
         config = function()
             require("mason-lspconfig").setup({
-                ensure_installed = { "lua_ls", "pylsp", "gopls" }, -- add lsp-server here
+                ensure_installed = { "bashls", "lua_ls", "pylsp", "gopls" }, -- add lsp-server here
             })
         end
     },

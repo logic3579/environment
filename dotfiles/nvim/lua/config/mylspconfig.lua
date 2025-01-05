@@ -19,6 +19,12 @@ local on_attach = function(_, bufnr)
     end, vim.tbl_extend("force", bufopts, { desc = "format document" }))
 end
 
+-- Bash
+lspconfig.bashls.setup({
+    capabilities = capabilities,
+    on_attach = on_attach,
+})
+
 -- Lua
 lspconfig.lua_ls.setup({
     capabilities = capabilities,
