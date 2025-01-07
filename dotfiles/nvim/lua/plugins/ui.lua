@@ -4,8 +4,8 @@ return {
         "akinsho/bufferline.nvim",
         version = "*",
         keys = {
-            { "<M-h>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Toggle previous tab" } },
-            { "<M-l>", "<cmd>BufferLineCycleNext<CR>", { desc = "Toggle next tab" } },
+            { "<M-p>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Toggle previous tab" } },
+            { "<M-n>", "<cmd>BufferLineCycleNext<CR>", { desc = "Toggle next tab" } },
         },
         config = function()
             require("bufferline").setup {
