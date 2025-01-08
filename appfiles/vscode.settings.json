@@ -21,8 +21,9 @@
   "vim.operatorPendingModeKeyBindings": [],
   "vim.handleKeys": {
     "<C-a>": false,
-    "<C-f>": false
+    "<C-e>": false
   },
+  "keyboard.dispatch": "keyCode",
 
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
