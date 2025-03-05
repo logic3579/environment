@@ -16,9 +16,9 @@ return {
         cmd = "Telescope",
         dependencies = { "nvim-lua/plenary.nvim" },
         keys = {
-            { "<Leader>ff", "<cmd>Telescope find_files<CR>", { desc = "find files" } },
-            { "<Leader>fg", "<cmd>Telescope live_grep<CR>",  { desc = "grep file" } },
-            { "<leader>f/",  "<cmd>Telescope current_buffer_fuzzy_find<CR>",  { desc = "search current buffer" }},
+            { "<Leader>ff", "<cmd>Telescope find_files<CR>",                { desc = "find files" } },
+            { "<Leader>fg", "<cmd>Telescope live_grep<CR>",                 { desc = "grep file" } },
+            { "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "search current buffer" } },
         },
     },
     --  file explorer
@@ -40,9 +40,9 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         keys = {
-            { "<leader>gp", function() require("gitsigns").preview_hunk() end,   desc = "Preview Hunk" },
-            { "<leader>gk", function() require("gitsigns").nav_hunk("prev") end, desc = "Prev Hunk" },
-            { "<leader>gj", function() require("gitsigns").nav_hunk("next") end, desc = "Next Hunk" },
+            { "<leader>gk", function() require("gitsigns").preview_hunk() end,   desc = "Preview Hunk" },
+            { "<leader>gp", function() require("gitsigns").nav_hunk("prev") end, desc = "Prev Hunk" },
+            { "<leader>gn", function() require("gitsigns").nav_hunk("next") end, desc = "Next Hunk" },
         },
         config = function()
             require("gitsigns").setup {
@@ -70,6 +70,28 @@ return {
             }
         end,
     },
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",         -- required
+            "sindrets/diffview.nvim",        -- optional - Diff integration
+            "nvim-telescope/telescope.nvim", -- optional
+        },
+        keys = {
+            { "<leader>gg", function() require("neogit").open() end,            desc = "Neogit UI" },
+            { "<leader>gc", function() require("neogit").open({ "commit" }) end, desc = "Neogit Commit popup" },
+        },
+        config = function()
+            local neogit = require("neogit")
+            neogit.setup({
+                kind = "auto",
+                integrations = {
+                    diffview = true,
+                    telescope = true,
+                },
+            })
+        end,
+    },
     -- show keybindings
     {
         "folke/which-key.nvim",
@@ -77,13 +99,13 @@ return {
         opts = {
             preset = "classic",
             spec = {
-                { "<leader>c", group = " Code",              mode = { "n", "x" } },
-                { "<leader>d", group = " Debug | Diagnosis", mode = { "n", "v" } },
-                { "<leader>f", group = " Find | File" },
-                { "<leader>g", group = " Git" },
-                { "<leader>s", group = " Session" },
+                { "<leader>c",     group = " Code",              mode = { "n", "x" } },
+                { "<leader>d",     group = " Debug | Diagnosis", mode = { "n", "v" } },
+                { "<leader>f",     group = " Find | File" },
+                { "<leader>g",     group = " Git" },
+                { "<leader>s",     group = " Session" },
                 { "<leader><tab>", group = " Tab" },
-                { "<leader>w", group = " Windows" },
+                { "<leader>w",     group = " Windows" },
                 -- { "<leader>t", group = " Toggle" },
                 -- { "<leader>W", group = " Workspace" },
             },
