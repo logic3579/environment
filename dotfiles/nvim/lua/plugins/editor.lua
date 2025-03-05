@@ -78,7 +78,7 @@ return {
             "nvim-telescope/telescope.nvim", -- optional
         },
         keys = {
-            { "<leader>gg", function() require("neogit").open() end,            desc = "Neogit UI" },
+            { "<leader>gg", function() require("neogit").open() end,            desc = "Neogit Status" },
             { "<leader>gc", function() require("neogit").open({ "commit" }) end, desc = "Neogit Commit popup" },
         },
         config = function()
