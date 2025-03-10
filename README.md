@@ -16,6 +16,7 @@ Application config record.
 ### Using Makefile
 
 Help info `make help`.
+
 ```console
 $ make help
 all                            Test then install package and application
@@ -29,10 +30,10 @@ vim                            Install vim and init .vimrc
 zsh                            Install zsh and init .zshrc
 ```
 
-
 ### Application Config
 
 #### iTerm2
+
 ```console
 # Import config
 appfiles/iterm2/iterm2Profile.json
@@ -43,34 +44,38 @@ appfiles/iterm2/HaX0R_GR33N.itermcolors
 ```
 
 #### wireguard
+
 ```console
 appfiles/wireguard
 ```
 
 #### sublime-text
+
 ```console
 appfiles/Preferences.sublime-settings
 ```
 
 #### SecureCRT
+
 ```console
 appfiles/SecureCRT.xml
 ```
 
 #### Raycast
+
 ```console
 # Import config
 appfiles/raycast.rayconfig
 ```
 
 #### Visual Studio Code
+
 ```console
 appfiles/vscode.code-profile
 ```
 
-
-
 > Reference:
+>
 > 1. [HomeBrew Official Website](https://brew.sh)
 > 2. [中科大镜像](https://mirrors.ustc.edu.cn/help/brew.git.html)
 > 3. [iterm2colors](https://iterm2colorschemes.com/)

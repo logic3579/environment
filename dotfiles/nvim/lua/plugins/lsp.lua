@@ -26,7 +26,7 @@ return {
                     "lua_ls",
                     "pylsp",
                     "gopls",
-                    "marksman"
+                    "marksman",
                 },
             })
         end

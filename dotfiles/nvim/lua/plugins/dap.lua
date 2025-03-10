@@ -49,11 +49,13 @@ return {
             require("mason-nvim-dap").setup({
                 automatic_installation = false,
                 handlers = {},
-                ensure_installed = { "python", "delve" } -- add dap-server here
+                ensure_installed = {
+                    "python",
+                    "delve"
+                }
             })
         end,
     },
-    -- dap-python
     {
         "mfussenegger/nvim-dap-python",
         config = function()

@@ -1,4 +1,5 @@
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 vim.lsp.set_log_level("error")
