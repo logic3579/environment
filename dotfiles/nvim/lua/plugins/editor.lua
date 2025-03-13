@@ -92,31 +92,6 @@ return {
             })
         end,
     },
-    -- formatter
-    {
-        'stevearc/conform.nvim',
-        event = { 'BufWritePre' },
-        opts = {},
-        config = function()
-            require("conform").setup({
-                formatters_by_ft = {
-                    lua = { "stylua" },
-                    go = { "goimports", "gofmt" },
-                    -- rust = { "rustfmt", lsp_format = "fallback" },
-                    python = { "isort", "black" },
-                    markdown = { "prettier" },
-                    javascript = { "prettierd", "prettier", stop_after_first = true },
-                },
-                format_on_save = {
-                    lsp_format = "fallback",
-                    timeout_ms = 500,
-                },
-                format_after_save = {
-                    lsp_format = "fallback",
-                },
-            })
-        end,
-    },
     -- show keybindings
     {
         "folke/which-key.nvim",
