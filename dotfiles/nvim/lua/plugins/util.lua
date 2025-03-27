@@ -5,8 +5,8 @@ return {
         lazy = false,
         keys = {
             -- Will use Telescope if installed or a vim.ui.select picker otherwise
-            { "<leader>ss", "<cmd>SessionSearch<CR>", desc = "Session Search" },
-            { "<leader>sw", "<cmd>SessionSave<CR>",   desc = "Session Save" },
+            { "<leader>sf", "<cmd>SessionSearch<CR>", desc = "Session Search" },
+            { "<leader>ss", "<cmd>SessionSave<CR>",   desc = "Session Save" },
             { "<leader>sq", "<cmd>qa<CR>",            desc = "Quit All" },
         },
         opts = {
