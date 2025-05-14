@@ -1,0 +1,47 @@
+# mirrors
+
+tap "homebrew/cask", "https://mirrors.ustc.edu.cn/homebrew-cask.git"
+tap "homebrew/core", "https://mirrors.ustc.edu.cn/homebrew-core.git"
+
+# Formulae
+brew "cmake"
+brew "dos2unix"
+brew "gcc"
+brew "gh"
+# brew "git"
+brew "git-lfs"
+brew "go"
+brew "helm"
+brew "jq"
+brew "mysql"
+brew "neovim"
+brew "node"
+brew "openjdk"
+brew "podman"
+brew "poetry"
+brew "python@3.10"
+brew "qemu"
+brew "ripgrep"
+brew "telnet"
+brew "tmux"
+brew "tree"
+brew "v2ray"
+brew "watch"
+brew "wget"
+brew "wireguard-tools"
+
+# Casks
+cask "google-chrome"
+cask "iterm2"
+cask "keepassxc"
+cask "obsidian"
+cask "openvpn-connect"
+cask "qqmusic"
+cask "raycast"
+cask "wechat"
+cask "xmind"
+cask "zoom"
+
+# fonts
+cask "font-meslo-for-powerline"
+cask "font-meslo-lg-nerd-font"

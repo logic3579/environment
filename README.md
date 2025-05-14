@@ -19,15 +19,6 @@ Help info `make help`.
 
 ```console
 $ make help
-all                            Test then install package and application
-application                    Install application and init config(Only for MacOS)
-clean                          Clean tmp files
-dependencies                   Install dependencies
-neovim                         Install neovim and init nvim config
-package                        Install dependencies and all package
-test                           Run the tests
-vim                            Install vim and init .vimrc
-zsh                            Install zsh and init .zshrc
 ```
 
 ### Application Config

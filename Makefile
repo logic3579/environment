@@ -24,21 +24,19 @@ ifeq ($(OS_NAME), Linux)
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME), Darwin)
-    PACKAGE_CMD := brew install
-    PACKAGE_NAME := git subversion curl telnet wget
-    APP_NAME := iterm2 wezterm raycast obsidian visual-studio-code keepassxc
+    # PACKAGE_CMD := brew install
+    # PACKAGE_NAME := git subversion curl telnet wget
+    # APP_NAME := iterm2 wezterm raycast obsidian visual-studio-code keepassxc
+    PACKAGE_CMD := brew bundle
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
 
 
-
-# main 
 .PHONY: all package application clean test
-all: test package application clean ## Test then install package and application
+all: test package configure clean ## Test and then install package and configure
 
-# dependencies
-dependencies:  ## Install dependencies
+dependencies:
 	@echo "##### Install dependencies start #####"
 	#@echo ">>> Install nerd-fonts"
 	#https://www.nerdfonts.com/
@@ -47,8 +45,7 @@ dependencies:  ## Install dependencies
 	/tmp/fonts/install.sh
 	@echo "##### Install dependencies end   #####"
 
-#package: dependencies neovim vim zsh ## Install all package
-package:  ## Install dependencies and all package
+package: dependencies ## Install dependencies and all package
 	@echo "##### Install package start #####"
 	@if [ "$(OS_NAME)" = "Darwin" ]; then \
 		sudo spctl --master-disable; \
@@ -57,63 +54,52 @@ package:  ## Install dependencies and all package
 	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
 	@echo "##### Install package end   #####"
 
-application:  ## Install application and init config(Only for MacOS)
-	@echo "##### Install application start #####"
-	@if [ "$(OS_NAME)" != "Darwin" ]; then \
-		echo "Unsupported operating system!"; \
-	else \
-		$(PACKAGE_CMD) $(APP_NAME); \
-	fi;
-	@echo "##### Install application end   #####"
-
-neovim:  ## Install neovim and init nvim config
-	@echo "##### Install neovim start #####"
-	#$(CMD_PREFIX) $(PACKAGE_CMD) neovim;
+configure:  ## Configure neovim, tmux, vim
+	@echo "##### Configure start #####"
+	@echo ">>> Neovim"
 	ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
-	@echo "##### Install neovim end   #####"
 
-tmux:  ## Install tmux and init .tmux.conf
-	@echo "##### Install tmux start #####"
-	$(CMD_PREFIX) $(PACKAGE_CMD) tmux; \
+	@echo ">>> Tmux"
 	ln -s $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
-	@echo "##### Install tmux end   #####"
 
-vim:  ## Install vim and init .vimrc
-	@echo "##### Install vim start #####"
+	@echo ">>> Vim"
 	$(CMD_PREFIX) $(PACKAGE_CMD) vim; \
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
 	ln -s $(DOTFILES)/vimrc $(HOME)/.vimrc; \
 	vim +PluginInstall +qall; \
 	mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
-	@echo "##### Install vim end   #####"
 
-zsh: oh-my-zsh  ## Install zsh and init .zshrc
-	@echo "##### Install zsh start #####"
-	$(CMD_PREFIX) $(PACKAGE_CMD) zsh; \
-	ln -s $(DOTFILES)/zshrc $(HOME)/.zshrc; \
-	source $(HOME)/.zshrc
-	@echo "##### Install zsh end   #####"
+	@echo "##### Configure end   #####"
 
-oh-my-bash:
+bash: oh-my-bash  ## Install oh-my-bash and init .bachrc
+	@echo "##### Bash env start #####"
 	@echo ">>> Install oh-my-bash and plugins"
 	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"
 
-oh-my-zsh:
+	@echo "##### Bash env end   #####"
+
+zsh: oh-my-zsh  ## Install oh-my-zsh and init .zshrc
+	@echo "##### Zsh env start #####"
 	@echo ">>> Install oh-my-zsh and plugins"
 	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting;
 
+	$(CMD_PREFIX) $(PACKAGE_CMD) zsh; \
+	ln -s $(DOTFILES)/zshrc $(HOME)/.zshrc; \
+	source $(HOME)/.zshrc
+	@echo "##### Zsh env end   #####"
+
 test: ## Run the tests
 	@echo "##### Test start #####"
-	@echo $(APPFILES)
-	@echo $(DOTFILES)
-	@echo $(OS_NAME)
-	@echo $(CMD_PREFIX)
-	@echo $(PACKAGE_CMD)
-	@echo $(PACKAGE_NAME)
-	@echo $(APP_NAME)
+	@echo APPFILES is $(APPFILES)
+	@echo DOTFILES is $(DOTFILES)
+	@echo OS_NAME is $(OS_NAME)
+	@echo CMD_PREFIX is $(CMD_PREFIX)
+	@echo PACKAGE_CMD is $(PACKAGE_CMD)
+	@echo PACKAGE_NAME is $(PACKAGE_NAME)
+	@echo APP_NAME is $(APP_NAME)
 	@echo "##### Test end   #####"
 
 clean: ## Clean tmp files
