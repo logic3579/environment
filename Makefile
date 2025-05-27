@@ -59,34 +59,25 @@ configure: ## Configure neovim, tmux, vim
 	@echo ">>> Neovim"
 	ln -sfv $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
-
 	@echo ">>> Tmux"
 	ln -sfv $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
-
 	@echo ">>> Vim"
-	$(CMD_PREFIX) $(PACKAGE_CMD) vim; \
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
 	ln -sfv $(DOTFILES)/vimrc $(HOME)/.vimrc; \
 	vim +PluginInstall +qall; \
 	mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
-
 	@echo "##### Configure end   #####"
 
 bash: ## Install oh-my-bash and init .bachrc
 	@echo "##### Bash env start #####"
-	@echo ">>> Install oh-my-bash and plugins"
-	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"
-
+	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"; \
 	@echo "##### Bash env end   #####"
 
 zsh: ## Install oh-my-zsh and init .zshrc
 	@echo "##### Zsh env start #####"
-	@echo ">>> Install oh-my-zsh and plugins"
 	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting;
-
-	$(CMD_PREFIX) $(PACKAGE_CMD) zsh; \
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
 	ln -sfv $(DOTFILES)/zshrc $(HOME)/.zshrc; \
 	source $(HOME)/.zshrc
 	@echo "##### Zsh env end   #####"
