@@ -1,4 +1,4 @@
-MAINTAINER := yakir
+MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname)
@@ -54,32 +54,32 @@ package: dependencies ## Install dependencies and all package
 	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
 	@echo "##### Install package end   #####"
 
-configure:  ## Configure neovim, tmux, vim
+configure: ## Configure neovim, tmux, vim
 	@echo "##### Configure start #####"
 	@echo ">>> Neovim"
-	ln -s $(DOTFILES)/nvim $(HOME)/.config/nvim; \
+	ln -sfv $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
 
 	@echo ">>> Tmux"
-	ln -s $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
+	ln -sfv $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
 
 	@echo ">>> Vim"
 	$(CMD_PREFIX) $(PACKAGE_CMD) vim; \
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
-	ln -s $(DOTFILES)/vimrc $(HOME)/.vimrc; \
+	ln -sfv $(DOTFILES)/vimrc $(HOME)/.vimrc; \
 	vim +PluginInstall +qall; \
 	mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
 
 	@echo "##### Configure end   #####"
 
-bash: oh-my-bash  ## Install oh-my-bash and init .bachrc
+bash: ## Install oh-my-bash and init .bachrc
 	@echo "##### Bash env start #####"
 	@echo ">>> Install oh-my-bash and plugins"
 	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"
 
 	@echo "##### Bash env end   #####"
 
-zsh: oh-my-zsh  ## Install oh-my-zsh and init .zshrc
+zsh: ## Install oh-my-zsh and init .zshrc
 	@echo "##### Zsh env start #####"
 	@echo ">>> Install oh-my-zsh and plugins"
 	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
@@ -87,7 +87,7 @@ zsh: oh-my-zsh  ## Install oh-my-zsh and init .zshrc
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting;
 
 	$(CMD_PREFIX) $(PACKAGE_CMD) zsh; \
-	ln -s $(DOTFILES)/zshrc $(HOME)/.zshrc; \
+	ln -sfv $(DOTFILES)/zshrc $(HOME)/.zshrc; \
 	source $(HOME)/.zshrc
 	@echo "##### Zsh env end   #####"
 
