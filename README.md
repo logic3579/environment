@@ -34,6 +34,13 @@ appfiles/iterm2/Solarized_Darcula.itermcolors
 appfiles/iterm2/HaX0R_GR33N.itermcolors
 ```
 
+#### Raycast
+
+```console
+# Settings
+appfiles/raycast.rayconfig
+```
+
 #### sublime-text
 
 ```console
@@ -46,13 +53,6 @@ appfiles/Preferences.sublime-settings
 ```console
 # Settings
 appfiles/SecureCRT.xml
-```
-
-#### Raycast
-
-```console
-# Settings
-appfiles/raycast.rayconfig
 ```
 
 #### Visual Studio Code
