@@ -57,17 +57,17 @@ package: dependencies ## Install dependencies and all package
 configure: ## Configure neovim, tmux, vim
 	@echo "##### Configure start #####"
 	@echo ">>> Neovim"
-	ln -sfv $(DOTFILES)/nvim $(HOME)/.config/nvim; \
+	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
 	@echo ">>> Tmux"
-	ln -sfv $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
+	ln -svF $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
 	@echo ">>> Vim"
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Path already exists"; \
-	ln -sfv $(DOTFILES)/vim/vimrc $(HOME)/.vim/vimrc; \
+	ln -svF $(DOTFILES)/vim/vimrc $(HOME)/.vim/vimrc; \
 	vim +PluginInstall +qall;
 	# mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
 	@echo ">>> WezTerm"
-	ln -sfv $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
+	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo "##### Configure end   #####"
 
 bash: ## Install oh-my-bash and init .bachrc
@@ -80,7 +80,7 @@ zsh: ## Install oh-my-zsh and init .zshrc
 	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
-	ln -sfv $(DOTFILES)/zshrc $(HOME)/.zshrc; \
+	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc; \
 	source $(HOME)/.zshrc
 	@echo "##### Zsh env end   #####"
 
