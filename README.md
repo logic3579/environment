@@ -62,8 +62,8 @@ appfiles/raycast.rayconfig
 appfiles/vscode.code-profile
 ```
 
-
 > Reference:
+>
 > 1. [HomeBrew Official Website](https://brew.sh)
 > 2. [中科大镜像](https://mirrors.ustc.edu.cn/help/brew.git.html)
 > 3. [iterm2colors](https://iterm2colorschemes.com/)
