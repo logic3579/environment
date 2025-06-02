@@ -5,7 +5,7 @@ icon: bullseye-arrow
 
 # Overview
 
-[![GitHub Actions](https://github.com/logic3579/environment/actions/workflows/make-test.yml/badge.svg)](https://github.com/logic3579/environment/actions/workflows/make-test.yml)
+[![make-test](https://github.com/logic3579/environment/actions/workflows/make-test.yml/badge.svg)](https://github.com/logic3579/environment/actions/workflows/make-test.yml)
 
 Use Makefile to init environment and install application.
 
