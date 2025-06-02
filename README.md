@@ -34,6 +34,13 @@ appfiles/iterm2/Solarized_Darcula.itermcolors
 appfiles/iterm2/HaX0R_GR33N.itermcolors
 ```
 
+#### Raycast
+
+```console
+# Settings
+appfiles/raycast.rayconfig
+```
+
 #### sublime-text
 
 ```console
@@ -48,13 +55,6 @@ appfiles/Preferences.sublime-settings
 appfiles/SecureCRT.xml
 ```
 
-#### Raycast
-
-```console
-# Settings
-appfiles/raycast.rayconfig
-```
-
 #### Visual Studio Code
 
 ```console
@@ -62,8 +62,8 @@ appfiles/raycast.rayconfig
 appfiles/vscode.code-profile
 ```
 
-
 > Reference:
+>
 > 1. [HomeBrew Official Website](https://brew.sh)
 > 2. [中科大镜像](https://mirrors.ustc.edu.cn/help/brew.git.html)
 > 3. [iterm2colors](https://iterm2colorschemes.com/)

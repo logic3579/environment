@@ -62,10 +62,12 @@ configure: ## Configure neovim, tmux, vim
 	@echo ">>> Tmux"
 	ln -sfv $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
 	@echo ">>> Vim"
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim; \
-	ln -sfv $(DOTFILES)/vimrc $(HOME)/.vimrc; \
-	vim +PluginInstall +qall; \
-	mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Path already exists"; \
+	ln -sfv $(DOTFILES)/vim/vimrc $(HOME)/.vim/vimrc; \
+	vim +PluginInstall +qall;
+	# mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
+	@echo ">>> WezTerm"
+	ln -sfv $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo "##### Configure end   #####"
 
 bash: ## Install oh-my-bash and init .bachrc
