@@ -25,6 +25,7 @@ export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 # 5. Install fonts PowerlineFont
 git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
 bash /tmp/fonts/install.sh
+# Nerdfonts: https://www.nerdfonts.com/
 annotation
 #####
 

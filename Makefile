@@ -1,7 +1,7 @@
 MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
-OS_NAME := $(shell uname)
+OS_NAME := $(shell uname -s)
 DATE = $(shell DATE)
 
 
@@ -35,17 +35,14 @@ all: test install configure clean ## Test, install and configure.
 
 dependencies:
 	@echo "##### Dependencies check start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ] && which brew &> /dev/null ; then \
-		@echo ">>> Installing Homebrew..."
+	@if [ "$(OS_NAME)" = "Darwin" ] &&  ! command -v brew >/dev/null 2>&1; then \
+		echo ">>> Installing Homebrew..."; \
 		sudo spctl --master-disable; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	else if [ "$(OS_NAME)" = "Linux" ] ; then \
+	elif [ "$(OS_NAME)" = "Linux" ]; then \
 		@echo ">>> Installing fonts-powerline"; \
-		$(CMD_PREFIX) $(PACKAGE_CMD) fonts-powerline;
-		#fc-cache -fv
-		#@echo ">>> Install fonts-nerdfont"
-		#https://www.nerdfonts.com/
-	fi;
+		$(CMD_PREFIX) $(PACKAGE_CMD) fonts-powerline; \
+	fi
 	@echo "##### Dependencies check end   #####"
 
 install: dependencies ## Dependencies check and install all package
