@@ -1,0 +1,47 @@
+##### Annotation
+:<<'annotation'
+    # Uninstall on-my-bash
+    bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
+annotation
+#####
+
+# change your $PATH
+MY_PATH=/opt/app/bin
+export PATH="$PATH:${MY_PATH}"
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
+
+# Enable the subsequent settings only in interactive sessions
+case $- in
+  *i*) ;;
+    *) return;;
+esac
+
+# Path to your oh-my-bash installation.
+export OSH="$HOME/.oh-my-bash"
+
+# Set name of the theme to load
+OSH_THEME="agnoster"
+
+# To disable the uses of "sudo" by oh-my-bash, please set "false" to
+# this variable.  The default behavior for the empty value is "true".
+OMB_USE_SUDO=true
+
+# Which completions would you like to load? (completions can be found in ~/.oh-my-bash/completions/*)
+completions=(
+  git
+  composer
+  ssh
+)
+
+# Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
+aliases=(
+  general
+)
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
+plugins=(
+  git
+  bashmarks
+)
+
+source "$OSH"/oh-my-bash.sh

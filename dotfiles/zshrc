@@ -2,10 +2,10 @@
 :<<'annotation'
 # 1. Install HomeBrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# or
-/bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
+# mirrors
+# /bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
 
-# 2. Install zsh and change shell 
+# 2. Install zsh and change shell
 brew install zsh
 chsh -s $(which zsh)
 
@@ -28,22 +28,23 @@ bash /tmp/fonts/install.sh
 annotation
 #####
 
-ZSH_THEME="agnoster"
+# change your $PATH
+HOMEBREW_PATH=/opt/homebrew/bin
+export PATH="$PATH:${HOMEBREW_PATH}"
 
-export PATH=$PATH
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Set name of the theme to load
+ZSH_THEME="agnoster"
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
-    git
-    zsh-autosuggestions
-    zsh-syntax-highlighting
+  git
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
-
-# PATH ENV
-HOMEBREW_PATH=/opt/homebrew/bin
-export PATH="$PATH:${HOMEBREW_PATH}"
-#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
-
