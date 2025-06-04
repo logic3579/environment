@@ -66,7 +66,7 @@ configure: ## Configure Neovim, Tmux, Vim, WezTerm
 
 bash: ## Install oh-my-bash and link ~/.bachrc
 	@echo "##### Bash env start #####"
-	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"; \
+	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc; \
 	source $(HOME)/.bashrc
 	@echo "##### Bash env end   #####"
