@@ -2,6 +2,7 @@ MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
+PACKAGE_NAME := make cmake curl wget telnet git fontconfig tmux neovim
 DATE = $(shell DATE)
 
 
@@ -16,10 +17,8 @@ ifeq ($(OS_NAME), Linux)
 
     ifneq ($(strip $(shell cat /etc/*release | grep -i 'debian')),)
         PACKAGE_CMD := apt install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make fontconfig
     else ifneq ($(strip $(shell cat /etc/*release | grep -i 'fedora')),)
         PACKAGE_CMD := dnf install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make fontconfig
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
@@ -40,7 +39,7 @@ dependencies:
 		sudo spctl --master-disable; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 	elif [ "$(OS_NAME)" = "Linux" ]; then \
-		@echo ">>> Installing fonts-powerline"; \
+		echo ">>> Installing fonts-powerline"; \
 		$(CMD_PREFIX) $(PACKAGE_CMD) fonts-powerline; \
 	fi
 	@echo "##### Dependencies check end   #####"
