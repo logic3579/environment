@@ -4,6 +4,7 @@ DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
 PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
 DATE = $(shell DATE)
+SHELL := /bin/bash
 
 
 # check os and setting package
@@ -66,14 +67,14 @@ configure: ## Configure Neovim, Tmux, Vim, WezTerm
 
 bash: ## Install oh-my-bash and link ~/.bachrc
 	@echo "##### Bash env start #####"
-	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
+	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc; \
 	source $(HOME)/.bashrc
 	@echo "##### Bash env end   #####"
 
 zsh: ## Install oh-my-zsh and link ~/.zshrc
 	@echo "##### Zsh env start #####"
-	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
+	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
 	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc; \
