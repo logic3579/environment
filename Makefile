@@ -1,7 +1,8 @@
 MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
-OS_NAME := $(shell uname)
+OS_NAME := $(shell uname -s)
+PACKAGE_NAME := make cmake curl wget telnet git fontconfig tmux neovim
 DATE = $(shell DATE)
 
 
@@ -16,66 +17,61 @@ ifeq ($(OS_NAME), Linux)
 
     ifneq ($(strip $(shell cat /etc/*release | grep -i 'debian')),)
         PACKAGE_CMD := apt install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make
     else ifneq ($(strip $(shell cat /etc/*release | grep -i 'fedora')),)
         PACKAGE_CMD := dnf install -y
-        PACKAGE_NAME := git subversion curl telnet wget cmake make
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME), Darwin)
-    # PACKAGE_CMD := brew install
-    # PACKAGE_NAME := git subversion curl telnet wget
-    # APP_NAME := iterm2 wezterm raycast obsidian visual-studio-code keepassxc
     PACKAGE_CMD := brew bundle
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
 
 
-.PHONY: all package application clean test
-all: test package configure clean ## Test and then install package and configure
+.PHONY: all application clean install test
+all: test install configure clean ## Test, install and configure.
 
 dependencies:
-	@echo "##### Install dependencies start #####"
-	#@echo ">>> Install nerd-fonts"
-	#https://www.nerdfonts.com/
-	@echo ">>> Install powerline-fonts"
-	git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts; \
-	/tmp/fonts/install.sh
-	@echo "##### Install dependencies end   #####"
-
-package: dependencies ## Install dependencies and all package
-	@echo "##### Install package start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ]; then \
+	@echo "##### Dependencies check start #####"
+	@if [ "$(OS_NAME)" = "Darwin" ] &&  ! command -v brew >/dev/null 2>&1; then \
+		echo ">>> Installing Homebrew..."; \
 		sudo spctl --master-disable; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	fi; \
+	elif [ "$(OS_NAME)" = "Linux" ]; then \
+		echo ">>> Installing fonts-powerline"; \
+		$(CMD_PREFIX) $(PACKAGE_CMD) fonts-powerline; \
+	fi
+	@echo "##### Dependencies check end   #####"
+
+install: dependencies ## Dependencies check and install all package
+	@echo "##### Install package start #####"
 	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
 	@echo "##### Install package end   #####"
 
-configure: ## Configure neovim, tmux, vim
+configure: ## Configure Neovim, Tmux, Vim, WezTerm
 	@echo "##### Configure start #####"
 	@echo ">>> Neovim"
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
 	@echo ">>> Tmux"
-	ln -svF $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
+	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
 	@echo ">>> Vim"
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Path already exists"; \
-	ln -svF $(DOTFILES)/vim/vimrc $(HOME)/.vim/vimrc; \
+	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim; \
 	vim +PluginInstall +qall;
-	# mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
 	@echo ">>> WezTerm"
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo "##### Configure end   #####"
 
-bash: ## Install oh-my-bash and init .bachrc
+bash: ## Install oh-my-bash and link ~/.bachrc
 	@echo "##### Bash env start #####"
 	test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/oh-my-bash/oh-my-bash/master/tools/install.sh)"; \
+	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc; \
+	source $(HOME)/.bashrc
 	@echo "##### Bash env end   #####"
 
-zsh: ## Install oh-my-zsh and init .zshrc
+zsh: ## Install oh-my-zsh and link ~/.zshrc
 	@echo "##### Zsh env start #####"
 	test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
@@ -95,9 +91,9 @@ test: ## Run the tests
 	@echo APP_NAME is $(APP_NAME)
 	@echo "##### Test end   #####"
 
-clean: ## Clean tmp files
+clean:
 	@echo "##### Clean start #####"
-	rm -rf /tmp/fonts/
+	echo "cleaning step"
 	@echo "##### Clean end   #####"
 
 
