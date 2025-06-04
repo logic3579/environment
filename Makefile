@@ -2,7 +2,7 @@ MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
-PACKAGE_NAME := make cmake curl wget telnet git fontconfig tmux neovim
+PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
 DATE = $(shell DATE)
 
 
