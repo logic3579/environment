@@ -55,12 +55,11 @@ configure: ## Configure Neovim, Tmux, Vim, WezTerm
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
 	@echo ">>> Tmux"
-	ln -svF $(DOTFILES)/tmux.conf $(HOME)/.tmux.conf;
+	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
 	@echo ">>> Vim"
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Path already exists"; \
-	ln -svF $(DOTFILES)/vim/vimrc $(HOME)/.vim/vimrc; \
+	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim; \
 	vim +PluginInstall +qall;
-	# mv $(HOME)/.vim/bundle/vim-colors-solarized/colors/ $(HOME)/.vim/;
 	@echo ">>> WezTerm"
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo "##### Configure end   #####"
