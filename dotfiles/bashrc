@@ -20,7 +20,8 @@ esac
 export OSH="$HOME/.oh-my-bash"
 
 # Set name of the theme to load
-OSH_THEME="agnoster"
+#OSH_THEME="agnoster"
+OSH_THEME="random"
 
 # To disable the uses of "sudo" by oh-my-bash, please set "false" to
 # this variable.  The default behavior for the empty value is "true".
