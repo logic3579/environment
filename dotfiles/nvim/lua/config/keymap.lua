@@ -47,8 +47,10 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 
 -- diagnostic
-map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous Diagnostic message" })
-map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next Diagnostic message" })
+map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end,
+    { desc = "Go to previous Diagnostic message" })
+map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end,
+    { desc = "Go to next Diagnostic message" })
 map("n", "<leader>dof", vim.diagnostic.open_float, { desc = "Show diagnostics message" })
 map("n", "<leader>dqf", vim.diagnostic.setloclist, { desc = "Open diagnostics Quickfix" })
 
