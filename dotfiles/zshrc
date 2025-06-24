@@ -1,20 +1,15 @@
 ##### Annotation
 :<<'annotation'
-# 1. Install HomeBrew
+# Install HomeBrew
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-# mirrors
-# /bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
+/bin/bash -c "$(curl -fsSL https://mirrors.ustc.edu.cn/misc/brew-install.sh)"
 
-# 2. Install zsh and change shell
-brew install zsh
-chsh -s $(which zsh)
-
-# 3. Install oh-my-zsh and plugin
+# Install oh-my-zsh and plugin
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || sh -c "$(curl -fsSL https://install.ohmyz.sh/)"
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-# 4. Options: HomeBrew accelerate mirrors
+# HomeBrew accelerate mirrors(Options)
 brew tap --custom-remote -f homebrew/core https://mirrors.ustc.edu.cn/homebrew-core.git
 brew tap --custom-remote -f homebrew/cask https://mirrors.ustc.edu.cn/homebrew-cask.git
 export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
@@ -22,8 +17,9 @@ export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 
-# Nerdfonts
-# https://www.nerdfonts.com/
+# Others
+chsh -s $(which zsh) # change to zsh
+https://www.nerdfonts.com/ # Nerdfonts
 annotation
 #####
 
