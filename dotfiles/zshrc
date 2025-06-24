@@ -22,14 +22,16 @@ export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 
-# 5. Install fonts PowerlineFont
-git clone https://github.com/powerline/fonts.git --depth=1 /tmp/fonts
-bash /tmp/fonts/install.sh
-# Nerdfonts: https://www.nerdfonts.com/
+# Nerdfonts
+# https://www.nerdfonts.com/
 annotation
 #####
 
-# change your $PATH
+# Env PATH
+export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
+export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
+export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
 HOMEBREW_PATH=/opt/homebrew/bin
 export PATH="$PATH:${HOMEBREW_PATH}"
 
