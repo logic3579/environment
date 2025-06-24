@@ -2,13 +2,14 @@ MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
-PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
 DATE = $(shell DATE)
 SHELL := /bin/bash
 
 
 # check os and setting package
 ifeq ($(OS_NAME), Linux)
+    PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
+
     # check sudo command
     ifeq ($(shell command -v sudo 2> /dev/null),)
         CMD_PREFIX := su root -c
