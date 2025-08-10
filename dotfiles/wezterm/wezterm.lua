@@ -1,4 +1,3 @@
--- ~/.config/wezterm/wezterm.lua
 local wezterm = require 'wezterm'
 local config = {}
 
@@ -11,11 +10,10 @@ local is_mac = wezterm.target_triple:find('darwin') ~= nil
 config.colors = {
     scrollbar_thumb = '#cccccc',
 }
---config.color_scheme = 'Solarized Dark'
-config.color_scheme = 'IC_Green_PPL'
+config.color_scheme = 'Solarized Dark - Patched'
+-- config.color_scheme = 'IC_Green_PPL'
 config.window_frame = {
     font = wezterm.font 'MesloLGLDZ Nerd Font',
-    weight = 'Regular'
 }
 
 -- Lauching Programs
@@ -39,31 +37,31 @@ end
 -- Fonts
 config.font = wezterm.font {
     family = 'MesloLGLDZ Nerd Font',
-    weight = 'Regular',
+    weight = 'Regular'
 }
 config.font_size = 17.0
 
 -- Key / Mouse Binding
 config.disable_default_key_bindings = true
-config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 3000 }
+-- config.leader = { key = 'Space', mods = 'CTRL|SHIFT', timeout_milliseconds = 3000 }
 local act = wezterm.action
 config.keys = {
     -- global
-    { key = 'F11',    mods = 'NONE',         action = act.ToggleFullScreen },
-    { key = 'c',      mods = 'CTRL|SHIFT',   action = act.CopyTo('Clipboard') },
-    --{ key = 'v',      mods = 'CTRL|SHIFT',   action = act.PasteFrom('Clipboard') },
-    { key = 'Insert', mods = 'SHIFT',        action = act.PasteFrom('Clipboard') },
+    { key = 'F11',    mods = 'NONE',  action = act.ToggleFullScreen },
+    { key = 'c',      mods = 'SUPER', action = act.CopyTo('Clipboard') },
+    { key = 'v',      mods = 'SUPER', action = act.PasteFrom('Clipboard') },
+    { key = 'Insert', mods = 'SHIFT', action = act.PasteFrom('Clipboard') },
     -- tab manage
-    { key = 'n',      mods = 'CTRL|SHIFT',   action = act.SpawnWindow },
-    { key = 't',      mods = 'CTRL|SHIFT',   action = act.SpawnTab('CurrentPaneDomain') },
-    { key = 'w',      mods = 'CTRL|SHIFT',   action = act.CloseCurrentTab { confirm = false } },
-    { key = '1',      mods = 'META',         action = act.ActivateTab(0) },
-    { key = '2',      mods = 'META',         action = act.ActivateTab(1) },
-    { key = '3',      mods = 'META',         action = act.ActivateTab(2) },
-    --- panel
-    { key = 's',      mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
-    { key = 'v',      mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-    { key = 'z',      mods = 'LEADER|CTRL',  action = act.SendKey { key = 'z', mods = 'CTRL' } },
+    { key = 'n',      mods = 'SUPER', action = act.SpawnWindow },
+    { key = 't',      mods = 'SUPER', action = act.SpawnTab('CurrentPaneDomain') },
+    { key = 'w',      mods = 'SUPER', action = act.CloseCurrentTab { confirm = false } },
+    { key = '1',      mods = 'SUPER', action = act.ActivateTab(0) },
+    { key = '2',      mods = 'SUPER', action = act.ActivateTab(1) },
+    { key = '3',      mods = 'SUPER', action = act.ActivateTab(2) },
+    -- --- panel
+    -- { key = 's',      mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
+    -- { key = 'v',      mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+    { key = 'z',      mods = 'CTRL',  action = act.SendKey { key = 'z', mods = 'CTRL' } },
 }
 --config.disable_default_mouse_bindings = true
 config.mouse_bindings = {
@@ -79,5 +77,5 @@ config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
 config.window_padding = { left = 0, right = 15, top = 0, bottom = 0 }
 config.enable_scroll_bar = true
 
-
+config.automatically_reload_config = true
 return config
