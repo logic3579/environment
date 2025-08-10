@@ -51,7 +51,7 @@ install: dependencies ## Dependencies check and install all package
 	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
 	@echo "##### Install package end   #####"
 
-configure: ## Configure Neovim, Tmux, Vim, WezTerm
+xdg-configure: ## Configure Neovim, Tmux, Vim, WezTerm
 	@echo "##### Configure start #####"
 	@echo ">>> Neovim"
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
@@ -64,6 +64,8 @@ configure: ## Configure Neovim, Tmux, Vim, WezTerm
 	vim +PluginInstall +qall;
 	@echo ">>> WezTerm"
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
+	@echo ">>> ghostty"
+	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
 	@echo "##### Configure end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bachrc
