@@ -48,22 +48,24 @@ config.disable_default_key_bindings = true
 local act = wezterm.action
 config.keys = {
     -- global
-    { key = 'o',      mods = 'CTRL|SHIFT', action = act.ShowLauncher },
-    { key = 'Enter',  mods = 'SUPER',      action = act.ToggleFullScreen },
-    { key = 'c',      mods = 'SUPER',      action = act.CopyTo('Clipboard') },
-    { key = 'v',      mods = 'SUPER',      action = act.PasteFrom('Clipboard') },
-    { key = 'Insert', mods = 'SHIFT',      action = act.PasteFrom('Clipboard') },
+    { key = 'o',          mods = 'CTRL|SHIFT', action = act.ShowLauncher },
+    { key = 'Enter',      mods = 'SUPER',      action = act.ToggleFullScreen },
+    { key = 'c',          mods = 'SUPER',      action = act.CopyTo('Clipboard') },
+    { key = 'v',          mods = 'SUPER',      action = act.PasteFrom('Clipboard') },
+    { key = 'Insert',     mods = 'SHIFT',      action = act.PasteFrom('Clipboard') },
     -- tab manage
-    { key = 'n',      mods = 'SUPER',      action = act.SpawnWindow },
-    { key = 't',      mods = 'SUPER',      action = act.SpawnTab('CurrentPaneDomain') },
-    { key = 'w',      mods = 'SUPER',      action = act.CloseCurrentTab { confirm = false } },
-    { key = '1',      mods = 'SUPER',      action = act.ActivateTab(0) },
-    { key = '2',      mods = 'SUPER',      action = act.ActivateTab(1) },
-    { key = '3',      mods = 'SUPER',      action = act.ActivateTab(2) },
+    { key = 'n',          mods = 'SUPER',      action = act.SpawnWindow },
+    { key = 't',          mods = 'SUPER',      action = act.SpawnTab('CurrentPaneDomain') },
+    { key = 'w',          mods = 'SUPER',      action = act.CloseCurrentTab { confirm = false } },
+    { key = '1',          mods = 'SUPER',      action = act.ActivateTab(0) },
+    { key = '2',          mods = 'SUPER',      action = act.ActivateTab(1) },
+    { key = '3',          mods = 'SUPER',      action = act.ActivateTab(2) },
     -- --- panel
     -- { key = 's',      mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
     -- { key = 'v',      mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
-    { key = 'z',      mods = 'CTRL',       action = act.SendKey { key = 'z', mods = 'CTRL' } },
+    { key = "LeftArrow",  mods = "ALT",        action = act.SendString "\x1bb" },
+    { key = "RightArrow", mods = "ALT",        action = act.SendString "\x1bf" },
+    { key = 'z',          mods = 'CTRL',       action = act.SendKey { key = 'z', mods = 'CTRL' } },
 }
 --config.disable_default_mouse_bindings = true
 config.mouse_bindings = {
