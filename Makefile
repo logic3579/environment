@@ -32,7 +32,7 @@ endif
 
 
 .PHONY: all application clean install test
-all: test install configure clean ## Test, install and configure.
+all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
 	@echo "##### Dependencies check start #####"
@@ -46,12 +46,12 @@ dependencies:
 	fi
 	@echo "##### Dependencies check end   #####"
 
-install: dependencies ## Dependencies check and install all package
+install: dependencies ## Dependencies check and install all package.
 	@echo "##### Install package start #####"
 	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
 	@echo "##### Install package end   #####"
 
-xdg-configure: ## Configure Neovim, Tmux, Vim, WezTerm
+xdg_config: ## Link configure to XDG_CONFIG directory.
 	@echo "##### Configure start #####"
 	@echo ">>> Neovim"
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
