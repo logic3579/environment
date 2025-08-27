@@ -89,7 +89,7 @@ main() {
     RX=$(format_speed $RBPS)
     TX=$(format_speed $TBPS)
 
-    echo "↓$RX ↑$TX"
+    echo "↑$TX ↓$RX"
 }
 
 main

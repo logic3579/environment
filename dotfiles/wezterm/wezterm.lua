@@ -3,8 +3,8 @@ local config = {}
 
 -- Operation system
 local is_windows = wezterm.target_triple:find('windows') ~= nil
-local is_linux = wezterm.target_triple:find('linux') ~= nil
-local is_mac = wezterm.target_triple:find('darwin') ~= nil
+-- local is_linux = wezterm.target_triple:find('linux') ~= nil
+-- local is_mac = wezterm.target_triple:find('darwin') ~= nil
 
 -- Colors & Appearance
 config.colors = {
