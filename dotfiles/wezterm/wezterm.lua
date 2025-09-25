@@ -19,9 +19,9 @@ config.window_frame = {
 -- Lauching Programs
 config.default_cwd = '~'
 if is_windows then
-    config.default_prog = { '/d/Software/Git/bin/bash', '--login' }
+    config.default_prog = { 'D:\\Software\\Git\\bin\\bash', '--login' }
     config.launch_menu = {
-        { label = 'Bash', args = { '/d/Software/Git/bin/bash', '--login' } },
+        { label = 'Bash', args = { 'D:\\Software\\Git\\bin\\bash', '--login' } },
     }
 else
     config.default_prog = { 'zsh', '--login' }
