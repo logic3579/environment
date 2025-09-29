@@ -57,6 +57,7 @@ config.keys = {
     { key = 'n',          mods = 'SUPER',      action = act.SpawnWindow },
     { key = 't',          mods = 'SUPER',      action = act.SpawnTab('CurrentPaneDomain') },
     { key = 'w',          mods = 'SUPER',      action = act.CloseCurrentTab { confirm = false } },
+    { key = 'Tab',        mods = 'CTRL',       action = act.ActivateTabRelative(1) },
     { key = '1',          mods = 'SUPER',      action = act.ActivateTab(0) },
     { key = '2',          mods = 'SUPER',      action = act.ActivateTab(1) },
     { key = '3',          mods = 'SUPER',      action = act.ActivateTab(2) },
