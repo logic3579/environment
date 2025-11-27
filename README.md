@@ -9,11 +9,9 @@ icon: bullseye-arrow
 
 Use Makefile to init environment and install application.
 
-Application config record.
+Application / Extension configuration backup.
 
-## How To Use
-
-### Using Makefile
+## Using Makefile
 
 Help info `make help`.
 
@@ -21,54 +19,29 @@ Help info `make help`.
 $ make help
 ```
 
-### Application Config
-
-#### iTerm2
+## Application Config
 
 ```console
-# Profiles
-appfiles/iterm2/iterm2Profile.json
-
-# Profiles -> Colors-> Color Present
-appfiles/iterm2/Solarized_Darcula.itermcolors
-appfiles/iterm2/HaX0R_GR33N.itermcolors
-```
-
-#### Raycast
-
-```console
-# Settings
-appfiles/raycast.rayconfig
-```
-
-#### sublime-text
-
-```console
-# Settings
-appfiles/Preferences.sublime-settings
-```
-
-#### SecureCRT
-
-```console
-# Settings
-appfiles/SecureCRT.xml
-```
-
-#### Visual Studio Code
-
-```console
-# Settings
+# Visual Studio Code
 appfiles/vscode.code-profile
+
+# Raycast
+appfiles/raycast.rayconfig
+
+# Sublime Text
+appfiles/Preferences.sublime-settings
+
+# SecureCRT
+appfiles/SecureCRT.xml
+
 ```
 
 > Reference:
 >
 > 1. [HomeBrew Official Website](https://brew.sh)
 > 2. [中科大镜像](https://mirrors.ustc.edu.cn/help/brew.git.html)
-> 3. [iterm2colors](https://iterm2colorschemes.com/)
-> 4. [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
-> 5. [oh-my-bash](https://github.com/ohmybash/oh-my-bash)
-> 6. [Vim Awesome](https://vimawesome.com/)
-> 7. [Neovim Awesome](https://github.com/rockerBOO/awesome-neovim)
-> 8. [Nerd Fonts](https://www.nerdfonts.com/)
+> 3. [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
+> 4. [oh-my-bash](https://github.com/ohmybash/oh-my-bash)
+> 5. [Vim Awesome](https://vimawesome.com/)
+> 6. [Neovim Awesome](https://github.com/rockerBOO/awesome-neovim)
+> 7. [Nerd Fonts](https://www.nerdfonts.com/)
