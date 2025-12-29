@@ -52,37 +52,37 @@ install: dependencies ## Dependencies check and install all package.
 	@echo "##### Install package end   #####"
 
 xdg_config: ## Link configure to XDG_CONFIG directory.
-	@echo "##### Configure start #####"
+	@echo "##### Initialize xdg_config start #####"
+	@echo ">>> Tmux"
+	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
 	@echo ">>> Neovim"
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
 	nvim +Lazy +qall;
-	@echo ">>> Tmux"
-	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
 	@echo ">>> Vim"
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Path already exists"; \
+	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Vundle.vim path already exists"; \
 	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim; \
 	vim +PluginInstall +qall;
 	@echo ">>> WezTerm"
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo ">>> ghostty"
 	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
-	@echo "##### Configure end   #####"
+	@echo "##### Initialize xdg_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bachrc
-	@echo "##### Bash env start #####"
-	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash is exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
+	@echo "##### Initialize oh-my-bash start #####"
+	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash has already exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc; \
 	source $(HOME)/.bashrc
-	@echo "##### Bash env end   #####"
+	@echo "##### Initialize oh-my-bash end   #####"
 
 zsh: ## Install oh-my-zsh and link ~/.zshrc
-	@echo "##### Zsh env start #####"
-	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh is exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
+	@echo "##### Initialize oh-my-zsh start #####"
+	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh has already exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
 	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc; \
 	source $(HOME)/.zshrc
-	@echo "##### Zsh env end   #####"
+	@echo "##### Initialize oh-my-zsh end   #####"
 
 test: ## Run the tests
 	@echo "##### Test start #####"

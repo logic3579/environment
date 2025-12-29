@@ -25,8 +25,8 @@ annotation
 #####
 
 # Env PATH
-HOMEBREW_PATH=/opt/homebrew/bin
-export PATH="$PATH:${HOMEBREW_PATH}"
+eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon Mac
+# eval "$(/usr/local/bin/brew shellenv)" # Intel Mac
 alias setbrew="
 export HOMEBREW_BREW_GIT_REMOTE=https://mirrors.ustc.edu.cn/brew.git
 export HOMEBREW_CORE_GIT_REMOTE=https://mirrors.ustc.edu.cn/homebrew-core.git
@@ -48,6 +48,7 @@ ZSH_THEME="agnoster"
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 plugins=(
+  brew
   git
   zsh-autosuggestions
   zsh-syntax-highlighting
