@@ -70,7 +70,7 @@ format_speed() {
 # 主逻辑
 main() {
     INTERFACE=$(get_interface)
-    
+
     # 第一次读取
     read R1 T1 <<< $(get_bytes $INTERFACE)
     sleep $INTERVAL
@@ -89,7 +89,7 @@ main() {
     RX=$(format_speed $RBPS)
     TX=$(format_speed $TBPS)
 
-    echo "↑$TX ↓$RX"
+    echo "↓$RX ↑$TX"
 }
 
 main
