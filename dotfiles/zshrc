@@ -60,14 +60,14 @@ alias unsetproxy="unset {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}"
 
 
 # Zsh PATH & CLI Tools Configuration
-## Enable completion system
-autoload -Uz compinit
-compinit
+
 # -------------------------
 ## Go
 # -------------------------
 GO_BIN="$HOME/go/bin"
 [[ ":$PATH:" != *":$GO_BIN:"* ]] && export PATH="$GO_BIN:$PATH"
+
+# -------------------------
 ## Python / pyenv
 # -------------------------
 if command -v pyenv &>/dev/null; then
@@ -76,6 +76,7 @@ if command -v pyenv &>/dev/null; then
     eval "$(pyenv init --path)"
     eval "$(pyenv init -)"
 fi
+
 # -------------------------
 ## Node / NVM
 # -------------------------
@@ -84,26 +85,39 @@ export NVM_DIR="$HOME/.nvm"
 #[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# -------------------------
+## Java
+# -------------------------
+JAVA_BIN="/opt/homebrew/opt/openjdk/bin"
+[[ ":$PATH:" != *":$JAVA_BIN:"* ]] && export PATH="$JAVA_BIN:$PATH"
+
+# -------------------------
+## Enable completion system
+# -------------------------
+autoload -Uz compinit
+compinit
+
 # -------------------------
 ## Kubectl
 # -------------------------
-#KUBECTL_BIN="$HOME/bin/kubectl"
-#[[ ":$PATH:" != *":$KUBECTL_BIN:"* ]] && export PATH="$KUBECTL_BIN:$PATH"
 if command -v kubectl &>/dev/null; then
     source <(kubectl completion zsh)
     alias k=kubectl
     compdef k=kubectl
 fi
+
 # -------------------------
 ## Helm
 # -------------------------
-#HELM_BIN="$HOME/bin/helm"
-#[[ ":$PATH:" != *":$HELM_BIN:"* ]] && export PATH="$HELM_BIN:$PATH"
 if command -v helm &>/dev/null; then
     source <(helm completion zsh)
     alias h=helm
     compdef h=helm
 fi
+
+# -------------------------
 ## gcloud
+# -------------------------
 GCLOUD_BIN="/opt/homebrew/share/google-cloud-sdk/bin"
 [[ ":$PATH:" != *":$GCLOUD_BIN:"* ]] && export PATH="$GCLOUD_BIN:$PATH"
