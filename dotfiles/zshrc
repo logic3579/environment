@@ -121,3 +121,11 @@ fi
 # -------------------------
 GCLOUD_BIN="/opt/homebrew/share/google-cloud-sdk/bin"
 [[ ":$PATH:" != *":$GCLOUD_BIN:"* ]] && export PATH="$GCLOUD_BIN:$PATH"
+
+# -------------------------
+## Database cli
+# -------------------------
+MYSQL_BIN="/opt/homebrew/opt/mysql-client@8.0/bin"
+[[ ":$PATH:" != *":$MYSQL_BIN:"* ]] && export PATH="$MYSQL_BIN:$PATH"
+POSTGRESQL_BIN="/opt/homebrew/opt/libpq/bin"
+[[ ":$PATH:" != *":$POSTGRESQL_BIN:"* ]] && export PATH="$POSTGRESQL_BIN:$PATH"
