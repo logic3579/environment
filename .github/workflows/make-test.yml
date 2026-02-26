@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Make step
+        uses: actions/checkout@v4
+      - name: Make test
         run: make test
         shell: bash
+      - name: ShellCheck
+        run: |
+          sudo apt-get install -y shellcheck
+          shellcheck scripts/*.sh

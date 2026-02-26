@@ -16,7 +16,7 @@ config.window_frame = {
     font = wezterm.font 'MesloLGLDZ Nerd Font',
 }
 
--- Lauching Programs
+-- Launching Programs
 config.default_cwd = '~'
 if is_windows then
     config.default_prog = { 'D:\\Software\\Git\\bin\\bash', '--login' }

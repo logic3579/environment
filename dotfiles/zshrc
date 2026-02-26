@@ -56,7 +56,8 @@ brew update
 "
 alias unsetbrew="unset HOMEBREW_API_DOMAIN HOMEBREW_BOTTLE_DOMAIN HOMEBREW_BREW_GIT_REMOTE HOMEBREW_CORE_GIT_REMOTE; brew update"
 alias setproxy="export {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}=socks5://127.0.0.1:1080"
-alias unsetproxy="unset {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}"
+#alias setproxy="export {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY,http_proxy,https_proxy}=http://127.0.0.1:1080"
+alias unsetproxy="unset {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY,http_proxy,https_proxy}"
 
 
 # Zsh PATH & CLI Tools Configuration
@@ -91,12 +92,6 @@ export NVM_DIR="$HOME/.nvm"
 # -------------------------
 JAVA_BIN="/opt/homebrew/opt/openjdk/bin"
 [[ ":$PATH:" != *":$JAVA_BIN:"* ]] && export PATH="$JAVA_BIN:$PATH"
-
-# -------------------------
-## Enable completion system
-# -------------------------
-autoload -Uz compinit
-compinit
 
 # -------------------------
 ## Kubectl

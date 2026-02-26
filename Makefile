@@ -2,7 +2,7 @@ MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
-DATE = $(shell DATE)
+DATE = $(shell date)
 SHELL := /bin/bash
 
 
@@ -25,13 +25,13 @@ ifeq ($(OS_NAME), Linux)
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME), Darwin)
-    PACKAGE_CMD := brew bundle
+    PACKAGE_CMD := brew bundle --file=$(CURDIR)/Brewfile
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
 
 
-.PHONY: all application clean install test
+.PHONY: all application clean install test dependencies xdg_config bash zsh
 all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
@@ -57,7 +57,7 @@ xdg_config: ## Link configure to XDG_CONFIG directory.
 	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
 	@echo ">>> Neovim"
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
-	nvim +Lazy +qall;
+	nvim --headless +Lazy +qall;
 	@echo ">>> Vim"
 	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Vundle.vim path already exists"; \
 	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim; \
@@ -68,21 +68,21 @@ xdg_config: ## Link configure to XDG_CONFIG directory.
 	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
 	@echo "##### Initialize xdg_config end   #####"
 
-bash: ## Install oh-my-bash and link ~/.bachrc
+bash: ## Install oh-my-bash and link ~/.bashrc
 	@echo "##### Initialize oh-my-bash start #####"
 	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash has already exists" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
-	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc; \
-	source $(HOME)/.bashrc
+	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc
 	@echo "##### Initialize oh-my-bash end   #####"
+	@echo ">>> Please run 'source ~/.bashrc' to apply changes."
 
 zsh: ## Install oh-my-zsh and link ~/.zshrc
 	@echo "##### Initialize oh-my-zsh start #####"
 	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh has already exists" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
-	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc; \
-	source $(HOME)/.zshrc
+	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc
 	@echo "##### Initialize oh-my-zsh end   #####"
+	@echo ">>> Please run 'source ~/.zshrc' to apply changes."
 
 test: ## Run the tests
 	@echo "##### Test start #####"
@@ -95,9 +95,9 @@ test: ## Run the tests
 	@echo APP_NAME is $(APP_NAME)
 	@echo "##### Test end   #####"
 
-clean:
+clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@echo "##### Clean start #####"
-	echo "cleaning step"
+	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
 
 
