@@ -3,7 +3,7 @@ description: Environment init and install application.
 icon: bullseye-arrow
 ---
 
-# Overview
+# Environment
 
 [![make-test](https://github.com/logic3579/environment/actions/workflows/make-test.yml/badge.svg)](https://github.com/logic3579/environment/actions/workflows/make-test.yml)
 
@@ -23,10 +23,10 @@ $ make help
 
 ```console
 # Visual Studio Code
-appfiles/vscode.code-profile
+appfiles/vscode.settings.json
 
 # Raycast
-appfiles/raycast.rayconfig
+appfiles/Raycast.rayconfig
 
 # Sublime Text
 appfiles/Preferences.sublime-settings
@@ -34,6 +34,8 @@ appfiles/Preferences.sublime-settings
 # SecureCRT
 appfiles/SecureCRT.xml
 
+# ZeroOmega (Proxy Extension)
+appfiles/ZeroOmegaOptions.bak
 ```
 
 > Reference:

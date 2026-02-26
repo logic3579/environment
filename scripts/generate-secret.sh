@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Help info
 ### SCRIPT: generate_secret.sh
 ###
 ### DESCRIPTION:
@@ -15,7 +14,7 @@
 ###   ./generate_secret.sh 32      # Generate a 32-character password
 
 # Displays help information extracted from the header of this script.
-function show_help() {
+show_help() {
   # Use perl or sed to extract lines starting with '### '
   perl -ne 'print if s/^### ?//' "$0" || \
   sed -rn 's/^### ?//;T;p;' "$0"
@@ -23,15 +22,15 @@ function show_help() {
 }
 
 # Logging functions for standardized output.
-function log_info() {
+log_info() {
   local message="$@"
   echo "[INFO] $message"
 }
-function log_warning() {
+log_warning() {
   local message="$@"
   echo "[WARNING] $message" >&2
 }
-function die_exit() {
+die_exit() {
   local message="$@"
   echo "[ERROR] $message" 1>&2
   exit 111
@@ -39,7 +38,7 @@ function die_exit() {
 
 # Core logic to generate the password and hash, then print the results.
 # It accepts the desired length as an argument.
-function generate_and_print_secret() {
+generate_and_print_secret() {
   local length=$1
 
   # Generate random bytes from /dev/urandom, encode them with base64,

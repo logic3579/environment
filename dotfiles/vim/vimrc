@@ -70,7 +70,7 @@ endfunc
 map <F3> :call SetComment()<CR>j<CR>O
 " F4 wrap lines on | off
 nnoremap <F4> :set wrap! wrap?<CR>
-" F5 paste mode on, disbale paste mode when leaving insert mode
+" F5 paste mode on, disable paste mode when leaving insert mode
 set pastetoggle=<F5>
 au InsertLeave * set nopaste
 function! XTermPasteBegin()

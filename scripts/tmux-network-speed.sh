@@ -1,27 +1,27 @@
 #!/bin/bash
 
-# 设置默认间隔时间（秒）
+# Default interval in seconds
 INTERVAL=${1:-3}
 
-# 检测操作系统类型
+# Detect operating system
 OS="$(uname -s)"
 
-# 获取默认网络接口
+# Get default network interface
 get_interface() {
     case $OS in
         "Darwin") # macOS
             INTERFACE=$(netstat -rn | grep default | head -n1 | awk '{print $NF}')
-            # 如果没找到，使用 en0
+            # Fallback to en0 if not found
             if [ -z "$INTERFACE" ]; then
                 INTERFACE="en0"
             fi
             ;;
         "Linux")
-            # 尝试使用 ip 命令
+            # Try using ip command
             if command -v ip >/dev/null 2>&1; then
                 INTERFACE=$(ip route | grep default | cut -d' ' -f5)
             else
-                # 回退到检查常用接口
+                # Fallback to common interfaces
                 for iface in eth0 wlan0 ens33 enp0s3; do
                     if [ -e "/sys/class/net/$iface" ]; then
                         INTERFACE=$iface
@@ -40,7 +40,7 @@ get_interface() {
     echo $INTERFACE
 }
 
-# 获取接口流量数据
+# Get interface traffic bytes
 get_bytes() {
     INTERFACE=$1
     case $OS in
@@ -55,7 +55,7 @@ get_bytes() {
     esac
 }
 
-# 格式化速率显示
+# Format speed for display
 format_speed() {
     local bytes=$1
     if [ $bytes -gt 1048576 ]; then
@@ -67,25 +67,25 @@ format_speed() {
     fi
 }
 
-# 主逻辑
+# Main logic
 main() {
     INTERFACE=$(get_interface)
 
-    # 第一次读取
+    # First read
     read R1 T1 <<< $(get_bytes $INTERFACE)
     sleep $INTERVAL
-    # 第二次读取
+    # Second read
     read R2 T2 <<< $(get_bytes $INTERFACE)
 
-    # 计算速率
+    # Calculate speed
     RBPS=$(( $R2 - $R1 ))
     TBPS=$(( $T2 - $T1 ))
 
-    # 确保值非负
+    # Ensure non-negative values
     [ $RBPS -lt 0 ] && RBPS=0
     [ $TBPS -lt 0 ] && TBPS=0
 
-    # 格式化显示
+    # Format output
     RX=$(format_speed $RBPS)
     TX=$(format_speed $TBPS)
 

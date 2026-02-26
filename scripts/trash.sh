@@ -15,7 +15,7 @@
 
 set -euo pipefail
 
-function show_help() {
+show_help() {
   perl -ne 'print if s/^### ?//' "$0" || \
   sed -rn 's/^### ?//;T;p;' "$0"
   exit 0
