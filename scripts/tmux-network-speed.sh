@@ -37,7 +37,7 @@ get_interface() {
         exit 1
     fi
 
-    echo $INTERFACE
+    echo "$INTERFACE"
 }
 
 # Get interface traffic bytes
@@ -45,11 +45,11 @@ get_bytes() {
     INTERFACE=$1
     case $OS in
         "Darwin")
-            netstat -I $INTERFACE -b | tail -n1 | awk '{print $7" "$10}'
+            netstat -I "$INTERFACE" -b | tail -n1 | awk '{print $7" "$10}'
             ;;
         "Linux")
-            rx=$(cat /sys/class/net/$INTERFACE/statistics/rx_bytes)
-            tx=$(cat /sys/class/net/$INTERFACE/statistics/tx_bytes)
+            rx=$(cat "/sys/class/net/$INTERFACE/statistics/rx_bytes")
+            tx=$(cat "/sys/class/net/$INTERFACE/statistics/tx_bytes")
             echo "$rx $tx"
             ;;
     esac
@@ -58,9 +58,9 @@ get_bytes() {
 # Format speed for display
 format_speed() {
     local bytes=$1
-    if [ $bytes -gt 1048576 ]; then
+    if [ "$bytes" -gt 1048576 ]; then
         echo "$(echo "scale=1; $bytes/1048576" | bc)MB/s"
-    elif [ $bytes -gt 1024 ]; then
+    elif [ "$bytes" -gt 1024 ]; then
         echo "$(echo "scale=1; $bytes/1024" | bc)KB/s"
     else
         echo "${bytes}B/s"
@@ -72,22 +72,22 @@ main() {
     INTERFACE=$(get_interface)
 
     # First read
-    read R1 T1 <<< $(get_bytes $INTERFACE)
-    sleep $INTERVAL
+    read -r R1 T1 <<< "$(get_bytes "$INTERFACE")"
+    sleep "$INTERVAL"
     # Second read
-    read R2 T2 <<< $(get_bytes $INTERFACE)
+    read -r R2 T2 <<< "$(get_bytes "$INTERFACE")"
 
     # Calculate speed
-    RBPS=$(( $R2 - $R1 ))
-    TBPS=$(( $T2 - $T1 ))
+    RBPS=$(( R2 - R1 ))
+    TBPS=$(( T2 - T1 ))
 
     # Ensure non-negative values
-    [ $RBPS -lt 0 ] && RBPS=0
-    [ $TBPS -lt 0 ] && TBPS=0
+    [ "$RBPS" -lt 0 ] && RBPS=0
+    [ "$TBPS" -lt 0 ] && TBPS=0
 
     # Format output
-    RX=$(format_speed $RBPS)
-    TX=$(format_speed $TBPS)
+    RX=$(format_speed "$RBPS")
+    TX=$(format_speed "$TBPS")
 
     echo "↓$RX ↑$TX"
 }

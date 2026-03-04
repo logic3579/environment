@@ -1,5 +1,6 @@
 tap "hashicorp/tap"
 tap "oven-sh/bun"
+brew "gh"
 brew "go"
 brew "neovim"
 brew "nvm"

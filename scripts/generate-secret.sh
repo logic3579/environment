@@ -21,35 +21,20 @@ show_help() {
   exit 0
 }
 
-# Logging functions for standardized output.
-log_info() {
-  local message="$@"
-  echo "[INFO] $message"
-}
+# Logging function for standardized output.
 log_warning() {
-  local message="$@"
-  echo "[WARNING] $message" >&2
-}
-die_exit() {
-  local message="$@"
-  echo "[ERROR] $message" 1>&2
-  exit 111
+  echo "[WARNING] $*" >&2
 }
 
 # Core logic to generate the password and hash, then print the results.
-# It accepts the desired length as an argument.
 generate_and_print_secret() {
   local length=$1
 
-  # Generate random bytes from /dev/urandom, encode them with base64,
-  # and trim to the desired length. This is a reliable method for
-  # generating secure random passwords.
-  local password=$(base64 < /dev/urandom | head -c "$length")
+  local password
+  password=$(base64 < /dev/urandom | head -c "$length")
 
-  # Generate the SHA256 hash of the password.
-  # Use 'echo -n' to prevent a trailing newline from being included in the hash.
-  # Use 'awk '{print $1}'' to precisely extract the hash string.
-  local hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
+  local hash
+  hash=$(echo -n "$password" | sha256sum | awk '{print $1}')
 
   # --- Output Results ---
   echo "-------------------------"
