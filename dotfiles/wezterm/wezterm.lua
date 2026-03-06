@@ -61,6 +61,8 @@ config.keys = {
     { key = '1',          mods = 'SUPER',      action = act.ActivateTab(0) },
     { key = '2',          mods = 'SUPER',      action = act.ActivateTab(1) },
     { key = '3',          mods = 'SUPER',      action = act.ActivateTab(2) },
+    { key = '4',          mods = 'SUPER',      action = act.ActivateTab(3) },
+    { key = '5',          mods = 'SUPER',      action = act.ActivateTab(4) },
     -- --- panel
     -- { key = 's',      mods = 'LEADER|SHIFT', action = act.SplitVertical { domain = 'CurrentPaneDomain' } },
     -- { key = 'v',      mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
