@@ -65,7 +65,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon Mac
 # eval "$(/usr/local/bin/brew shellenv)" # Intel Mac
 
 # -------------------------
-# Go
+# Golang
 # -------------------------
 GO_BIN="$HOME/go/bin"
 [[ ":$PATH:" != *":$GO_BIN:"* ]] && export PATH="$GO_BIN:$PATH"
@@ -79,7 +79,7 @@ GO_BIN="$HOME/go/bin"
 # uv pip install <pkg>     — install packages (10-100x faster than pip)
 
 # -------------------------
-# Node / NVM
+# NodeJS / NVM
 # -------------------------
 export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
