@@ -66,6 +66,8 @@ xdg_config: ## Link configure to XDG_CONFIG directory.
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo ">>> Ghostty"
 	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
+	@echo ">>> OpenCode"
+	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json;
 	@echo "##### Initialize xdg_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bashrc
