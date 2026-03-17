@@ -1,0 +1,14 @@
+{
+  "alwaysThinkingEnabled": true,
+  "enabledPlugins": {
+    "commit-commands@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "hashicorp": {
+      "source": {
+        "source": "github",
+        "repo": "hashicorp/agent-skills"
+      }
+    }
+  }
+}
