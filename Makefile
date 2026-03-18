@@ -31,7 +31,7 @@ else
 endif
 
 
-.PHONY: all application clean install test dependencies xdg_config bash zsh
+.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config
 all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
@@ -66,9 +66,6 @@ xdg_config: ## Link configure to XDG_CONFIG directory.
 	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
 	@echo ">>> Ghostty"
 	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
-	@echo ">>> OpenCode"
-	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json;
-	ln -svF $(DOTFILES)/opencode/oh-my-opencode.json $(HOME)/.config/opencode/oh-my-opencode.json;
 	@echo "##### Initialize xdg_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bashrc
@@ -102,6 +99,18 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@echo "##### Clean start #####"
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
+
+coding_agent_config: ## Install AI configs (claude + codex) with CLAUDE_MODEL parameters
+	@echo "##### Install coding agent config start #####"
+	@echo ">>> claude-code"
+	@if [ -n "$(CLAUDE_MODEL)" ]; then \
+		cp -vf $(DOTFILES)/claude/settings.json.$(CLAUDE_MODEL) $(HOME)/.claude/settings.json; \
+	else \
+		cp -vf $(DOTFILES)/claude/settings.json.claude $(HOME)/.claude/settings.json; \
+	fi
+	@echo ">>> codex"
+	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml;
+	@echo "##### Install coding agent config end   #####"
 
 
 .PHONY: help

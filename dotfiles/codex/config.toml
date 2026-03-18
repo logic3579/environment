@@ -1,0 +1,23 @@
+model = "gpt-5.4"
+
+[notice.model_migrations]
+"gpt-5.3-codex" = "gpt-5.4"
+
+[model_providers.minimax]
+name = "MiniMax Chat Completions API"
+base_url = "https://api.minimaxi.com/v1"
+env_key = "MINIMAX_API_KEY"
+wire_api = "responses"
+requires_openai_auth = false
+request_max_retries = 4
+stream_max_retries = 10
+stream_idle_timeout_ms = 300000
+
+[profiles.minimax]
+model = "codex-MiniMax-M2.7"
+model_provider = "minimax"
+
+[projects."/Users/logic/Projects/automation"]
+trust_level = "trusted"
+#export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
+#codex --profile minimax

@@ -4,21 +4,21 @@
     "commit-commands@claude-plugins-official": true
   },
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "sk-cp-1Nnms4FA6Ggsnk4xco8WEo1dx0KGizc8wwaldCcg1pnmtUWpfSFQGf_oxiyYOOK54NLqlOCPGeKfv-LpJEYiFdaNnfbYtRXH_7fS366-VLFF2wN-n5OWEFM",
+    "ANTHROPIC_AUTH_TOKEN": "MINIMAX_API_KEY",
     "ANTHROPIC_BASE_URL": "https://api.minimaxi.com/anthropic",
-    "ANTHROPIC_SMALL_FAST_MODEL": "MiniMax-M2.5",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.5",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.5",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.5-highspeed",
-    "ANTHROPIC_MODEL": "MiniMax-M2.5-highspeed",
+    "ANTHROPIC_SMALL_FAST_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "MiniMax-M2.7",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "MiniMax-M2.7-highspeed",
+    "ANTHROPIC_MODEL": "MiniMax-M2.7-highspeed",
     "API_TIMEOUT_MS": "3000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": 1
   },
   "extraKnownMarketplaces": {
     "hashicorp": {
       "source": {
-        "repo": "hashicorp/agent-skills",
-        "source": "github"
+        "source": "github",
+        "repo": "hashicorp/agent-skills"
       }
     }
   },

@@ -17,6 +17,10 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── vim/vimrc            # Vim config (Vundle)
 │   ├── wezterm/wezterm.lua  # WezTerm terminal config
 │   ├── ghostty/config       # Ghostty terminal config
+│   ├── codex/                # Codex CLI config
+│   │   └── config.toml
+│   ├── claude/              # Claude Code config
+│   │   └── settings.json.*
 │   ├── zshrc                # Zsh config (oh-my-zsh)
 │   └── bashrc               # Bash config (oh-my-bash)
 ├── appfiles/                # Application config backups
@@ -44,9 +48,16 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make install` — Install all packages (depends on `dependencies`)
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
 - `make bash` / `make zsh` — Install shell framework and link rc file
+- `make coding_agent_config` — Install AI configs (claude + codex) to `~/.claude/` and `~/.codex/`
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions
+
+### Coding Agent Config
+- Claude Code config: `~/.claude/settings.json` (copied from `dotfiles/claude/settings.json.<model>`)
+- Codex config: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
+- Supported models: `claude`, `minimax`, `glm`
+- Usage: `make coding_agent_config CLAUDE_MODEL=minimax`
 
 ### Two Brewfile Strategy
 - `Brewfile` — Default environment packages
