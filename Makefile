@@ -106,7 +106,7 @@ coding_agent_config: ## Install AI configs (claude + codex) with CLAUDE_MODEL pa
 	@if [ -n "$(CLAUDE_MODEL)" ]; then \
 		cp -vf $(DOTFILES)/claude/settings.json.$(CLAUDE_MODEL) $(HOME)/.claude/settings.json; \
 	else \
-		cp -vf $(DOTFILES)/claude/settings.json.claude $(HOME)/.claude/settings.json; \
+		cp -vf $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json; \
 	fi
 	@echo ">>> codex"
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml;

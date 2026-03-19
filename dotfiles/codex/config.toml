@@ -17,7 +17,7 @@ stream_idle_timeout_ms = 300000
 model = "codex-MiniMax-M2.7"
 model_provider = "minimax"
 
-[projects."/Users/logic/Projects/automation"]
+[projects."/Users/logic/Projects/skills"]
 trust_level = "trusted"
 #export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
 #codex --profile minimax
