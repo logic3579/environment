@@ -1,5 +1,5 @@
 {
-  "alwaysThinkingEnabled": true,
+  "model": "opus[1m]",
   "enabledPlugins": {
     "commit-commands@claude-plugins-official": true
   },
@@ -10,5 +10,6 @@
         "repo": "hashicorp/agent-skills"
       }
     }
-  }
+  },
+  "alwaysThinkingEnabled": true
 }

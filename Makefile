@@ -100,16 +100,12 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
 
-coding_agent_config: ## Install AI configs (claude + codex) with CLAUDE_MODEL parameters
+coding_agent_config: ## Install AI configs (claude + codex)
 	@echo "##### Install coding agent config start #####"
 	@echo ">>> claude-code"
-	@if [ -n "$(CLAUDE_MODEL)" ]; then \
-		cp -vf $(DOTFILES)/claude/settings.json.$(CLAUDE_MODEL) $(HOME)/.claude/settings.json; \
-	else \
-		cp -vf $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json; \
-	fi
+	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
 	@echo ">>> codex"
-	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml;
+	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
 	@echo "##### Install coding agent config end   #####"
 
 

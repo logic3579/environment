@@ -54,10 +54,9 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make help` — Show targets with `##` descriptions
 
 ### Coding Agent Config
-- Claude Code config: `~/.claude/settings.json` (copied from `dotfiles/claude/settings.json.<model>`)
+- Claude Code config: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
 - Codex config: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
-- Supported models: `claude`, `minimax`, `glm`
-- Usage: `make coding_agent_config CLAUDE_MODEL=minimax`
+- Usage: `make coding_agent_config`
 
 ### Two Brewfile Strategy
 - `Brewfile` — Default environment packages
