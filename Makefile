@@ -106,6 +106,8 @@ coding_agent_config: ## Install AI configs (claude + codex)
 	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
 	@echo ">>> codex"
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
+	@echo ">>> gemini"
+	ln -svF $(DOTFILES)/gemini/settings.json $(HOME)/.gemini/settings.json
 	@echo "##### Install coding agent config end   #####"
 
 
