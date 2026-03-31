@@ -1,8 +1,6 @@
 {
   "model": "opus[1m]",
-  "enabledPlugins": {
-    "commit-commands@claude-plugins-official": true
-  },
+  "enabledPlugins": {},
   "extraKnownMarketplaces": {
     "hashicorp": {
       "source": {
