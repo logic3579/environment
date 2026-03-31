@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Default interval in seconds
 INTERVAL=${1:-3}
 
@@ -77,9 +79,9 @@ main() {
     # Second read
     read -r R2 T2 <<< "$(get_bytes "$INTERFACE")"
 
-    # Calculate speed
-    RBPS=$(( R2 - R1 ))
-    TBPS=$(( T2 - T1 ))
+    # Calculate speed (bytes per second)
+    RBPS=$(( (R2 - R1) / INTERVAL ))
+    TBPS=$(( (T2 - T1) / INTERVAL ))
 
     # Ensure non-negative values
     [ "$RBPS" -lt 0 ] && RBPS=0

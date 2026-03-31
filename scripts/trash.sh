@@ -27,6 +27,20 @@ fi
 
 OS="$(uname -s)"
 
+case "$OS" in
+  Darwin)
+    TRASH_DIR="$HOME/.Trash"
+    ;;
+  Linux)
+    TRASH_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/Trash/files"
+    mkdir -p "$TRASH_DIR"
+    ;;
+  *)
+    echo "[ERROR] Unsupported OS: $OS" >&2
+    exit 1
+    ;;
+esac
+
 for item in "$@"; do
   if [[ ! -e "$item" && ! -L "$item" ]]; then
     echo "[WARNING] '$item' does not exist, skipping." >&2
@@ -34,26 +48,11 @@ for item in "$@"; do
   fi
 
   basename="$(basename "$item")"
-  timestamp="$(date +%Y%m%d%H%M%S)"
-
-  case "$OS" in
-    Darwin)
-      TRASH_DIR="$HOME/.Trash"
-      ;;
-    Linux)
-      TRASH_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/Trash/files"
-      mkdir -p "$TRASH_DIR"
-      ;;
-    *)
-      echo "[ERROR] Unsupported OS: $OS" >&2
-      exit 1
-      ;;
-  esac
 
   # Append timestamp to avoid name collisions
   dest="$TRASH_DIR/$basename"
   if [[ -e "$dest" ]]; then
-    dest="$TRASH_DIR/${basename}.${timestamp}"
+    dest="$TRASH_DIR/${basename}.$(date +%Y%m%d%H%M%S)"
   fi
 
   mv "$item" "$dest"
