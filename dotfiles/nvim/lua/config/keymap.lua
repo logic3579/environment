@@ -34,8 +34,6 @@ map("n", "<leader><Esc>", "<cmd>nohlsearch<cr>")
 map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
 -- better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
 map("v", "<", "<gv", opts)
 map("v", ">", ">gv", opts)
 
@@ -57,8 +55,8 @@ map("n", "<leader>dqf", vim.diagnostic.setloclist, { desc = "Open diagnostics Qu
 -- tabs
 map("n", "<leader><tab>j", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 map("n", "<leader><tab>k", "<cmd>tablast<cr>", { desc = "Last Tab" })
-map("n", "<leader><tab>h", "<C-o>", { desc = "Previous Tab", remap = false })
-map("n", "<leader><tab>l", "<C-i>", { desc = "Next Tab", remap = false })
+map("n", "<leader><tab>h", "<C-o>", { desc = "Jump Back", remap = false })
+map("n", "<leader><tab>l", "<C-i>", { desc = "Jump Forward", remap = false })
 map("n", "<leader><tab>w", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 --map("n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 --map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })

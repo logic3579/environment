@@ -16,7 +16,6 @@ opt.expandtab = true                                    -- Use spaces instead of
 opt.foldlevel = 99
 opt.ignorecase = true
 opt.laststatus = 3        -- global statusline
-opt.lazyredraw = true
 opt.linebreak = true      -- Wrap lines at convenient points
 opt.list = true           -- Show some invisible characters (tabs...
 opt.mouse = "a"           -- Enable mouse mode

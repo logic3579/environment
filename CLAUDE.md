@@ -11,9 +11,11 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 ├── Brewfile-hk              # Homebrew packages (HK environment)
 ├── dotfiles/
 │   ├── tmux/tmux.conf       # tmux config (prefix: C-z)
-│   ├── nvim/                # Neovim config (LazyVim-based)
-│   │   ├── init.lua
-│   │   └── lua/{config,plugins}/
+│   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
+│   │   ├── init.lua         # Entry: loads config/* and bootstraps lazy.nvim
+│   │   └── lua/
+│   │       ├── config/      # Core config (option, keymap, autocmd, lib)
+│   │       └── plugins/     # Plugin specs (lazy.nvim format)
 │   ├── vim/vimrc            # Vim config (Vundle)
 │   ├── wezterm/wezterm.lua  # WezTerm terminal config
 │   ├── ghostty/config       # Ghostty terminal config
@@ -63,10 +65,52 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `Brewfile-hk` — HK environment packages (more DevOps tools: k8s, helm, argocd, etc.)
 - Shared packages exist in both files independently (no shared base file)
 
+### Neovim Config (`dotfiles/nvim/`)
+
+#### Architecture
+- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`)
+- **Leader key**: `<Space>`, local leader: `\`
+- **Color scheme**: solarized.nvim (transparent background enabled)
+- **Config loading order**: `init.lua` → `config/option.lua` → `config/keymap.lua` → `config/autocmd.lua` → `config/lib.lua` → `config/lazynvim.lua` (loads `plugins/`)
+
+#### Plugin Specs (`lua/plugins/`)
+| File | Plugins | Purpose |
+|---|---|---|
+| `colorschema.lua` | solarized.nvim | Solarized Dark theme with transparency |
+| `lsp.lua` | mason, mason-lspconfig, nvim-lspconfig | LSP management (handlers auto-setup pattern) |
+| `coding.lua` | conform.nvim, lazydev.nvim, nvim-autopairs, nvim-cmp + sources, LuaSnip | Formatting, completion, Lua dev |
+| `treesitter.lua` | nvim-treesitter, treesitter-textobjects, nvim-surround | Syntax highlighting, textobjects, surround |
+| `editor.lua` | telescope, nvim-tree, gitsigns, neogit + diffview, which-key | Navigation, file explorer, git, keybinding hints |
+| `ui.lua` | bufferline, lualine | Tabline and statusline |
+| `dap.lua` | nvim-dap, dap-ui, dap-virtual-text, mason-nvim-dap, dap-python, dap-go | Debugging (Python + Go) |
+| `util.lua` | auto-session | Session management |
+
+#### LSP Servers (via mason-lspconfig)
+`bashls`, `lua_ls`, `pylsp`, `gopls`, `marksman`
+
+#### Formatters (via conform.nvim, format-on-save)
+- Lua: `stylua` | Go: `goimports` + `gofmt` | Python: `isort` + `black`
+- Markdown/JSON/YAML: `prettier` | JavaScript: `prettierd`/`prettier`
+
+#### Treesitter Languages
+`bash`, `html`, `go`, `gomod`, `gowork`, `gosum`, `json`, `lua`, `make`, `markdown`, `python`, `yaml`, `vim`, `vue`
+
+#### Key Mappings (prefix groups)
+| Prefix | Group | Examples |
+|---|---|---|
+| `<leader>c` | Code (LSP) | `ca` action, `cd` declaration, `cD` definition, `cr` rename, `cf` format |
+| `<leader>d` | Debug / Diagnostics | `db` breakpoint, `dc` continue, `di` step into, `du` DAP UI |
+| `<leader>f` | Find / File | `ff` find files, `fg` live grep, `fn` new file |
+| `<leader>g` | Git | `gg` neogit, `gc` commit, `gk` preview hunk |
+| `<leader>s` | Session | `ss` search, `sw` save, `sq` quit all |
+| `<leader>w` | Windows | `ws` split below, `wv` split right, `wd` close |
+| `<leader><tab>` | Jumplist / Tab | `h` jump back, `l` jump forward, `j` first tab, `k` last tab |
+| `<M-p>` / `<M-n>` | — | Buffer prev / next (bufferline) |
+
 ## Key Details
 - macOS only for daily use (Apple Silicon, Homebrew at `/opt/homebrew/`)
 - Dotfiles are symlinked via `ln -svF` to `~/.config/<app>/`
 - tmux prefix key: `C-z`
 - Terminal font: MesloLGLDZ Nerd Font, font size 17
-- Color scheme: Solarized Dark (across terminals)
+- Color scheme: Solarized Dark (across terminals and Neovim)
 - Shell scripts target: `#!/bin/bash` with `set -euo pipefail`

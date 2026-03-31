@@ -21,9 +21,6 @@ return {
                     lsp_format = "fallback",
                     timeout_ms = 500,
                 },
-                format_after_save = {
-                    lsp_format = "fallback",
-                },
             })
         end,
     },
