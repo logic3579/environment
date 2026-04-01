@@ -1,5 +1,5 @@
 {
-  "model": "opus[1m]",
+  "alwaysThinkingEnabled": true,
   "enabledPlugins": {},
   "extraKnownMarketplaces": {
     "hashicorp": {
@@ -9,5 +9,5 @@
       }
     }
   },
-  "alwaysThinkingEnabled": true
+  "model": "opus[1m]"
 }

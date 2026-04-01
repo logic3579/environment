@@ -19,5 +19,8 @@ model_provider = "minimax"
 
 [projects."/Users/logic/Projects/skills"]
 trust_level = "trusted"
+
+[projects."/Users/logic/Projects/devops-marketplace"]
+trust_level = "trusted"
 #export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
 #codex --profile minimax
