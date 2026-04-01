@@ -79,7 +79,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 | `colorschema.lua` | solarized.nvim | Solarized Dark theme with transparency |
 | `lsp.lua` | mason, mason-lspconfig, nvim-lspconfig | LSP management (handlers auto-setup pattern) |
 | `coding.lua` | conform.nvim, lazydev.nvim, nvim-autopairs, nvim-cmp + sources, LuaSnip | Formatting, completion, Lua dev |
-| `treesitter.lua` | nvim-treesitter, treesitter-textobjects, nvim-surround | Syntax highlighting, textobjects, surround |
+| `treesitter.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround | Syntax highlighting, textobjects, surround (requires `tree-sitter` CLI) |
 | `editor.lua` | telescope, nvim-tree, gitsigns, neogit + diffview, which-key | Navigation, file explorer, git, keybinding hints |
 | `ui.lua` | bufferline, lualine | Tabline and statusline |
 | `dap.lua` | nvim-dap, dap-ui, dap-virtual-text, mason-nvim-dap, dap-python, dap-go | Debugging (Python + Go) |
@@ -93,7 +93,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - Markdown/JSON/YAML: `prettier` | JavaScript: `prettierd`/`prettier`
 
 #### Treesitter Languages
-`bash`, `html`, `go`, `gomod`, `gowork`, `gosum`, `json`, `lua`, `make`, `markdown`, `python`, `yaml`, `vim`, `vue`
+`bash`, `html`, `go`, `gomod`, `gowork`, `gosum`, `json`, `lua`, `make`, `markdown`, `markdown_inline`, `python`, `yaml`, `vim`, `vue`
 
 #### Key Mappings (prefix groups)
 | Prefix | Group | Examples |
