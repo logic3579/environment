@@ -8,7 +8,7 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 .
 ├── Makefile                 # Main entry: install, link, clean
 ├── Brewfile                 # Homebrew packages (default)
-├── Brewfile-hk              # Homebrew packages (HK environment)
+├── Brewfile-work            # Homebrew packages (Work environment)
 ├── dotfiles/
 │   ├── tmux/tmux.conf       # tmux config (prefix: C-z)
 │   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
@@ -19,17 +19,24 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── vim/vimrc            # Vim config (Vundle)
 │   ├── wezterm/wezterm.lua  # WezTerm terminal config
 │   ├── ghostty/config       # Ghostty terminal config
-│   ├── codex/                # Codex CLI config
-│   │   └── config.toml
 │   ├── claude/              # Claude Code config
-│   │   └── settings.json.*
+│   │   └── settings.json
+│   ├── codex/               # Codex CLI config
+│   │   └── config.toml
+│   ├── gemini/              # Gemini CLI config
+│   │   └── settings.json
+│   ├── opencode/            # OpenCode CLI config
+│   │   └── opencode.json
 │   ├── zshrc                # Zsh config (oh-my-zsh)
 │   └── bashrc               # Bash config (oh-my-bash)
 ├── appfiles/                # Application config backups
 ├── scripts/
 │   ├── trash.sh             # Safe delete (move to system trash)
 │   ├── generate-secret.sh   # Random password + SHA256 generator
-│   └── tmux-network-speed.sh # tmux status bar network speed
+│   ├── tmux-network-speed.sh # tmux status bar network speed
+│   ├── helm-middleware.sh   # Helm middleware utility
+│   ├── decorate-requests.py # Python request decorator
+│   └── getcdn-realip.go     # Go utility for CDN real IP
 └── .github/workflows/       # CI: make test + ShellCheck
 ```
 
@@ -54,21 +61,23 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make install` — Install all packages (depends on `dependencies`)
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
 - `make bash` / `make zsh` — Install shell framework and link rc file
-- `make coding_agent_config` — Install AI configs (claude + codex) to `~/.claude/` and `~/.codex/`
+- `make coding_agent_config` — Install AI configs (claude, codex, gemini, opencode) to respective directories
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions
 
 ### Coding Agent Config
 
-- Claude Code config: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
-- Codex config: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
+- Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
+- Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
+- Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
+- OpenCode: `~/.opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
 - Usage: `make coding_agent_config`
 
 ### Two Brewfile Strategy
 
 - `Brewfile` — Default environment packages
-- `Brewfile-hk` — HK environment packages (more DevOps tools: k8s, helm, argocd, etc.)
+- `Brewfile-work` — Work environment packages (more DevOps tools: k8s, helm, argocd, etc.)
 - Shared packages exist in both files independently (no shared base file)
 
 ### Neovim Config (`dotfiles/nvim/`)
