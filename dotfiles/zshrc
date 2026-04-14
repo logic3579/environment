@@ -42,6 +42,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+
 # -------------------------
 # Alias
 # -------------------------
@@ -66,8 +67,7 @@ eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon Mac
 # -------------------------
 # Golang
 # -------------------------
-GO_BIN="$HOME/go/bin"
-[[ ":$PATH:" != *":$GO_BIN:"* ]] && export PATH="$GO_BIN:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # -------------------------
 # Python / uv
@@ -78,9 +78,15 @@ GO_BIN="$HOME/go/bin"
 # uv pip install <pkg>     — install packages (10-100x faster than pip)
 
 # -------------------------
-# NodeJS / NVM
+# Rust / rustup
 # -------------------------
-export NVM_DIR="$HOME/.nvm"
+export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# -------------------------
+# NodeJS / nvm
+# -------------------------
+# export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
@@ -89,8 +95,7 @@ export NVM_DIR="$HOME/.nvm"
 # -------------------------
 # Java
 # -------------------------
-JAVA_BIN="/opt/homebrew/opt/openjdk/bin"
-[[ ":$PATH:" != *":$JAVA_BIN:"* ]] && export PATH="$JAVA_BIN:$PATH"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
 # -------------------------
 # Kubectl
@@ -113,13 +118,13 @@ fi
 # -------------------------
 # gcloud
 # -------------------------
-GCLOUD_BIN="/opt/homebrew/share/google-cloud-sdk/bin"
-[[ ":$PATH:" != *":$GCLOUD_BIN:"* ]] && export PATH="$GCLOUD_BIN:$PATH"
+export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 
 # -------------------------
 # Database CLI
 # -------------------------
-MYSQL_BIN="/opt/homebrew/opt/mysql-client@8.0/bin"
-[[ ":$PATH:" != *":$MYSQL_BIN:"* ]] && export PATH="$MYSQL_BIN:$PATH"
-POSTGRESQL_BIN="/opt/homebrew/opt/libpq/bin"
-[[ ":$PATH:" != *":$POSTGRESQL_BIN:"* ]] && export PATH="$POSTGRESQL_BIN:$PATH"
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+
+# Deduplicate PATH (keeps first occurrence, must be placed on the last line)
+typeset -U PATH

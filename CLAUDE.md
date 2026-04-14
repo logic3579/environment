@@ -55,6 +55,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **tmux.conf**: Section headers use `# -- section name ---...` (76 chars total)
 - **zshrc**: Section headers use `# -------------------------` / `# Title` / `# -------------------------`
 - **Commented-out code**: Always use `# ` with a space after `#`
+- **zshrc PATH pattern**: Use `export PATH="...:$PATH"` for each tool, with `typeset -U PATH` on the last line to deduplicate (no conditional `[[ ]]` checks needed)
 
 ### Makefile Targets
 
