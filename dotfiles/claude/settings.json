@@ -1,14 +1,4 @@
 {
-  "alwaysThinkingEnabled": true,
-  "enabledPlugins": {},
-  "extraKnownMarketplaces": {
-    "hashicorp": {
-      "source": {
-        "source": "github",
-        "repo": "hashicorp/agent-skills"
-      }
-    }
-  },
   "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
@@ -22,5 +12,21 @@
         ]
       }
     ]
-  }
+  },
+  "enabledPlugins": {},
+  "extraKnownMarketplaces": {
+    "hashicorp": {
+      "source": {
+        "source": "github",
+        "repo": "hashicorp/agent-skills"
+      }
+    },
+    "devops-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "logic3579/devops-marketplace"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true
 }
