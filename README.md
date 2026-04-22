@@ -22,8 +22,8 @@ $ make help
 ## Application Config
 
 ```console
-# Visual Studio Code
-appfiles/vscode.settings.json
+# folo
+appfiles/follow.opml
 
 # Raycast
 appfiles/Raycast.rayconfig
@@ -33,6 +33,9 @@ appfiles/Preferences.sublime-settings
 
 # SecureCRT
 appfiles/SecureCRT.xml
+
+# Visual Studio Code
+appfiles/vscode.settings.json
 
 # ZeroOmega (Proxy Extension)
 appfiles/ZeroOmegaOptions.bak
