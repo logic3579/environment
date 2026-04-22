@@ -7,15 +7,17 @@ return {
         config = function()
             require("conform").setup({
                 formatters_by_ft = {
-                    lua = { "stylua" },
+                    bash = { "shfmt" },
                     go = { "goimports", "gofmt" },
-                    -- rust = { "rustfmt", lsp_format = "fallback" },
+                    lua = { "stylua" },
+                    -- rust = { "rustfmt" }, -- rustup component add rustfmt
                     python = { "isort", "black" },
-                    markdown = { "prettier" },
+                    javascript = { "prettierd", "prettier", stop_after_first = true },
                     json = { "prettier" },
+                    markdown = { "prettier" },
+                    toml = { "taplo" },
                     yml = { "prettier" },
                     yaml = { "prettier" },
-                    javascript = { "prettierd", "prettier", stop_after_first = true },
                 },
                 format_on_save = {
                     lsp_format = "fallback",

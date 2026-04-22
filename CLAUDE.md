@@ -110,6 +110,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 #### Formatters (via conform.nvim, format-on-save)
 
 - Lua: `stylua` | Go: `goimports` + `gofmt` | Python: `isort` + `black`
+- Bash: `shfmt` | TOML: `taplo`
 - Markdown/JSON/YAML: `prettier` | JavaScript: `prettierd`/`prettier`
 
 #### Treesitter Languages
