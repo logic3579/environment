@@ -1,4 +1,36 @@
 return {
+    -- colorscheme
+    {
+        "maxmx03/solarized.nvim",
+        lazy = false,
+        priority = 1000,
+        ---@type solarized.config
+        opts = {
+            transparent = {
+                enabled = true,
+                pmenu = true,
+                normal = true,
+                normalfloat = true,
+                neotree = true,
+                nvimtree = true,
+                whichkey = true,
+                telescope = true,
+                lazy = true,
+            },
+            variant = "autumn",
+            styles = {
+                comments = { italic = true, bold = false },
+                -- functions = { italic = true },
+                -- variables = { italic = false },
+            },
+        },
+        config = function(_, opts)
+            -- vim.o.termguicolors = true
+            -- vim.o.background = "light"
+            require("solarized").setup(opts)
+            vim.cmd.colorscheme "solarized"
+        end,
+    },
     -- tabline
     {
         "akinsho/bufferline.nvim",
@@ -40,5 +72,33 @@ return {
                 extensions = { "nvim-tree" },
             }
         end,
+    },
+    -- show keybindings
+    {
+        "folke/which-key.nvim",
+        event = "VeryLazy",
+        opts = {
+            preset = "classic",
+            spec = {
+                { "<leader>c",     group = " Code",      mode = { "n", "x" } },
+                { "<leader>d",     group = " Diagnosis", mode = { "n", "v" } },
+                { "<leader>f",     group = " Find | File" },
+                { "<leader>g",     group = " Git" },
+                { "<leader>s",     group = " Session" },
+                { "<leader><tab>", group = " Tab" },
+                { "<leader>w",     group = " Windows" },
+                -- { "<leader>t", group = " Toggle" },
+                -- { "<leader>W", group = " Workspace" },
+            },
+        },
+        keys = {
+            {
+                "<leader>?",
+                function()
+                    require("which-key").show({ global = false })
+                end,
+                desc = "Buffer Local Keymaps (which-key)",
+            },
+        },
     },
 }

@@ -92,16 +92,13 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 #### Plugin Specs (`lua/plugins/`)
 
-| File              | Plugins                                                                                | Purpose                                                                 |
-| ----------------- | -------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `colorschema.lua` | solarized.nvim                                                                         | Solarized Dark theme with transparency                                  |
-| `lsp.lua`         | mason, mason-lspconfig, nvim-lspconfig                                                 | LSP management (handlers auto-setup pattern)                            |
-| `coding.lua`      | conform.nvim, lazydev.nvim, nvim-autopairs, nvim-cmp + sources, LuaSnip                | Formatting, completion, Lua dev                                         |
-| `treesitter.lua`  | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround | Syntax highlighting, textobjects, surround (requires `tree-sitter` CLI) |
-| `editor.lua`      | telescope, nvim-tree, gitsigns, neogit + diffview, which-key                           | Navigation, file explorer, git, keybinding hints                        |
-| `ui.lua`          | bufferline, lualine                                                                    | Tabline and statusline                                                  |
-| `dap.lua`         | nvim-dap, dap-ui, dap-virtual-text, mason-nvim-dap, dap-python, dap-go                 | Debugging (Python + Go)                                                 |
-| `util.lua`        | auto-session                                                                           | Session management                                                      |
+| File         | Plugins                                                                                                     | Purpose                                                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `ui.lua`     | solarized.nvim, bufferline, lualine, which-key                                                              | Colorscheme, tabline, statusline, keybinding hints                      |
+| `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                     |
+| `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)   |
+| `nav.lua`    | telescope, nvim-tree, auto-session                                                                          | Fuzzy finder, file explorer, session management                         |
+| `git.lua`    | gitsigns, neogit + diffview                                                                                 | Git signs, magit-like UI, diff viewer                                   |
 
 #### LSP Servers (via mason-lspconfig)
 
@@ -122,7 +119,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 | Prefix            | Group               | Examples                                                                 |
 | ----------------- | ------------------- | ------------------------------------------------------------------------ |
 | `<leader>c`       | Code (LSP)          | `ca` action, `cd` declaration, `cD` definition, `cr` rename, `cf` format |
-| `<leader>d`       | Debug / Diagnostics | `db` breakpoint, `dc` continue, `di` step into, `du` DAP UI              |
+| `<leader>d`       | Diagnostics         | `dof` show diagnostics message, `dqf` open diagnostics quickfix          |
 | `<leader>f`       | Find / File         | `ff` find files, `fg` live grep, `fn` new file                           |
 | `<leader>g`       | Git                 | `gg` neogit, `gc` commit, `gk` preview hunk                              |
 | `<leader>s`       | Session             | `ss` search, `sw` save, `sq` quit all                                    |
