@@ -1,0 +1,3 @@
+pgsql.example.com:5432:postgres:postgres:pgPassword
+pgsql.example.com:5432:mydb:app:appPassword
+pgsql.example.com:5432:mydb:readonly:readonlyPassword
