@@ -17,10 +17,10 @@ stream_idle_timeout_ms = 300000
 model = "codex-MiniMax-M2.7"
 model_provider = "minimax"
 
-[projects."/Users/logic/Projects/skills"]
-trust_level = "trusted"
-
 [projects."/Users/logic/Projects/devops-marketplace"]
 trust_level = "trusted"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 1
 #export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
 #codex --profile minimax
