@@ -13,7 +13,9 @@
       }
     ]
   },
-  "enabledPlugins": {},
+  "enabledPlugins": {
+    "github@claude-plugins-official": true
+  },
   "extraKnownMarketplaces": {
     "hashicorp": {
       "source": {
