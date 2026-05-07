@@ -126,5 +126,10 @@ export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
+# -------------------------
+# Neovim / Mason
+# -------------------------
+export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
 # Deduplicate PATH (keeps first occurrence, must be placed on the last line)
 typeset -U PATH

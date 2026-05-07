@@ -22,6 +22,7 @@ return {
         event = { "BufReadPre", "BufNewFile" },
         dependencies = {
             "williamboman/mason-lspconfig.nvim",
+            "b0o/SchemaStore.nvim", -- JSON/YAML schema catalog for jsonls/yamlls
         },
         config = function()
             local lspconfig = require("lspconfig")
@@ -31,14 +32,22 @@ return {
 
             local on_attach = function(_, bufnr)
                 local bufopts = { noremap = true, silent = true, buffer = bufnr }
-                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", bufopts, { desc = "code action" }))
-                vim.keymap.set("n", "<leader>cd", vim.lsp.buf.declaration, vim.tbl_extend("force", bufopts, { desc = "goto declaration" }))
-                vim.keymap.set("n", "<leader>cD", vim.lsp.buf.definition, vim.tbl_extend("force", bufopts, { desc = "goto definition" }))
-                vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover, vim.tbl_extend("force", bufopts, { desc = "hover documentation" }))
-                vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation, vim.tbl_extend("force", bufopts, { desc = "goto implementation" }))
-                vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, vim.tbl_extend("force", bufopts, { desc = "rename" }))
-                vim.keymap.set("n", "<leader>cR", vim.lsp.buf.references, vim.tbl_extend("force", bufopts, { desc = "goto references" }))
-                vim.keymap.set("n", "<leader>cs", vim.lsp.buf.document_symbol, vim.tbl_extend("force", bufopts, { desc = "document symbol" }))
+                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action,
+                    vim.tbl_extend("force", bufopts, { desc = "code action" }))
+                vim.keymap.set("n", "<leader>cd", vim.lsp.buf.declaration,
+                    vim.tbl_extend("force", bufopts, { desc = "goto declaration" }))
+                vim.keymap.set("n", "<leader>cD", vim.lsp.buf.definition,
+                    vim.tbl_extend("force", bufopts, { desc = "goto definition" }))
+                vim.keymap.set("n", "<leader>cK", vim.lsp.buf.hover,
+                    vim.tbl_extend("force", bufopts, { desc = "hover documentation" }))
+                vim.keymap.set("n", "<leader>ci", vim.lsp.buf.implementation,
+                    vim.tbl_extend("force", bufopts, { desc = "goto implementation" }))
+                vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename,
+                    vim.tbl_extend("force", bufopts, { desc = "rename" }))
+                vim.keymap.set("n", "<leader>cR", vim.lsp.buf.references,
+                    vim.tbl_extend("force", bufopts, { desc = "goto references" }))
+                vim.keymap.set("n", "<leader>cs", vim.lsp.buf.document_symbol,
+                    vim.tbl_extend("force", bufopts, { desc = "document symbol" }))
                 vim.keymap.set("n", "<leader>cf", function()
                     vim.lsp.buf.format({ async = true })
                 end, vim.tbl_extend("force", bufopts, { desc = "format document" }))
@@ -47,16 +56,47 @@ return {
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "bashls",
+                    "gopls",
+                    "jsonls",
                     "lua_ls",
                     "pylsp",
-                    "gopls",
                     "marksman",
+                    "yamlls",
                 },
                 handlers = {
                     function(server_name)
                         lspconfig[server_name].setup({
                             capabilities = capabilities,
                             on_attach = on_attach,
+                        })
+                    end,
+                    ["jsonls"] = function()
+                        lspconfig.jsonls.setup({
+                            capabilities = capabilities,
+                            on_attach = on_attach,
+                            settings = {
+                                json = {
+                                    schemas = require("schemastore").json.schemas(),
+                                    validate = { enable = true },
+                                },
+                            },
+                        })
+                    end,
+                    ["yamlls"] = function()
+                        lspconfig.yamlls.setup({
+                            capabilities = capabilities,
+                            on_attach = on_attach,
+                            settings = {
+                                yaml = {
+                                    -- disable built-in schema store; use SchemaStore.nvim instead
+                                    schemaStore = {
+                                        enable = false,
+                                        url = "",
+                                    },
+                                    schemas = require("schemastore").yaml.schemas(),
+                                    validate = true,
+                                },
+                            },
                         })
                     end,
                 },
@@ -101,15 +141,15 @@ return {
                 formatters_by_ft = {
                     bash = { "shfmt" },
                     go = { "goimports", "gofmt" },
-                    lua = { "stylua" },
-                    -- rust = { "rustfmt" }, -- rustup component add rustfmt
-                    python = { "isort", "black" },
                     javascript = { "prettierd", "prettier", stop_after_first = true },
                     json = { "prettier" },
                     markdown = { "prettier" },
+                    lua = { "stylua" },
+                    python = { "isort", "black" },
+                    -- rust = { "rustfmt" }, -- rustup component add rustfmt
                     toml = { "taplo" },
-                    yml = { "prettier" },
                     yaml = { "prettier" },
+                    yml = { "prettier" },
                 },
                 format_on_save = {
                     lsp_format = "fallback",
