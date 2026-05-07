@@ -6,7 +6,7 @@ theme = Solarized Dark Patched
 # ============================================================
 # Fonts
 # ============================================================
-font-family = MesloLGLDZ Nerd Font
+font-family = MesloLGMDZ Nerd Font Mono
 font-size = 17
 
 # ============================================================

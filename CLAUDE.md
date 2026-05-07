@@ -94,7 +94,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 | File         | Plugins                                                                                                     | Purpose                                                                 |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `ui.lua`     | solarized.nvim, bufferline, lualine, which-key                                                              | Colorscheme, tabline, statusline, keybinding hints                      |
+| `ui.lua`     | solarized.nvim, bufferline, lualine, outline.nvim, which-key                                                | Colorscheme, tabline, statusline, document outline, keybinding hints    |
 | `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                     |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)   |
 | `nav.lua`    | telescope, nvim-tree, auto-session                                                                          | Fuzzy finder, file explorer, session management                         |
@@ -109,6 +109,14 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - Lua: `stylua` | Go: `goimports` + `gofmt` | Python: `isort` + `black`
 - Bash: `shfmt` | TOML: `taplo`
 - Markdown/JSON/YAML: `prettier` | JavaScript: `prettierd`/`prettier`
+
+#### Neovide GUI
+
+`option.lua` has an `if vim.g.neovide then ... end` block (terminal nvim ignores these):
+
+- `guifont = "MesloLGMDZ Nerd Font Mono:h17"` — GUI font (matches terminal font)
+- `neovide_input_macos_option_key_is_meta = "both"` — treat macOS Option as Meta so `<M-...>` mappings work
+- Dynamic zoom via `neovide_scale_factor`: `<D-=>` zoom in, `<D-->` zoom out, `<D-0>` reset
 
 #### Treesitter Languages
 
@@ -125,6 +133,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 | `<leader>s`       | Session             | `ss` search, `sw` save, `sq` quit all                                    |
 | `<leader>w`       | Windows             | `ws` split below, `wv` split right, `wd` close                           |
 | `<leader><tab>`   | Jumplist / Tab      | `h` jump back, `l` jump forward, `j` first tab, `k` last tab             |
+| `<leader>o`       | Outline             | Toggle document outline (right sidebar, treesitter-backed for markdown)  |
 | `<M-p>` / `<M-n>` | —                   | Buffer prev / next (bufferline)                                          |
 
 ## Key Details
@@ -132,6 +141,6 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - macOS only for daily use (Apple Silicon, Homebrew at `/opt/homebrew/`)
 - Dotfiles are symlinked via `ln -svF` to `~/.config/<app>/`
 - tmux prefix key: `C-z`
-- Terminal font: MesloLGLDZ Nerd Font, font size 17
+- Terminal font: MesloLGMDZ Nerd Font Mono, font size 17 (matches Neovide `guifont`)
 - Color scheme: Solarized Dark (across terminals and Neovim)
 - Shell scripts target: `#!/bin/bash` with `set -euo pipefail`

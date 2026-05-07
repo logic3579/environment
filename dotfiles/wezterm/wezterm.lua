@@ -13,7 +13,7 @@ config.colors = {
 config.color_scheme = 'Solarized Dark - Patched'
 -- config.color_scheme = 'IC_Green_PPL'
 config.window_frame = {
-    font = wezterm.font 'MesloLGLDZ Nerd Font',
+    font = wezterm.font 'MesloLGMDZ Nerd Font Mono',
 }
 
 -- Launching Programs
@@ -37,7 +37,7 @@ end
 
 -- Fonts
 config.font = wezterm.font {
-    family = 'MesloLGLDZ Nerd Font',
+    family = 'MesloLGMDZ Nerd Font Mono',
     weight = 'Regular'
 }
 config.font_size = 17.0

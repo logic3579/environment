@@ -73,6 +73,40 @@ return {
             }
         end,
     },
+    -- document outline (right sidebar, treesitter-backed for markdown)
+    {
+        "hedyhli/outline.nvim",
+        cmd = { "Outline", "OutlineOpen", "OutlineFocus", "OutlineClose" },
+        keys = {
+            { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle Outline" },
+        },
+        opts = {
+            outline_window = {
+                position = "right",
+                width = 15,
+                relative_width = true,
+                auto_close = false,
+                focus_on_open = true,
+            },
+            outline_items = {
+                show_symbol_details = true,
+                highlight_hovered_item = true,
+                auto_set_cursor = true,
+            },
+            symbol_folding = {
+                autofold_depth = 1,
+                auto_unfold = { hovered = true },
+            },
+            preview_window = {
+                auto_preview = false,
+            },
+            providers = {
+                markdown = {
+                    filetypes = { "markdown" },
+                },
+            },
+        },
+    },
     -- show keybindings
     {
         "folke/which-key.nvim",
@@ -80,8 +114,8 @@ return {
         opts = {
             preset = "classic",
             spec = {
-                { "<leader>c",     group = " Code",      mode = { "n", "x" } },
-                { "<leader>d",     group = " Diagnosis", mode = { "n", "v" } },
+                { "<leader>c",     group = " Code",       mode = { "n", "x" } },
+                { "<leader>d",     group = " Diagnosis",  mode = { "n", "v" } },
                 { "<leader>f",     group = " Find | File" },
                 { "<leader>g",     group = " Git" },
                 { "<leader>s",     group = " Session" },
