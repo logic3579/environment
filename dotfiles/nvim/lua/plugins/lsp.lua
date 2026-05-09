@@ -2,7 +2,6 @@ return {
 	-- lsp installer
 	{
 		"williamboman/mason.nvim",
-		cmd = { "Mason", "MasonInstall" },
 		build = ":MasonUpdate",
 		config = function()
 			require("mason").setup({
@@ -86,17 +85,8 @@ return {
 			end
 
 			require("mason-lspconfig").setup({
-				ensure_installed = {
-					"bashls",
-					"gopls",
-					"jsonls",
-					"lua_ls",
-					"pylsp",
-					"marksman",
-					"taplo",
-					"ts_ls",
-					"yamlls",
-				},
+				ensure_installed = {},
+				automatic_installation = false,
 				handlers = {
 					function(server_name)
 						lspconfig[server_name].setup({
@@ -165,14 +155,24 @@ return {
 			},
 		},
 	},
-	-- mason tool installer (formatters/linters/etc., complements mason-lspconfig)
+	-- mason tool installer (single source of truth for LSP/formatter/linter installs)
 	{
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		event = "VeryLazy",
 		dependencies = { "williamboman/mason.nvim" },
 		config = function()
 			require("mason-tool-installer").setup({
 				ensure_installed = {
+					-- LSP servers
+					"bashls",
+					"gopls",
+					"jsonls",
+					"lua_ls",
+					"pylsp",
+					"marksman",
+					"taplo",
+					"ts_ls",
+					"yamlls",
+					-- formatters / linters
 					"prettier",
 					"ruff",
 					"shfmt",
