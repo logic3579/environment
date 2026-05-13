@@ -134,7 +134,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 | `<leader>w`       | Windows             | `ws` split below, `wv` split right, `wd` close                           |
 | `<leader><tab>`   | Jumplist / Tab      | `h` jump back, `l` jump forward, `j` first tab, `k` last tab             |
 | `<leader>o`       | Outline             | Toggle document outline (right sidebar, treesitter-backed for markdown)  |
-| `<M-p>` / `<M-n>` | —                   | Buffer prev / next (bufferline)                                          |
+| `<M-1>`..`<M-5>`  | —                   | Jump to tab 1..5 by ordinal (bufferline, Neovide only)                   |
 
 ## Key Details
 

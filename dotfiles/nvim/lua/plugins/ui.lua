@@ -36,14 +36,18 @@ return {
 		"akinsho/bufferline.nvim",
 		version = "*",
 		keys = {
-			{ "<M-p>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Toggle previous tab" } },
-			{ "<M-n>", "<cmd>BufferLineCycleNext<CR>", { desc = "Toggle next tab" } },
+			{ "<M-1>", "<cmd>BufferLineGoToBuffer 1<CR>", { desc = "Go to tab 1" } },
+			{ "<M-2>", "<cmd>BufferLineGoToBuffer 2<CR>", { desc = "Go to tab 2" } },
+			{ "<M-3>", "<cmd>BufferLineGoToBuffer 3<CR>", { desc = "Go to tab 3" } },
+			{ "<M-4>", "<cmd>BufferLineGoToBuffer 4<CR>", { desc = "Go to tab 4" } },
+			{ "<M-5>", "<cmd>BufferLineGoToBuffer 5<CR>", { desc = "Go to tab 5" } },
 			{ "<leader><tab><left>", "<cmd>BufferLineMovePrev<CR>", { desc = "Move tab left" } },
 			{ "<leader><tab><right>", "<cmd>BufferLineMoveNext<CR>", { desc = "Move tab right" } },
 		},
 		config = function()
 			require("bufferline").setup({
 				options = {
+					numbers = "ordinal",
 					indicator = {
 						icon = "▎",
 						style = "underline",
