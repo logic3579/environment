@@ -72,7 +72,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
-- OpenCode: `~/.opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
+- OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
 - Usage: `make coding_agent_config`
 
 ### Two Brewfile Strategy
