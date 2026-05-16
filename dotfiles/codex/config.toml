@@ -4,6 +4,7 @@ review_model = "gpt-5.4"
 model_reasoning_effort = "medium"
 model_context_window = 1000000
 model_auto_compact_token_limit = 900000
+service_tier = "fast"
 
 [model_providers.OpenAI]
 name = "OpenAI"
@@ -34,11 +35,14 @@ network_access = true
 #export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
 #codex --profile minimax
 
-[projects."/Users/logic/Projects/terraform"]
+[projects."/Users/logic/Projects/automation"]
 trust_level = "trusted"
 
 [projects."/Users/logic/Projects/environment"]
 trust_level = "trusted"
 
+[projects."/Users/logic/Projects/terraform"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
-"gpt-5.5" = 3
+"gpt-5.5" = 4
