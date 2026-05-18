@@ -163,6 +163,7 @@ return {
 			require("mason-tool-installer").setup({
 				ensure_installed = {
 					-- LSP servers
+					"ansiblels",
 					"bashls",
 					"gopls",
 					"jsonls",
@@ -173,6 +174,7 @@ return {
 					"ts_ls",
 					"yamlls",
 					-- formatters / linters
+					"ansible-lint",
 					"prettier",
 					"ruff",
 					"shfmt",
