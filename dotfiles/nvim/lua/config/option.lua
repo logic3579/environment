@@ -62,6 +62,15 @@ if vim.g.neovide then
 		vim.g.neovide_scale_factor = 1.0
 	end, { desc = "Neovide zoom reset" })
 
+	-- macOS ⌘C / ⌘X / ⌘V via system clipboard
+	vim.keymap.set("v", "<D-c>", '"+y', { desc = "Neovide copy" })
+	vim.keymap.set("v", "<D-x>", '"+d', { desc = "Neovide cut" })
+	vim.keymap.set("n", "<D-v>", '"+p', { desc = "Neovide paste (normal)" })
+	vim.keymap.set("v", "<D-v>", '"+p', { desc = "Neovide paste (visual)" })
+	vim.keymap.set("i", "<D-v>", "<C-r><C-o>+", { desc = "Neovide paste (insert)" })
+	vim.keymap.set("c", "<D-v>", "<C-r>+", { desc = "Neovide paste (command)" })
+	vim.keymap.set("t", "<D-v>", [[<C-\><C-n>"+pi]], { desc = "Neovide paste (terminal)" })
+
 	-- Workaround for reversed IME punctuation logic in winit on macOS (winit#3814)
 	-- vim.g.neovide_input_ime = false
 end
