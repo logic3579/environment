@@ -1,13 +1,12 @@
-MAINTAINER := logic
 APPFILES := $(CURDIR)/appfiles
+BREWFILE ?= $(CURDIR)/Brewfile
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
-DATE = $(shell date)
 SHELL := /bin/bash
 
 
 # Check OS and setting package
-ifeq ($(OS_NAME), Linux)
+ifeq ($(OS_NAME),Linux)
     PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
 
     # Check sudo command
@@ -17,28 +16,28 @@ ifeq ($(OS_NAME), Linux)
         CMD_PREFIX := sudo
     endif
 
-    ifneq ($(strip $(shell cat /etc/*release | grep -i 'debian')),)
+    ifneq ($(strip $(shell grep -i debian /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := apt install -y
-    else ifneq ($(strip $(shell cat /etc/*release | grep -i 'fedora')),)
+    else ifneq ($(strip $(shell grep -i fedora /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := dnf install -y
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
-else ifeq ($(OS_NAME), Darwin)
-    PACKAGE_CMD := brew bundle --file=$(CURDIR)/Brewfile
+else ifeq ($(OS_NAME),Darwin)
+    BREW := $(or $(shell command -v brew 2>/dev/null),/opt/homebrew/bin/brew)
+    PACKAGE_CMD := $(BREW) bundle --file=$(BREWFILE)
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
 
 
-.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config
+.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config help
 all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
 	@echo "##### Dependencies check start #####"
 	@if [ "$(OS_NAME)" = "Darwin" ] && ! command -v brew >/dev/null 2>&1; then \
 		echo ">>> Installing Homebrew..."; \
-		sudo spctl --master-disable; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 	elif [ "$(OS_NAME)" = "Linux" ]; then \
 		echo ">>> Installing fonts-powerline"; \
@@ -48,38 +47,63 @@ dependencies:
 
 install: dependencies ## Dependencies check and install all package.
 	@echo "##### Install package start #####"
-	$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME)
+	@if [ "$(OS_NAME)" = "Darwin" ]; then \
+		[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }; \
+		eval "$$($(BREW) shellenv)" && brew bundle --file=$(BREWFILE); \
+	else \
+		$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME); \
+	fi
 	@echo "##### Install package end   #####"
 
 xdg_config: ## Link configure to XDG_CONFIG directory.
 	@echo "##### Initialize xdg_config start #####"
+	@mkdir -p $(HOME)/.config
 	@echo ">>> Tmux"
-	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux;
+	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux
 	@echo ">>> Neovim"
-	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim; \
-	nvim --headless +Lazy +qall;
+	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim && \
+	if command -v nvim >/dev/null 2>&1; then \
+		nvim --headless +Lazy +qall; \
+	else \
+		echo ">>> nvim not installed, skipping Lazy sync"; \
+	fi
 	@echo ">>> Vim"
-	git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim || echo "Vundle.vim path already exists"; \
-	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim; \
-	vim +PluginInstall +qall;
+	test -d $(HOME)/.vim/bundle/Vundle.vim || \
+		git clone https://github.com/VundleVim/Vundle.vim.git $(HOME)/.vim/bundle/Vundle.vim
+	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim && \
+	if command -v vim >/dev/null 2>&1; then \
+		vim -u $(HOME)/.config/vim/vimrc +PluginInstall +qall; \
+	else \
+		echo ">>> vim not installed, skipping PluginInstall"; \
+	fi
 	@echo ">>> WezTerm"
-	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm;
+	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm
 	@echo ">>> Ghostty"
-	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty;
+	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty
 	@echo "##### Initialize xdg_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bashrc
 	@echo "##### Initialize oh-my-bash start #####"
-	@test -d $(HOME)/.oh-my-bash && echo "oh-my-bash already installed" || bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
+	@if [ -d $(HOME)/.oh-my-bash ]; then \
+		echo "oh-my-bash already installed"; \
+	else \
+		bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
+	fi
 	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc
 	@echo "##### Initialize oh-my-bash end   #####"
 	@echo ">>> Please run 'source ~/.bashrc' to apply changes."
 
 zsh: ## Install oh-my-zsh and link ~/.zshrc
 	@echo "##### Initialize oh-my-zsh start #####"
-	@test -d $(HOME)/.oh-my-zsh && echo "oh-my-zsh already installed" || sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
-	git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions; \
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting; \
+	@if [ -d $(HOME)/.oh-my-zsh ]; then \
+		echo "oh-my-zsh already installed"; \
+	else \
+		sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
+	fi
+	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions || \
+		git clone https://github.com/zsh-users/zsh-autosuggestions $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting || \
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc
 	@echo "##### Initialize oh-my-zsh end   #####"
 	@echo ">>> Please run 'source ~/.zshrc' to apply changes."
@@ -88,11 +112,11 @@ test: ## Run the tests
 	@echo "##### Test start #####"
 	@echo APPFILES is $(APPFILES)
 	@echo DOTFILES is $(DOTFILES)
+	@echo BREWFILE is $(BREWFILE)
 	@echo OS_NAME is $(OS_NAME)
 	@echo CMD_PREFIX is $(CMD_PREFIX)
 	@echo PACKAGE_CMD is $(PACKAGE_CMD)
 	@echo PACKAGE_NAME is $(PACKAGE_NAME)
-	@echo APP_NAME is $(APP_NAME)
 	@echo "##### Test end   #####"
 
 clean: ## Clean up broken symlinks in XDG_CONFIG directory.
@@ -102,19 +126,13 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 
 coding_agent_config: ## Install coding agent configs (claude-code / codex / gemini-cli / kimi-cli / opencode)
 	@echo "##### Install coding agent config start #####"
-	@echo ">>> claude-code"
+	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.gemini $(HOME)/.kimi $(HOME)/.config/opencode
 	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
-	@echo ">>> codex"
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	@echo ">>> gemini-cli"
 	ln -svF $(DOTFILES)/gemini/settings.json $(HOME)/.gemini/settings.json
-	@echo ">>> kimi-cli"
 	ln -svF $(DOTFILES)/kimi/config.toml $(HOME)/.kimi/config.toml
-	@echo ">>> opencode"
 	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
 	@echo "##### Install coding agent config end   #####"
 
-
-.PHONY: help
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
