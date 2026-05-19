@@ -100,15 +100,17 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
 
-coding_agent_config: ## Install coding agent configs (claude + codex + gemini + opencode)
+coding_agent_config: ## Install coding agent configs (claude-code / codex / gemini-cli / kimi-cli / opencode)
 	@echo "##### Install coding agent config start #####"
-	@echo ">>> Claude Code"
+	@echo ">>> claude-code"
 	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
-	@echo ">>> Codex"
+	@echo ">>> codex"
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	@echo ">>> Gemini Cli"
+	@echo ">>> gemini-cli"
 	ln -svF $(DOTFILES)/gemini/settings.json $(HOME)/.gemini/settings.json
-	@echo ">>> OpenCode"
+	@echo ">>> kimi-cli"
+	ln -svF $(DOTFILES)/kimi/config.toml $(HOME)/.kimi/config.toml
+	@echo ">>> opencode"
 	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
 	@echo "##### Install coding agent config end   #####"
 
