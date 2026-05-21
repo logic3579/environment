@@ -4,13 +4,13 @@
     bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)" --unattended
     # Uninstall oh-my-bash
     # bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/uninstall.sh)"
+
+    # Install Homebrew (macOS or Linux)
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Nerd Fonts: https://www.nerdfonts.com/
 annotation
 #####
-
-# change your $PATH
-MY_PATH=/opt/app/bin
-export PATH="$PATH:${MY_PATH}"
-#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH"
 
 # Enable the subsequent settings only in interactive sessions
 case $- in
@@ -48,3 +48,119 @@ plugins=(
 )
 
 source "$OSH"/oh-my-bash.sh
+
+
+# -------------------------
+# Alias
+# -------------------------
+alias setbrew="
+export HOMEBREW_BREW_GIT_REMOTE=https://mirrors.ustc.edu.cn/brew.git
+export HOMEBREW_CORE_GIT_REMOTE=https://mirrors.ustc.edu.cn/homebrew-core.git
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+export HOMEBREW_API_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles/api
+brew update
+"
+alias unsetbrew="unset HOMEBREW_API_DOMAIN HOMEBREW_BOTTLE_DOMAIN HOMEBREW_BREW_GIT_REMOTE HOMEBREW_CORE_GIT_REMOTE; brew update"
+alias setproxy="export {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}=socks5h://127.0.0.1:10800"
+alias unsetproxy="unset {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}"
+# macOS-only: toggle DNS for sing-box transparent proxy
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias singbox-dns-on="sudo networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8 && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+    alias singbox-dns-off="sudo networksetup -setdnsservers Wi-Fi empty && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+fi
+
+
+# -------------------------
+# Homebrew (macOS Apple Silicon / Intel / Linuxbrew)
+# -------------------------
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+
+# -------------------------
+# Golang
+# -------------------------
+export PATH="$HOME/go/bin:$PATH"
+
+# -------------------------
+# Python / uv
+# -------------------------
+# uv installed via Homebrew, no shell init needed.
+# uv python install 3.x   — install a Python version
+# uv venv                  — create virtualenv in .venv
+# uv pip install <pkg>     — install packages (10-100x faster than pip)
+
+# -------------------------
+# Rust / rustup
+# -------------------------
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/rustup/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+
+# -------------------------
+# NodeJS / nvm
+# -------------------------
+[ -n "${HOMEBREW_PREFIX:-}" ] && [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+[ -n "${HOMEBREW_PREFIX:-}" ] && [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+
+# -------------------------
+# Java
+# -------------------------
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/openjdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/openjdk/bin:$PATH"
+
+# -------------------------
+# Kubectl
+# -------------------------
+# Completion is cached (regen weekly) — avoids ~100ms `kubectl completion bash` on every shell start.
+if command -v kubectl &>/dev/null; then
+    _kc_cache="$HOME/.cache/bash-kubectl-completion"
+    [[ -d "$(dirname "$_kc_cache")" ]] || mkdir -p "$(dirname "$_kc_cache")"
+    if [[ ! -s "$_kc_cache" ]] || [[ -n "$(find "$_kc_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        kubectl completion bash > "$_kc_cache"
+    fi
+    source "$_kc_cache"
+    alias k=kubectl
+    complete -F __start_kubectl k
+fi
+
+# -------------------------
+# Helm
+# -------------------------
+if command -v helm &>/dev/null; then
+    _helm_cache="$HOME/.cache/bash-helm-completion"
+    [[ -d "$(dirname "$_helm_cache")" ]] || mkdir -p "$(dirname "$_helm_cache")"
+    if [[ ! -s "$_helm_cache" ]] || [[ -n "$(find "$_helm_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        helm completion bash > "$_helm_cache"
+    fi
+    source "$_helm_cache"
+    alias h=helm
+    complete -F __start_helm h
+fi
+
+# -------------------------
+# gcloud
+# -------------------------
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:$PATH"
+
+# -------------------------
+# Database CLI
+# -------------------------
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/mysql-client/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/mysql-client/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/libpq/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/libpq/bin:$PATH"
+
+# -------------------------
+# Neovim / Mason
+# -------------------------
+[[ -d "$HOME/.local/share/nvim/mason/bin" ]] && export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+
+# -------------------------
+# fzf (Ctrl-R history, Ctrl-T file, Alt-C cd)
+# -------------------------
+command -v fzf &>/dev/null && eval "$(fzf --bash)"
+
+# Deduplicate PATH (bash equivalent of zsh's typeset -U PATH)
+PATH=$(printf %s "$PATH" | awk -v RS=: -v ORS=: '!seen[$0]++' | sed 's/:$//')
+export PATH

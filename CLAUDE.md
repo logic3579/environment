@@ -28,7 +28,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── opencode/            # OpenCode CLI config
 │   │   └── opencode.json
 │   ├── zshrc                # Zsh config (oh-my-zsh)
-│   └── bashrc               # Bash config (oh-my-bash)
+│   ├── bashrc               # Bash config (oh-my-bash, cross-platform: macOS + Linux)
+│   └── pgpass               # libpq password template (manual install — see README)
 ├── appfiles/                # Application config backups
 ├── scripts/
 │   ├── trash.sh             # Safe delete (move to system trash)
@@ -56,6 +57,9 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **zshrc**: Section headers use `# -------------------------` / `# Title` / `# -------------------------`
 - **Commented-out code**: Always use `# ` with a space after `#`
 - **zshrc PATH pattern**: Use `export PATH="...:$PATH"` for each tool, with `typeset -U PATH` on the last line to deduplicate (no conditional `[[ ]]` checks needed)
+- **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
+- **Shell completion cache**: `kubectl`/`helm` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh.
+- **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
 
 ### Makefile Targets
 
@@ -94,7 +98,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 | File         | Plugins                                                                                                     | Purpose                                                                              |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope/statuscolumn), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
+| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
 | `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                                  |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
 | `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
@@ -144,7 +148,8 @@ Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `s
 
 ## Key Details
 
-- macOS only for daily use (Apple Silicon, Homebrew at `/opt/homebrew/`)
+- macOS only for daily use (Apple Silicon, Homebrew at `/opt/homebrew/`); `bashrc` is the only shell rc kept Linux-portable
+- tmux: `set -ag terminal-overrides ",*256col*:RGB"` advertises truecolor; `focus-events on` is required by gitsigns/nvim autoread; tmux-sensible plugin removed (all defaults set explicitly)
 - Dotfiles are symlinked via `ln -svF` to `~/.config/<app>/`
 - tmux prefix key: `C-z`
 - Terminal font: MesloLGMDZ Nerd Font Mono, font size 17 (matches Neovide `guifont`)

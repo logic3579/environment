@@ -14,7 +14,6 @@ return {
 			rename = { enabled = true },
 			terminal = { enabled = true },
 			scope = { enabled = true },
-			statuscolumn = { enabled = true },
 			indent = { enabled = false },
 		},
 		keys = {

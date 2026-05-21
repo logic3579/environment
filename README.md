@@ -64,6 +64,17 @@ Run `make help` for the live list. Current targets:
 └── .github/workflows/    # CI: make test + ShellCheck
 ```
 
+## PostgreSQL Credentials
+
+`dotfiles/pgpass` is a manual template for the libpq password file. Not symlinked by `make` — install by hand when needed:
+
+```bash
+cp dotfiles/pgpass ~/.pgpass
+chmod 600 ~/.pgpass   # libpq requires owner-only permissions
+```
+
+Format per line: `hostname:port:database:username:password` (use `*` as a wildcard).
+
 ## Application Config Backups
 
 Files under `appfiles/` are manual backups — restore by importing them into the respective app:
