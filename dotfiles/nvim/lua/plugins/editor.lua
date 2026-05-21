@@ -70,6 +70,12 @@ return {
 			vim.keymap.set({ "x", "o" }, "as", function()
 				select.select_textobject("@local.scope", "locals")
 			end)
+			vim.keymap.set({ "x", "o" }, "ib", function()
+				select.select_textobject("@block.inner", "textobjects")
+			end)
+			vim.keymap.set({ "x", "o" }, "ab", function()
+				select.select_textobject("@block.outer", "textobjects")
+			end)
 		end,
 	},
 	--[[ Usage
