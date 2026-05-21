@@ -13,22 +13,6 @@
       }
     ]
   },
-  "enabledPlugins": {
-    "github@claude-plugins-official": true
-  },
-  "extraKnownMarketplaces": {
-    "hashicorp": {
-      "source": {
-        "source": "github",
-        "repo": "hashicorp/agent-skills"
-      }
-    },
-    "devops-marketplace": {
-      "source": {
-        "source": "github",
-        "repo": "logic3579/devops-marketplace"
-      }
-    }
-  },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "theme": "dark-daltonized"
 }
