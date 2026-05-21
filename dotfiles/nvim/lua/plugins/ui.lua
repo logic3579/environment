@@ -10,12 +10,56 @@ return {
 			input = { enabled = true },
 			notifier = { enabled = true, timeout = 3000 },
 			quickfile = { enabled = true },
-			statuscolumn = { enabled = false },
+			words = { enabled = true },
+			rename = { enabled = true },
+			terminal = { enabled = true },
+			scope = { enabled = true },
+			statuscolumn = { enabled = true },
 			indent = { enabled = false },
 		},
 		keys = {
-			{ "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
-			{ "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss Notifications" },
+			{
+				"<leader>nh",
+				function()
+					Snacks.notifier.show_history()
+				end,
+				desc = "Notification History",
+			},
+			{
+				"<leader>nd",
+				function()
+					Snacks.notifier.hide()
+				end,
+				desc = "Dismiss Notifications",
+			},
+			{
+				"]]",
+				function()
+					Snacks.words.jump(1, true)
+				end,
+				desc = "Next Reference",
+			},
+			{
+				"[[",
+				function()
+					Snacks.words.jump(-1, true)
+				end,
+				desc = "Prev Reference",
+			},
+			{
+				"<leader>tt",
+				function()
+					Snacks.terminal()
+				end,
+				desc = "Toggle Terminal",
+			},
+			{
+				"<leader>cr",
+				function()
+					Snacks.rename.rename_file()
+				end,
+				desc = "Rename File (LSP-aware)",
+			},
 		},
 	},
 	-- colorscheme
@@ -153,9 +197,8 @@ return {
 				{ "<leader>g", group = " Git" },
 				{ "<leader>s", group = " Session" },
 				{ "<leader><tab>", group = " Tab" },
+				{ "<leader>t", group = " Terminal" },
 				{ "<leader>w", group = " Windows" },
-				-- { "<leader>t", group = " Toggle" },
-				-- { "<leader>W", group = " Workspace" },
 			},
 		},
 		keys = {

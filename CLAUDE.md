@@ -94,7 +94,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 | File         | Plugins                                                                                                     | Purpose                                                                              |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
+| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope/statuscolumn), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
 | `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                                  |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
 | `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
@@ -128,15 +128,17 @@ Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `s
 
 | Prefix            | Group               | Examples                                                                 |
 | ----------------- | ------------------- | ------------------------------------------------------------------------ |
-| `<leader>c`       | Code (LSP)          | `ca` action, `cd` declaration, `cD` definition, `cr` rename, `cf` format |
+| `<leader>c`       | Code (LSP)          | `ca` action, `cd` declaration, `cD` definition, `cn` rename symbol (LSP), `cr` rename file (snacks, LSP-aware), `cf` format |
 | `<leader>d`       | Diagnostics         | `dof` show diagnostics message, `dqf` open diagnostics quickfix          |
 | `<leader>f`       | Find / File         | `ff` find files, `fg` live grep, `fb` buffers, `fh` help, `fn` new file  |
 | `<leader>g`       | Git                 | `gg` neogit, `gc` commit, `gk` preview hunk                              |
 | `<leader>n`       | Notifications       | `nh` history, `nd` dismiss (snacks.notifier)                             |
 | `<leader>s`       | Session             | `ss` search, `sw` save, `sq` quit all                                    |
+| `<leader>t`       | Terminal            | `tt` toggle floating terminal (snacks.terminal)                          |
 | `<leader>w`       | Windows             | `ws` split below, `wv` split right, `wd` close                           |
 | `<leader><tab>`   | Jumplist / Tab      | `h` jump back, `l` jump forward, `j` first tab, `k` last tab             |
 | `<leader>o`       | Outline             | Toggle document outline (right sidebar, treesitter-backed for markdown)  |
+| `]]` / `[[`       | Reference Nav       | Next / previous reference of word under cursor (snacks.words)            |
 | `<M-h/j/k/l>`     | Split / Pane Nav    | Seamless navigation across nvim splits and tmux panes (vim-tmux-navigator) |
 | `<M-1>`..`<M-5>`  | —                   | Jump to tab 1..5 by ordinal (bufferline, Neovide only)                   |
 

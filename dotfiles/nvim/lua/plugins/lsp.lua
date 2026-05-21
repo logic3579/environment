@@ -63,9 +63,9 @@ return {
 				)
 				vim.keymap.set(
 					"n",
-					"<leader>cr",
+					"<leader>cn",
 					vim.lsp.buf.rename,
-					vim.tbl_extend("force", bufopts, { desc = "rename" })
+					vim.tbl_extend("force", bufopts, { desc = "rename symbol (LSP)" })
 				)
 				vim.keymap.set(
 					"n",
