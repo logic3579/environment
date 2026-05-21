@@ -85,30 +85,32 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 #### Architecture
 
-- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`)
+- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`); configured with `git.filter = false` (full clone, no `blob:none` partial fetch) and `git.timeout = 300` to survive slow links
 - **Leader key**: `<Space>`, local leader: `\`
 - **Color scheme**: solarized.nvim (transparent background enabled)
 - **Config loading order**: `init.lua` → `config/option.lua` → `config/keymap.lua` → `config/autocmd.lua` → `config/lib.lua` → `config/lazynvim.lua` (loads `plugins/`)
 
 #### Plugin Specs (`lua/plugins/`)
 
-| File         | Plugins                                                                                                     | Purpose                                                                 |
-| ------------ | ----------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
-| `ui.lua`     | solarized.nvim, bufferline, lualine, outline.nvim, which-key                                                | Colorscheme, tabline, statusline, document outline, keybinding hints    |
-| `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                     |
-| `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)   |
-| `nav.lua`    | telescope, nvim-tree, auto-session                                                                          | Fuzzy finder, file explorer, session management                         |
-| `git.lua`    | gitsigns, neogit + diffview                                                                                 | Git signs, magit-like UI, diff viewer                                   |
+| File         | Plugins                                                                                                     | Purpose                                                                              |
+| ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
+| `lsp.lua`    | mason, mason-lspconfig, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                                  |
+| `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
+| `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
+| `git.lua`    | gitsigns, neogit (+ diffview, fzf-lua integration)                                                          | Git signs, magit-like UI, diff viewer                                                |
 
-#### LSP Servers (via mason-lspconfig)
+#### LSP Servers (via mason-tool-installer)
 
-`bashls`, `lua_ls`, `pylsp`, `gopls`, `marksman`
+`ansiblels`, `bashls`, `gopls`, `jsonls`, `lua_ls`, `marksman`, `pylsp`, `taplo`, `ts_ls`, `yamlls`
+
+Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `stylua`.
 
 #### Formatters (via conform.nvim, format-on-save)
 
-- Lua: `stylua` | Go: `goimports` + `gofmt` | Python: `isort` + `black`
+- Lua: `stylua` | Go: `gofmt` | Python: `ruff`
 - Bash: `shfmt` | TOML: `taplo`
-- Markdown/JSON/YAML: `prettier` | JavaScript: `prettierd`/`prettier`
+- Markdown/JSON/YAML/JavaScript: `prettier`
 
 #### Neovide GUI
 
@@ -128,12 +130,14 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 | ----------------- | ------------------- | ------------------------------------------------------------------------ |
 | `<leader>c`       | Code (LSP)          | `ca` action, `cd` declaration, `cD` definition, `cr` rename, `cf` format |
 | `<leader>d`       | Diagnostics         | `dof` show diagnostics message, `dqf` open diagnostics quickfix          |
-| `<leader>f`       | Find / File         | `ff` find files, `fg` live grep, `fn` new file                           |
+| `<leader>f`       | Find / File         | `ff` find files, `fg` live grep, `fb` buffers, `fh` help, `fn` new file  |
 | `<leader>g`       | Git                 | `gg` neogit, `gc` commit, `gk` preview hunk                              |
+| `<leader>n`       | Notifications       | `nh` history, `nd` dismiss (snacks.notifier)                             |
 | `<leader>s`       | Session             | `ss` search, `sw` save, `sq` quit all                                    |
 | `<leader>w`       | Windows             | `ws` split below, `wv` split right, `wd` close                           |
 | `<leader><tab>`   | Jumplist / Tab      | `h` jump back, `l` jump forward, `j` first tab, `k` last tab             |
 | `<leader>o`       | Outline             | Toggle document outline (right sidebar, treesitter-backed for markdown)  |
+| `<M-h/j/k/l>`     | Split / Pane Nav    | Seamless navigation across nvim splits and tmux panes (vim-tmux-navigator) |
 | `<M-1>`..`<M-5>`  | —                   | Jump to tab 1..5 by ordinal (bufferline, Neovide only)                   |
 
 ## Key Details

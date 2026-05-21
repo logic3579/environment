@@ -15,4 +15,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup("plugins", {})
+require("lazy").setup("plugins", {
+	git = {
+		-- Disable partial clone: blob:none defers blob fetch to checkout,
+		-- which can exceed the 120s default timeout on slow links (snacks.nvim case).
+		filter = false,
+		timeout = 300,
+	},
+})

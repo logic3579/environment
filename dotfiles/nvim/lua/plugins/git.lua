@@ -56,7 +56,7 @@ return {
 		"NeogitOrg/neogit",
 		dependencies = {
 			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional - picker integration
 		},
 		keys = {
 			{
@@ -80,7 +80,7 @@ return {
 				kind = "auto",
 				integrations = {
 					diffview = true,
-					telescope = true,
+					fzf_lua = true,
 				},
 			})
 		end,

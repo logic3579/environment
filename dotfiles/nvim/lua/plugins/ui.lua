@@ -1,4 +1,23 @@
 return {
+	-- QoL: vim.ui.input/notify UI, bigfile/quickfile perf guards
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			bigfile = { enabled = true },
+			input = { enabled = true },
+			notifier = { enabled = true, timeout = 3000 },
+			quickfile = { enabled = true },
+			statuscolumn = { enabled = false },
+			indent = { enabled = false },
+		},
+		keys = {
+			{ "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification History" },
+			{ "<leader>nd", function() Snacks.notifier.hide() end, desc = "Dismiss Notifications" },
+		},
+	},
 	-- colorscheme
 	{
 		"maxmx03/solarized.nvim",
@@ -110,6 +129,16 @@ return {
 				},
 			},
 		},
+	},
+	-- in-buffer markdown rendering (headings, lists, code blocks, tables)
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
+		},
+		ft = { "markdown" },
+		opts = {},
 	},
 	-- show keybindings
 	{

@@ -1,22 +1,17 @@
 return {
 	-- fuzzy finder
 	{
-		"nvim-telescope/telescope.nvim",
-		tag = "0.1.8",
-		cmd = "Telescope",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		"ibhagwan/fzf-lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cmd = "FzfLua",
 		keys = {
-			{ "<Leader>ff", "<cmd>Telescope find_files<CR>", { desc = "find files" } },
-			{ "<Leader>fg", "<cmd>Telescope live_grep<CR>", { desc = "grep file" } },
-			{ "<leader>f/", "<cmd>Telescope current_buffer_fuzzy_find<CR>", { desc = "search current buffer" } },
+			{ "<Leader>ff", "<cmd>FzfLua files<CR>", desc = "find files" },
+			{ "<Leader>fg", "<cmd>FzfLua live_grep<CR>", desc = "grep files" },
+			{ "<leader>f/", "<cmd>FzfLua lgrep_curbuf<CR>", desc = "search current buffer" },
+			{ "<leader>fb", "<cmd>FzfLua buffers<CR>", desc = "buffers" },
+			{ "<leader>fh", "<cmd>FzfLua help_tags<CR>", desc = "help tags" },
 		},
-		opts = {
-			-- nvim-treesitter main branch removed parsers.ft_to_lang, which telescope 0.1.8 still calls.
-			defaults = { preview = { treesitter = false } },
-		},
-		config = function(_, opts)
-			require("telescope").setup(opts)
-		end,
+		opts = {},
 	},
 	--  file explorer
 	{
@@ -32,6 +27,26 @@ return {
 		config = function()
 			require("nvim-tree").setup({})
 		end,
+	},
+	-- seamless navigation between nvim splits and tmux panes (M-h/j/k/l)
+	{
+		"christoomey/vim-tmux-navigator",
+		cmd = {
+			"TmuxNavigateLeft",
+			"TmuxNavigateDown",
+			"TmuxNavigateUp",
+			"TmuxNavigateRight",
+			"TmuxNavigatePrevious",
+		},
+		init = function()
+			vim.g.tmux_navigator_no_mappings = 1
+		end,
+		keys = {
+			{ "<M-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Navigate Left (split/pane)" },
+			{ "<M-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Navigate Down (split/pane)" },
+			{ "<M-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Navigate Up (split/pane)" },
+			{ "<M-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Navigate Right (split/pane)" },
+		},
 	},
 	-- session
 	{
@@ -49,6 +64,7 @@ return {
 			-- auto_restore_last_session = false,
 			-- allowed_dirs = { "/some/dir/", "/projects/*" },
 			suppressed_dirs = { "/", "~/", "~/Projects", "~/Downloads" },
+			session_lens = { picker = "fzf" },
 		},
 	},
 }
