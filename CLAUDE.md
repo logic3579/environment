@@ -89,7 +89,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 #### Architecture
 
-- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`); configured with `git.filter = false` (full clone, no `blob:none` partial fetch) and `git.timeout = 300` to survive slow links
+- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`); configured with `git.filter = false` (full clone, no `blob:none` partial fetch) and `git.timeout = 1200` to survive slow links
 - **Leader key**: `<Space>`, local leader: `\`
 - **Color scheme**: solarized.nvim (transparent background enabled)
 - **Config loading order**: `init.lua` → `config/option.lua` → `config/keymap.lua` → `config/autocmd.lua` → `config/lib.lua` → `config/lazynvim.lua` (loads `plugins/`)
@@ -144,7 +144,8 @@ Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `s
 | `<leader>o`       | Outline             | Toggle document outline (right sidebar, treesitter-backed for markdown)  |
 | `]]` / `[[`       | Reference Nav       | Next / previous reference of word under cursor (snacks.words)            |
 | `<M-h/j/k/l>`     | Split / Pane Nav    | Seamless navigation across nvim splits and tmux panes (vim-tmux-navigator) |
-| `<M-1>`..`<M-5>`  | —                   | Jump to tab 1..5 by ordinal (bufferline, Neovide only)                   |
+| `<M-1>`..`<M-5>`  | —                   | Jump to tab 1..5 by ordinal (bufferline, Neovide only — tmux intercepts in terminal) |
+| `<M-p>` / `<M-n>` | Tab Cycle           | Previous / next tab (bufferline; works in both Neovide and terminal nvim) |
 
 ## Key Details
 

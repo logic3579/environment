@@ -1,5 +1,7 @@
 {
   "model": "opus[1m]",
+  "alwaysThinkingEnabled": true,
+  "theme": "dark-daltonized",
   "hooks": {
     "PreToolUse": [
       {
@@ -7,12 +9,10 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/logic/.claude/hooks/rtk-rewrite.sh"
+            "command": "rtk hook claude"
           }
         ]
       }
     ]
-  },
-  "alwaysThinkingEnabled": true,
-  "theme": "dark-daltonized"
+  }
 }

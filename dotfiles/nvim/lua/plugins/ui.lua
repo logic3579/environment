@@ -103,6 +103,8 @@ return {
 			{ "<M-3>", "<cmd>BufferLineGoToBuffer 3<CR>", { desc = "Go to tab 3" } },
 			{ "<M-4>", "<cmd>BufferLineGoToBuffer 4<CR>", { desc = "Go to tab 4" } },
 			{ "<M-5>", "<cmd>BufferLineGoToBuffer 5<CR>", { desc = "Go to tab 5" } },
+			{ "<M-p>", "<cmd>BufferLineCyclePrev<CR>", { desc = "Previous tab" } },
+			{ "<M-n>", "<cmd>BufferLineCycleNext<CR>", { desc = "Next tab" } },
 			{ "<leader><tab><left>", "<cmd>BufferLineMovePrev<CR>", { desc = "Move tab left" } },
 			{ "<leader><tab><right>", "<cmd>BufferLineMoveNext<CR>", { desc = "Move tab right" } },
 		},

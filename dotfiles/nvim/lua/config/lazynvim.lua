@@ -20,6 +20,6 @@ require("lazy").setup("plugins", {
 		-- Disable partial clone: blob:none defers blob fetch to checkout,
 		-- which can exceed the 120s default timeout on slow links (snacks.nvim case).
 		filter = false,
-		timeout = 300,
+		timeout = 1200,
 	},
 })
