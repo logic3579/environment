@@ -94,7 +94,6 @@ Files under `appfiles/` are manual backups — restore by importing them into th
 | ------------------------------- | --------------------------------------------- |
 | `scripts/trash.sh`              | Safe delete — move to system Trash            |
 | `scripts/generate-secret.sh`    | Random password + SHA256                      |
-| `scripts/tmux-network-speed.sh` | Network speed widget for tmux status bar      |
 | `scripts/helm-middleware.sh`    | Helm middleware utility                       |
 | `scripts/decorate-requests.py`  | Python request decorator                      |
 | `scripts/getcdn-realip.go`      | Resolve real IP behind a CDN                  |

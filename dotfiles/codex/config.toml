@@ -47,5 +47,14 @@ trust_level = "trusted"
 [projects."/Users/logic/Projects/helm-charts"]
 trust_level = "trusted"
 
+[projects."/Users/logic/Projects/devops-marketplace"]
+trust_level = "trusted"
+
+[projects."/Users/logic/Projects/dockerfiles"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
+
+[plugins."superpowers@openai-curated"]
+enabled = true

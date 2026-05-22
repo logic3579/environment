@@ -34,7 +34,6 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 ├── scripts/
 │   ├── trash.sh             # Safe delete (move to system trash)
 │   ├── generate-secret.sh   # Random password + SHA256 generator
-│   ├── tmux-network-speed.sh # tmux status bar network speed
 │   ├── helm-middleware.sh   # Helm middleware utility
 │   ├── decorate-requests.py # Python request decorator
 │   └── getcdn-realip.go     # Go utility for CDN real IP
@@ -84,6 +83,30 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `Brewfile` — Default environment packages
 - `Brewfile-work` — Work environment packages (more DevOps tools: k8s, helm, argocd, etc.)
 - Shared packages exist in both files independently (no shared base file)
+
+### Tmux Config (`dotfiles/tmux/tmux.conf`)
+
+#### Plugins (via TPM)
+
+| Plugin | Purpose |
+| ------ | ------- |
+| `tmux-plugins/tpm` | Plugin manager (auto-bootstrapped via `if "test ! -d ..."` block at bottom) |
+| `tmux-plugins/tmux-resurrect` | Session save / restore |
+| `thewtex/tmux-mem-cpu-load` | Mem / CPU / load status segment; binary symlinked to `/opt/homebrew/bin/tmux-mem-cpu-load` |
+| `semi710/minimal-tmux-status` | Status bar layout (owns `status-left/right/style` + `window-status-*format`) |
+| `tmux-plugins/tmux-battery` | Battery status segment |
+
+#### Status Bar Architecture
+
+- Layout fully owned by **minimal-tmux-status**; do NOT hand-write `status-left/right/style` or `window-status-*format` — set `@minimal-tmux-*` vars instead. Plugin sets `status-style bg=default,fg=default` so the bar bg stays terminal default; `@minimal-tmux-bg/fg` only colors the active-window pill + prefix indicator.
+- Palette: `@minimal-tmux-bg "#268bd2"` (Solarized blue) + `@minimal-tmux-fg "#073642"` (base02).
+- Prefix indicator: `@minimal-tmux-indicator-str " #S "` — session name shown subtly, lights up blue when `C-z` held.
+- Zoom flag auto-injected via `#{?window_zoomed_flag,…}` in `window-status-current-format`.
+- Right side (`@minimal-tmux-status-right`): 5 colored pills — three auto-styled by `tmux-mem-cpu-load -c` (mem / cpu / load, thresholded bg), then battery on `colour23` dark teal, then date+time on `colour58` dark olive.
+
+#### Gotcha: `#{battery_color_fg}` Is a Full Style Block, Not a Color
+
+`#{battery_color_fg}` (and its siblings `_bg`, `_charge_*`, `_status_*`) expands to a complete `#[fg=X,bg=Y]` declaration — **NOT** a bare color value. Nesting it inside `#[fg=…,bg=…]` breaks tmux's `#[...]` parser and leaks literal text into the status line. Use it standalone. Default secondary plane is `colour0` (black) — to force a different bg, override **both** `@batt_color_charge_secondary_tier1..8` AND `@batt_color_status_secondary_<state>` (13 vars total) to the desired color.
 
 ### Neovim Config (`dotfiles/nvim/`)
 
