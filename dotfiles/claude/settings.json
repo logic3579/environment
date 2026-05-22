@@ -14,9 +14,5 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "theme": "dark-daltonized",
-  "skipAutoPermissionPrompt": true,
-  "permissions": {
-    "defaultMode": "auto"
-  }
+  "theme": "dark-daltonized"
 }
