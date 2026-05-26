@@ -126,13 +126,14 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 
 coding_agent_config: ## Install coding agent configs (claude-code / codex / gemini-cli / kimi-cli / opencode / pi)
 	@echo "##### Install coding agent config start #####"
-	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.gemini $(HOME)/.kimi $(HOME)/.config/opencode $(HOME)/.pi/agent
+	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.gemini $(HOME)/.kimi $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
 	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
 	ln -svF $(DOTFILES)/gemini/settings.json $(HOME)/.gemini/settings.json
 	ln -svF $(DOTFILES)/kimi/config.toml $(HOME)/.kimi/config.toml
 	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
 	ln -svF $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
+	ln -svF $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
 	@echo "##### Install coding agent config end   #####"
 
 help:

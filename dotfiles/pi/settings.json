@@ -10,7 +10,9 @@
     "npm:pi-subagents",
     "npm:pi-hermes-memory",
     "npm:pi-ask-user",
-    "npm:@gotgenes/pi-permission-system"
+    "npm:@gotgenes/pi-permission-system",
+    "npm:pi-mcp-adapter",
+    "npm:pi-powerline-footer"
   ],
   "defaultThinkingLevel": "high"
 }
