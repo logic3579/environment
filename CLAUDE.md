@@ -65,7 +65,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make install` — Install all packages (depends on `dependencies`)
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
 - `make bash` / `make zsh` — Install shell framework and link rc file
-- `make coding_agent_config` — Install AI configs (claude, codex, gemini, opencode) to respective directories
+- `make coding_agent_config` — Install AI configs (claude, codex, gemini, kimi, opencode, pi) to respective directories
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions
@@ -75,7 +75,9 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
+- Kimi CLI: `~/.kimi/config.toml` (symlinked from `dotfiles/kimi/config.toml`)
 - OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
+- Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)
 - Usage: `make coding_agent_config`
 
 ### Two Brewfile Strategy
