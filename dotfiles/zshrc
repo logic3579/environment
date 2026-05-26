@@ -93,6 +93,13 @@ export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # -------------------------
+# Bun
+# -------------------------
+# Bun runtime installed via Homebrew; global packages (`bun install -g <pkg>`) land in ~/.bun/bin.
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# -------------------------
 # Java
 # -------------------------
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
