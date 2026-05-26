@@ -14,5 +14,6 @@
     ]
   },
   "alwaysThinkingEnabled": true,
-  "theme": "dark-daltonized"
+  "theme": "dark-daltonized",
+  "skipAutoPermissionPrompt": true
 }

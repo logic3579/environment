@@ -2,5 +2,15 @@
   "lastChangelogVersion": "0.75.5",
   "npmCommand": [
     "bun"
-  ]
+  ],
+  "packages": [
+    "npm:pi-web-access",
+    "npm:pi-lens",
+    "npm:context-mode",
+    "npm:pi-subagents",
+    "npm:pi-hermes-memory",
+    "npm:pi-ask-user",
+    "npm:@gotgenes/pi-permission-system"
+  ],
+  "defaultThinkingLevel": "high"
 }
