@@ -1,19 +1,46 @@
-# macOS
-.DS_Store
-.DS_Store?
-.AppleDouble
-.LSOverride
-Icon
-.Spotlight-V100
-.Trashes
-Thumbs.db
+# === AI Coding Assistants ===
 
-# AtomCode workspace cache
+# AtomCode
 .atomcode/
 
-# IDE
-.idea/
-.vscode/
+# Claude Code
+.claude/settings.local.json
+.claude/memory/
+.claude/sessions/
+
+# Cursor
+.cursorignore
+.cursorindexingignore
+
+# === OS ===
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# === Editors & IDEs ===
 *.swp
 *.swo
 *~
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# === Logs & Temp ===
+*.log
+tmp/
+.tmp/
+
+# === Testing artifacts ===
+coverage/
+.nyc_output/
+junit-*.xml
+
+# === Environment & Secrets ===
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
