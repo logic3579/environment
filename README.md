@@ -19,7 +19,7 @@ make all
 make zsh        # oh-my-zsh + plugins, link ~/.zshrc
 make bash       # oh-my-bash, link ~/.bashrc
 
-# AI coding agent configs (Claude Code / Codex / Gemini CLI / OpenCode)
+# AI coding agent configs (AtomCode / Claude Code / Codex / Gemini CLI / OpenCode)
 make coding_agent_config
 ```
 
@@ -37,7 +37,7 @@ Run `make help` for the live list. Current targets:
 | `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config` |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                       |
 | `zsh`                 | Install oh-my-zsh + autosuggestions + syntax-highlighting, link `~/.zshrc` |
-| `coding_agent_config` | Symlink Claude / Codex / Gemini / OpenCode configs         |
+| `coding_agent_config` | Symlink AtomCode / Claude / Codex / Gemini / OpenCode configs |
 | `clean`               | Remove broken symlinks under `~/.config`                   |
 | `test`                | Print resolved Makefile variables                          |
 
@@ -55,7 +55,8 @@ Run `make help` for the live list. Current targets:
 │   ├── wezterm/          # WezTerm terminal
 │   ├── ghostty/          # Ghostty terminal
 │   ├── zshrc / bashrc    # Shell rc files
-│   ├── claude/           # Claude Code settings
+ │   ├── atomcode/         # AtomCode config
+ │   ├── claude/           # Claude Code settings
 │   ├── codex/            # Codex CLI config
 │   ├── gemini/           # Gemini CLI settings
 │   └── opencode/         # OpenCode config

@@ -72,6 +72,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 ### Coding Agent Config
 
+- AtomCode: `~/.atomcode/config.toml` (symlinked from `dotfiles/atomcode/config.toml`)
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
