@@ -133,6 +133,7 @@ coding_agent_config: ## Install coding agent configs (atomcode / claude-code / c
 	ln -svF $(DOTFILES)/gemini/settings.json $(HOME)/.gemini/settings.json
 	ln -svF $(DOTFILES)/kimi/config.toml $(HOME)/.kimi/config.toml
 	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
+	ln -svF $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
 	ln -svF $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
 	ln -svF $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
 	@echo "##### Install coding agent config end   #####"

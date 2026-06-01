@@ -26,7 +26,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── gemini/              # Gemini CLI config
 │   │   └── settings.json
 │   ├── opencode/            # OpenCode CLI config
-│   │   └── opencode.json
+│   │   ├── opencode.json
+│   │   └── oh-my-openagent.json   # oh-my-openagent plugin: agents/categories → model mapping
 │   ├── zshrc                # Zsh config (oh-my-zsh)
 │   ├── bashrc               # Bash config (oh-my-bash, cross-platform: macOS + Linux)
 │   └── pgpass               # libpq password template (manual install — see README)
@@ -77,7 +78,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
 - Kimi CLI: `~/.kimi/config.toml` (symlinked from `dotfiles/kimi/config.toml`)
-- OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
+- OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
 - Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)
 - Usage: `make coding_agent_config`
 

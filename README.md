@@ -19,7 +19,7 @@ make all
 make zsh        # oh-my-zsh + plugins, link ~/.zshrc
 make bash       # oh-my-bash, link ~/.bashrc
 
-# AI coding agent configs (AtomCode / Claude Code / Codex / Gemini CLI / OpenCode)
+# AI coding agent configs (AtomCode / Claude Code / Codex / Gemini CLI / Kimi CLI / OpenCode / Pi)
 make coding_agent_config
 ```
 
@@ -29,40 +29,44 @@ make coding_agent_config
 
 Run `make help` for the live list. Current targets:
 
-| Target                | Description                                                |
-| --------------------- | ---------------------------------------------------------- |
-| `all`                 | `test` → `install` → `xdg_config` → `clean`                |
-| `install`             | Install packages (Brewfile on macOS, apt/dnf on Linux)     |
-| `dependencies`        | Install Homebrew (macOS) / `fonts-powerline` (Linux)       |
-| `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config` |
-| `bash`                | Install oh-my-bash, link `~/.bashrc`                       |
+| Target                | Description                                                                |
+| --------------------- | -------------------------------------------------------------------------- |
+| `all`                 | `test` → `install` → `xdg_config` → `clean`                                |
+| `install`             | Install packages (Brewfile on macOS, apt/dnf on Linux)                     |
+| `dependencies`        | Install Homebrew (macOS) / `fonts-powerline` (Linux)                       |
+| `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
+| `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
 | `zsh`                 | Install oh-my-zsh + autosuggestions + syntax-highlighting, link `~/.zshrc` |
-| `coding_agent_config` | Symlink AtomCode / Claude / Codex / Gemini / OpenCode configs |
-| `clean`               | Remove broken symlinks under `~/.config`                   |
-| `test`                | Print resolved Makefile variables                          |
+| `coding_agent_config` | Symlink AtomCode / Claude / Codex / Gemini / Kimi / OpenCode / Pi configs  |
+| `clean`               | Remove broken symlinks under `~/.config`                                   |
+| `test`                | Print resolved Makefile variables                                          |
 
 ## Project Layout
 
 ```
 .
-├── Makefile              # Entry point — see `make help`
-├── Brewfile              # Homebrew packages (default)
-├── Brewfile-work         # Homebrew packages (work / DevOps)
-├── dotfiles/             # Symlinked to ~/.config or $HOME
-│   ├── tmux/             # tmux.conf (prefix: C-z)
-│   ├── nvim/             # Neovim — lazy.nvim, LSP, treesitter, telescope
-│   ├── vim/              # Vim — Vundle
-│   ├── wezterm/          # WezTerm terminal
-│   ├── ghostty/          # Ghostty terminal
-│   ├── zshrc / bashrc    # Shell rc files
- │   ├── atomcode/         # AtomCode config
- │   ├── claude/           # Claude Code settings
-│   ├── codex/            # Codex CLI config
-│   ├── gemini/           # Gemini CLI settings
-│   └── opencode/         # OpenCode config
-├── appfiles/             # Standalone app config backups (not symlinked)
-├── scripts/              # Utility scripts (shell / python / go)
-└── .github/workflows/    # CI: make test + ShellCheck
+├── Makefile                # Entry point — run `make help` for targets
+├── Brewfile                # Homebrew packages (default)
+├── Brewfile-work           # Homebrew packages (work / DevOps)
+├── dotfiles/               # Symlinked to ~/.config/ or $HOME
+│   ├── tmux/               # tmux.conf — prefix C-z, catppuccin macchiato
+│   ├── nvim/               # Neovim — lazy.nvim, LSP, treesitter, fzf-lua
+│   ├── vim/                # Vim — Vundle, fallback editor
+│   ├── wezterm/            # WezTerm terminal
+│   ├── ghostty/            # Ghostty terminal
+│   ├── zshrc               # Zsh — oh-my-zsh + autosuggestions + syntax-highlighting
+│   ├── bashrc              # Bash — oh-my-bash, cross-platform (macOS + Linux)
+│   ├── atomcode/           # AtomCode — config.toml
+│   ├── claude/             # Claude Code — settings.json
+│   ├── codex/              # Codex CLI — config.toml, env.example
+│   ├── gemini/             # Gemini CLI — settings.json
+│   ├── kimi/               # Kimi CLI — config.toml, env.example
+│   ├── opencode/           # OpenCode — opencode.json, oh-my-openagent.json
+│   ├── pi/                 # Pi agent — settings.json, openai-proxy.ts
+│   └── pgpass              # libpq password template (manual install)
+├── appfiles/               # Manual app-config backups (not symlinked)
+├── scripts/                # Utility scripts (shell / python / go)
+└── .github/workflows/      # CI — make test + ShellCheck
 ```
 
 ## PostgreSQL Credentials
@@ -80,24 +84,24 @@ Format per line: `hostname:port:database:username:password` (use `*` as a wildca
 
 Files under `appfiles/` are manual backups — restore by importing them into the respective app:
 
-| File                                       | App                           |
-| ------------------------------------------ | ----------------------------- |
-| `appfiles/follow.opml`                     | Folo / RSS reader             |
-| `appfiles/Raycast.rayconfig`               | Raycast                       |
-| `appfiles/Preferences.sublime-settings`    | Sublime Text                  |
-| `appfiles/SecureCRT.xml`                   | SecureCRT                     |
-| `appfiles/vscode.settings.json`            | Visual Studio Code            |
-| `appfiles/ZeroOmegaOptions.bak`            | SwitchyOmega / ZeroOmega      |
+| File                                    | App                      |
+| --------------------------------------- | ------------------------ |
+| `appfiles/follow.opml`                  | Folo / RSS reader        |
+| `appfiles/Preferences.sublime-settings` | Sublime Text             |
+| `appfiles/Raycast.rayconfig`            | Raycast                  |
+| `appfiles/SecureCRT.xml`                | SecureCRT                |
+| `appfiles/vscode.settings.json`         | Visual Studio Code       |
+| `appfiles/ZeroOmegaOptions.bak`         | SwitchyOmega / ZeroOmega |
 
 ## Scripts
 
-| Script                          | Purpose                                       |
-| ------------------------------- | --------------------------------------------- |
-| `scripts/trash.sh`              | Safe delete — move to system Trash            |
-| `scripts/generate-secret.sh`    | Random password + SHA256                      |
-| `scripts/helm-middleware.sh`    | Helm middleware utility                       |
-| `scripts/decorate-requests.py`  | Python request decorator                      |
-| `scripts/getcdn-realip.go`      | Resolve real IP behind a CDN                  |
+| Script                         | Purpose                            |
+| ------------------------------ | ---------------------------------- |
+| `scripts/decorate-requests.py` | Python request decorator           |
+| `scripts/generate-secret.sh`   | Random password + SHA256           |
+| `scripts/getcdn-realip.go`     | Resolve real IP behind a CDN       |
+| `scripts/helm-middleware.sh`   | Helm middleware utility            |
+| `scripts/trash.sh`             | Safe delete — move to system Trash |
 
 ## Conventions
 
