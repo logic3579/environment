@@ -23,8 +23,6 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   │   └── settings.json
 │   ├── codex/               # Codex CLI config
 │   │   └── config.toml
-│   ├── gemini/              # Gemini CLI config
-│   │   └── settings.json
 │   ├── opencode/            # OpenCode CLI config
 │   │   ├── opencode.json
 │   │   └── oh-my-openagent.json   # oh-my-openagent plugin: agents/categories → model mapping
@@ -66,17 +64,15 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make install` — Install all packages (depends on `dependencies`)
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
 - `make bash` / `make zsh` — Install shell framework and link rc file
-- `make coding_agent_config` — Install AI configs (claude, codex, gemini, kimi, opencode, pi) to respective directories
+- `make coding_agent_config` — Install AI configs (claude, codex, kimi, opencode, pi) to respective directories
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions
 
 ### Coding Agent Config
 
-- AtomCode: `~/.atomcode/config.toml` (symlinked from `dotfiles/atomcode/config.toml`)
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
-- Gemini CLI: `~/.gemini/settings.json` (symlinked from `dotfiles/gemini/settings.json`)
 - Kimi CLI: `~/.kimi/config.toml` (symlinked from `dotfiles/kimi/config.toml`)
 - OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
 - Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)

@@ -1,8 +1,5 @@
 # === AI Coding Assistants ===
 
-# AtomCode
-.atomcode/
-
 # Claude Code
 .claude/settings.local.json
 .claude/memory/

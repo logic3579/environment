@@ -19,7 +19,7 @@ make all
 make zsh        # oh-my-zsh + plugins, link ~/.zshrc
 make bash       # oh-my-bash, link ~/.bashrc
 
-# AI coding agent configs (AtomCode / Claude Code / Codex / Gemini CLI / Kimi CLI / OpenCode / Pi)
+# AI coding agent configs (Claude Code / Codex / Kimi CLI / OpenCode / Pi)
 make coding_agent_config
 ```
 
@@ -37,7 +37,7 @@ Run `make help` for the live list. Current targets:
 | `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
 | `zsh`                 | Install oh-my-zsh + autosuggestions + syntax-highlighting, link `~/.zshrc` |
-| `coding_agent_config` | Symlink AtomCode / Claude / Codex / Gemini / Kimi / OpenCode / Pi configs  |
+| `coding_agent_config` | Symlink Claude / Codex / Kimi / OpenCode / Pi configs                      |
 | `clean`               | Remove broken symlinks under `~/.config`                                   |
 | `test`                | Print resolved Makefile variables                                          |
 
@@ -56,10 +56,8 @@ Run `make help` for the live list. Current targets:
 │   ├── ghostty/            # Ghostty terminal
 │   ├── zshrc               # Zsh — oh-my-zsh + autosuggestions + syntax-highlighting
 │   ├── bashrc              # Bash — oh-my-bash, cross-platform (macOS + Linux)
-│   ├── atomcode/           # AtomCode — config.toml
 │   ├── claude/             # Claude Code — settings.json
 │   ├── codex/              # Codex CLI — config.toml, env.example
-│   ├── gemini/             # Gemini CLI — settings.json
 │   ├── kimi/               # Kimi CLI — config.toml, env.example
 │   ├── opencode/           # OpenCode — opencode.json, oh-my-openagent.json
 │   ├── pi/                 # Pi agent — settings.json, openai-proxy.ts
