@@ -8,6 +8,13 @@
     # Install Homebrew (macOS or Linux)
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+    # Install ble.sh (Bash Line Editor: fish-style autosuggestions + real-time syntax highlighting).
+    # Lands at ~/.local/share/blesh/ble.sh; the section below auto-loads when present.
+    # NOTE: ble.sh runtime needs bash 4+. macOS default /bin/bash is 3.2 — use brew bash
+    # (`brew install bash` then `chsh -s /opt/homebrew/bin/bash` after adding to /etc/shells).
+    git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git /tmp/ble.sh
+    make -C /tmp/ble.sh install PREFIX="$HOME/.local"
+
     # Nerd Fonts: https://www.nerdfonts.com/
 annotation
 #####
@@ -17,6 +24,14 @@ case $- in
   *i*) ;;
     *) return;;
 esac
+
+# -------------------------
+# ble.sh (Bash Line Editor: fish-style autosuggestions + syntax highlighting)
+# -------------------------
+# Loaded with --attach=none here; `ble-attach` runs at the very end so oh-my-bash
+# and other init can finalize PS1 / PROMPT_COMMAND / completions first.
+# Install: see Annotation block at top of this file (no-op until installed).
+[[ -r "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 
 # Path to your oh-my-bash installation.
 export OSH="$HOME/.oh-my-bash"
@@ -107,6 +122,13 @@ export PATH="$HOME/go/bin:$PATH"
 [ -n "${HOMEBREW_PREFIX:-}" ] && [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 
 # -------------------------
+# Bun
+# -------------------------
+# Bun runtime installed via Homebrew; global packages (`bun install -g <pkg>`) land in ~/.bun/bin.
+export BUN_INSTALL="$HOME/.bun"
+[[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
+
+# -------------------------
 # Java
 # -------------------------
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/openjdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/openjdk/bin:$PATH"
@@ -146,6 +168,18 @@ fi
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:$PATH"
 
 # -------------------------
+# Cloudflare / cf
+# -------------------------
+if command -v cf &>/dev/null; then
+    _cf_cache="$HOME/.cache/bash-cf-completion"
+    [[ -d "$(dirname "$_cf_cache")" ]] || mkdir -p "$(dirname "$_cf_cache")"
+    if [[ ! -s "$_cf_cache" ]] || [[ -n "$(find "$_cf_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        cf complete bash > "$_cf_cache"
+    fi
+    source "$_cf_cache"
+fi
+
+# -------------------------
 # Database CLI
 # -------------------------
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/mysql-client/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/mysql-client/bin:$PATH"
@@ -164,3 +198,6 @@ command -v fzf &>/dev/null && eval "$(fzf --bash)"
 # Deduplicate PATH (bash equivalent of zsh's typeset -U PATH)
 PATH=$(printf %s "$PATH" | awk -v RS=: -v ORS=: '!seen[$0]++' | sed 's/:$//')
 export PATH
+
+# Attach ble.sh after all other init (PS1, PROMPT_COMMAND, completions, PATH) finalized
+[[ ${BLE_VERSION-} ]] && ble-attach

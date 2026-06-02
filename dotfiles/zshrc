@@ -139,6 +139,18 @@ fi
 export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 
 # -------------------------
+# Cloudflare / cf
+# -------------------------
+if command -v cf &>/dev/null; then
+    _cf_cache="$HOME/.cache/zsh-cf-completion"
+    [[ -d ${_cf_cache:h} ]] || mkdir -p ${_cf_cache:h}
+    if [[ ! -s "$_cf_cache" ]] || [[ -n "$(find "$_cf_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        cf complete zsh > "$_cf_cache"
+    fi
+    source "$_cf_cache"
+fi
+
+# -------------------------
 # Database CLI
 # -------------------------
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"

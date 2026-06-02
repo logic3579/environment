@@ -45,7 +45,7 @@ dependencies:
 	fi
 	@echo "##### Dependencies check end   #####"
 
-install: dependencies ## Dependencies check and install all package.
+install: dependencies ## Install all packages (with dependencies check)
 	@echo "##### Install package start #####"
 	@if [ "$(OS_NAME)" = "Darwin" ]; then \
 		[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }; \
@@ -55,46 +55,41 @@ install: dependencies ## Dependencies check and install all package.
 	fi
 	@echo "##### Install package end   #####"
 
-xdg_config: ## Link configure to XDG_CONFIG directory.
-	@echo "##### Initialize xdg_config start #####"
-	@mkdir -p $(HOME)/.config
-	@echo ">>> Tmux"
+xdg_config: ## Install XDG_CONFIG symlinks (ghostty / nvim / tmux / vim / wezterm)
+	@echo "##### Install xdg_config start #####"
+	@mkdir -p $(HOME)/.config $(HOME)/.vim/bundle
+	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty
+	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim
 	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux
-	@echo ">>> Neovim"
-	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim && \
-	if command -v nvim >/dev/null 2>&1; then \
+	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim
+	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm
+	@test -d $(HOME)/.vim/bundle/Vundle.vim || \
+		git clone https://github.com/VundleVim/Vundle.vim.git $(HOME)/.vim/bundle/Vundle.vim
+	@if command -v nvim >/dev/null 2>&1; then \
 		nvim --headless +Lazy +qall; \
 	else \
 		echo ">>> nvim not installed, skipping Lazy sync"; \
 	fi
-	@echo ">>> Vim"
-	test -d $(HOME)/.vim/bundle/Vundle.vim || \
-		git clone https://github.com/VundleVim/Vundle.vim.git $(HOME)/.vim/bundle/Vundle.vim
-	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim && \
-	if command -v vim >/dev/null 2>&1; then \
+	@if command -v vim >/dev/null 2>&1; then \
 		vim -u $(HOME)/.config/vim/vimrc +PluginInstall +qall; \
 	else \
 		echo ">>> vim not installed, skipping PluginInstall"; \
 	fi
-	@echo ">>> WezTerm"
-	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm
-	@echo ">>> Ghostty"
-	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty
-	@echo "##### Initialize xdg_config end   #####"
+	@echo "##### Install xdg_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bashrc
-	@echo "##### Initialize oh-my-bash start #####"
+	@echo "##### Install oh-my-bash start #####"
 	@if [ -d $(HOME)/.oh-my-bash ]; then \
 		echo "oh-my-bash already installed"; \
 	else \
 		bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	fi
 	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc
-	@echo "##### Initialize oh-my-bash end   #####"
+	@echo "##### Install oh-my-bash end   #####"
 	@echo ">>> Please run 'source ~/.bashrc' to apply changes."
 
 zsh: ## Install oh-my-zsh and link ~/.zshrc
-	@echo "##### Initialize oh-my-zsh start #####"
+	@echo "##### Install oh-my-zsh start #####"
 	@if [ -d $(HOME)/.oh-my-zsh ]; then \
 		echo "oh-my-zsh already installed"; \
 	else \
@@ -105,7 +100,7 @@ zsh: ## Install oh-my-zsh and link ~/.zshrc
 	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting || \
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc
-	@echo "##### Initialize oh-my-zsh end   #####"
+	@echo "##### Install oh-my-zsh end   #####"
 	@echo ">>> Please run 'source ~/.zshrc' to apply changes."
 
 test: ## Run the tests

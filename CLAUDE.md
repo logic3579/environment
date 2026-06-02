@@ -56,7 +56,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **Commented-out code**: Always use `# ` with a space after `#`
 - **zshrc PATH pattern**: Use `export PATH="...:$PATH"` for each tool, with `typeset -U PATH` on the last line to deduplicate (no conditional `[[ ]]` checks needed)
 - **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
-- **Shell completion cache**: `kubectl`/`helm` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh.
+- **Shell completion cache**: `kubectl`/`helm`/`cf` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
 - **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
 
 ### Makefile Targets
@@ -68,6 +68,13 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions
+
+Target body convention (see `coding_agent_config` as the canonical shape, mirrored by `xdg_config`):
+
+- `##` description uses `Install <name> (item1 / item2 / ...)`
+- Body opens with `@echo "##### Install <name> start #####"` and closes with `##### Install <name> end   #####` (3 trailing spaces pad `end` to align with `start`)
+- A single consolidated `@mkdir -p` line for all required parent dirs
+- Symlink rows are plain `ln -svF` lines, sorted alphabetically, with no per-row `>>> X` echo
 
 ### Coding Agent Config
 
