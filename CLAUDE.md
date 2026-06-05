@@ -7,8 +7,10 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 ```
 .
 ├── Makefile                 # Main entry: install, link, clean
-├── Brewfile                 # Homebrew packages (default)
-├── Brewfile-work            # Homebrew packages (Work environment)
+├── homebrew/
+│   ├── Brewfile             # Homebrew packages (default, macOS)
+│   ├── Brewfile-work        # Homebrew packages (Work environment, macOS)
+│   └── Brewfile-linux       # Linux-portable subset (formulae only, no casks)
 ├── dotfiles/
 │   ├── tmux/tmux.conf       # tmux config (prefix: C-z)
 │   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
@@ -85,11 +87,16 @@ Target body convention (see `coding_agent_config` as the canonical shape, mirror
 - Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)
 - Usage: `make coding_agent_config`
 
-### Two Brewfile Strategy
+### Brewfile Strategy
 
-- `Brewfile` — Default environment packages
-- `Brewfile-work` — Work environment packages (more DevOps tools: k8s, helm, argocd, etc.)
-- Shared packages exist in both files independently (no shared base file)
+All Homebrew manifests live under `homebrew/`:
+
+- `homebrew/Brewfile` — Default environment packages (macOS)
+- `homebrew/Brewfile-work` — Work environment packages, more DevOps tools: k8s, helm, argocd, etc. (macOS)
+- `homebrew/Brewfile-linux` — Linux-portable subset; formulae only (Linuxbrew does not support casks)
+- Shared packages exist in each file independently (no shared base file)
+- `make install` runs `brew bundle` on both macOS and Linux. `BREWFILE` defaults: macOS → `homebrew/Brewfile`, Linux → `homebrew/Brewfile-linux`. Override with `make install BREWFILE=$(pwd)/homebrew/Brewfile-work`
+- **Linux bootstrap layer** (`make dependencies`): system pkgs required to install Homebrew itself plus font infra — Debian uses `build-essential procps curl file git fontconfig fonts-powerline`, Fedora uses `gcc gcc-c++ make procps-ng curl file git fontconfig powerline-fonts`. Everything beyond bootstrap (tmux, neovim, fzf, ripgrep, …) goes through `Brewfile-linux`. `zsh` stays on the system package manager (oh-my-zsh's install script depends on it being present before bash/zsh setup runs).
 
 ### Tmux Config (`dotfiles/tmux/tmux.conf`)
 

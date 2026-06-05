@@ -12,7 +12,7 @@ Personal dotfiles, Homebrew packages, application configs, and utility scripts. 
 ## Quick Start
 
 ```bash
-# macOS — install Homebrew packages from Brewfile, link dotfiles, clean broken symlinks
+# macOS / Linux — bootstrap deps, install Homebrew packages, link dotfiles, clean
 make all
 
 # Pick your shell framework
@@ -23,7 +23,7 @@ make bash       # oh-my-bash, link ~/.bashrc
 make coding_agent_config
 ```
 
-> Work environment: `brew bundle --file=Brewfile-work` for DevOps-heavy tooling (k8s, helm, argocd, ...).
+> Pick a Brewfile: defaults are `homebrew/Brewfile` (macOS) and `homebrew/Brewfile-linux` (Linux). Override with `make install BREWFILE=$(pwd)/homebrew/Brewfile-work` for DevOps-heavy macOS work setup.
 
 ## Makefile Targets
 
@@ -32,8 +32,8 @@ Run `make help` for the live list. Current targets:
 | Target                | Description                                                                |
 | --------------------- | -------------------------------------------------------------------------- |
 | `all`                 | `test` → `install` → `xdg_config` → `clean`                                |
-| `install`             | Install packages (Brewfile on macOS, apt/dnf on Linux)                     |
-| `dependencies`        | Install Homebrew (macOS) / `fonts-powerline` (Linux)                       |
+| `install`             | Install packages via `brew bundle` (Brewfile on macOS, Brewfile-linux on Linux) |
+| `dependencies`        | Install Homebrew + bootstrap system packages on Linux (build tools, fontconfig, …) |
 | `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
 | `zsh`                 | Install oh-my-zsh + autosuggestions + syntax-highlighting, link `~/.zshrc` |
@@ -46,8 +46,10 @@ Run `make help` for the live list. Current targets:
 ```
 .
 ├── Makefile                # Entry point — run `make help` for targets
-├── Brewfile                # Homebrew packages (default)
-├── Brewfile-work           # Homebrew packages (work / DevOps)
+├── homebrew/               # Homebrew package manifests
+│   ├── Brewfile            # Default environment (macOS)
+│   ├── Brewfile-work       # Work environment — DevOps tooling (macOS)
+│   └── Brewfile-linux      # Linux-portable subset (formulae only, no casks)
 ├── dotfiles/               # Symlinked to ~/.config/ or $HOME
 │   ├── tmux/               # tmux.conf — prefix C-z, catppuccin macchiato
 │   ├── nvim/               # Neovim — lazy.nvim, LSP, treesitter, fzf-lua
@@ -106,7 +108,7 @@ Files under `appfiles/` are manual backups — restore by importing them into th
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) — `type(scope): description`
 - **Shell scripts**: `#!/bin/bash` + `set -euo pipefail`, POSIX `name() {` function style
 - **Symlinks**: `ln -svF` into `~/.config/<app>/`
-- **Daily-driver platform**: macOS (Apple Silicon, Homebrew at `/opt/homebrew/`); Linux paths are supported in `install` only
+- **Daily-driver platform**: macOS (Apple Silicon, Homebrew at `/opt/homebrew/`); Linux (Debian / Fedora) also goes through Homebrew via `homebrew/Brewfile-linux` after a small bootstrap layer (`build-essential`, `fontconfig`, etc.)
 
 ## References
 

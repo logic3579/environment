@@ -1,5 +1,4 @@
 APPFILES := $(CURDIR)/appfiles
-BREWFILE ?= $(CURDIR)/Brewfile
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
 SHELL := /bin/bash
@@ -7,7 +6,8 @@ SHELL := /bin/bash
 
 # Check OS and setting package
 ifeq ($(OS_NAME),Linux)
-    PACKAGE_NAME := curl wget telnet git fontconfig tmux neovim zsh
+    BREWFILE ?= $(CURDIR)/homebrew/Brewfile-linux
+    BREW := $(or $(shell command -v brew 2>/dev/null),/home/linuxbrew/.linuxbrew/bin/brew)
 
     # Check sudo command
     ifeq ($(shell command -v sudo 2> /dev/null),)
@@ -18,14 +18,16 @@ ifeq ($(OS_NAME),Linux)
 
     ifneq ($(strip $(shell grep -i debian /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := apt install -y
+        BOOTSTRAP_PKGS := build-essential procps curl file git fontconfig fonts-powerline
     else ifneq ($(strip $(shell grep -i fedora /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := dnf install -y
+        BOOTSTRAP_PKGS := gcc gcc-c++ make procps-ng curl file git fontconfig powerline-fonts
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME),Darwin)
+    BREWFILE ?= $(CURDIR)/homebrew/Brewfile
     BREW := $(or $(shell command -v brew 2>/dev/null),/opt/homebrew/bin/brew)
-    PACKAGE_CMD := $(BREW) bundle --file=$(BREWFILE)
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
@@ -36,23 +38,20 @@ all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
 	@echo "##### Dependencies check start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ] && ! command -v brew >/dev/null 2>&1; then \
-		echo ">>> Installing Homebrew..."; \
+	@if [ "$(OS_NAME)" = "Linux" ]; then \
+		echo ">>> Installing bootstrap packages: $(BOOTSTRAP_PKGS)"; \
+		$(CMD_PREFIX) $(PACKAGE_CMD) $(BOOTSTRAP_PKGS); \
+	fi
+	@if ! command -v brew >/dev/null 2>&1 && [ ! -x "$(BREW)" ]; then \
+		echo ">>> Installing Homebrew"; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
-	elif [ "$(OS_NAME)" = "Linux" ]; then \
-		echo ">>> Installing fonts-powerline"; \
-		$(CMD_PREFIX) $(PACKAGE_CMD) fonts-powerline; \
 	fi
 	@echo "##### Dependencies check end   #####"
 
-install: dependencies ## Install all packages (with dependencies check)
+install: dependencies ## Install all packages via Homebrew (Brewfile / Brewfile-work / Brewfile-linux)
 	@echo "##### Install package start #####"
-	@if [ "$(OS_NAME)" = "Darwin" ]; then \
-		[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }; \
-		eval "$$($(BREW) shellenv)" && brew bundle --file=$(BREWFILE); \
-	else \
-		$(CMD_PREFIX) $(PACKAGE_CMD) $(PACKAGE_NAME); \
-	fi
+	@[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }
+	@eval "$$($(BREW) shellenv)" && brew bundle --file=$(BREWFILE)
 	@echo "##### Install package end   #####"
 
 xdg_config: ## Install XDG_CONFIG symlinks (ghostty / nvim / tmux / vim / wezterm)
@@ -108,10 +107,11 @@ test: ## Run the tests
 	@echo APPFILES is $(APPFILES)
 	@echo DOTFILES is $(DOTFILES)
 	@echo BREWFILE is $(BREWFILE)
+	@echo BREW is $(BREW)
 	@echo OS_NAME is $(OS_NAME)
 	@echo CMD_PREFIX is $(CMD_PREFIX)
 	@echo PACKAGE_CMD is $(PACKAGE_CMD)
-	@echo PACKAGE_NAME is $(PACKAGE_NAME)
+	@echo BOOTSTRAP_PKGS is $(BOOTSTRAP_PKGS)
 	@echo "##### Test end   #####"
 
 clean: ## Clean up broken symlinks in XDG_CONFIG directory.
