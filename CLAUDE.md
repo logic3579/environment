@@ -56,7 +56,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **Commented-out code**: Always use `# ` with a space after `#`
 - **zshrc PATH pattern**: Use `export PATH="...:$PATH"` for each tool, with `typeset -U PATH` on the last line to deduplicate (no conditional `[[ ]]` checks needed)
 - **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
-- **Shell completion cache**: `kubectl`/`helm`/`cf` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
+- **Shell completion cache**: `kubectl`/`helm`/`cf`/`limactl`/`colima` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf,limactl,colima}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
 - **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
 
 ### Makefile Targets

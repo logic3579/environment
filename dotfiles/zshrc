@@ -151,6 +151,30 @@ if command -v cf &>/dev/null; then
 fi
 
 # -------------------------
+# limactl
+# -------------------------
+if command -v limactl &>/dev/null; then
+    _limactl_cache="$HOME/.cache/zsh-limactl-completion"
+    [[ -d ${_limactl_cache:h} ]] || mkdir -p ${_limactl_cache:h}
+    if [[ ! -s "$_limactl_cache" ]] || [[ -n "$(find "$_limactl_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        limactl completion zsh > "$_limactl_cache"
+    fi
+    source "$_limactl_cache"
+fi
+
+# -------------------------
+# colima
+# -------------------------
+if command -v colima &>/dev/null; then
+    _colima_cache="$HOME/.cache/zsh-colima-completion"
+    [[ -d ${_colima_cache:h} ]] || mkdir -p ${_colima_cache:h}
+    if [[ ! -s "$_colima_cache" ]] || [[ -n "$(find "$_colima_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        colima completion zsh > "$_colima_cache"
+    fi
+    source "$_colima_cache"
+fi
+
+# -------------------------
 # Database CLI
 # -------------------------
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"

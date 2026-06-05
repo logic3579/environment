@@ -180,6 +180,30 @@ if command -v cf &>/dev/null; then
 fi
 
 # -------------------------
+# limactl
+# -------------------------
+if command -v limactl &>/dev/null; then
+    _limactl_cache="$HOME/.cache/bash-limactl-completion"
+    [[ -d "$(dirname "$_limactl_cache")" ]] || mkdir -p "$(dirname "$_limactl_cache")"
+    if [[ ! -s "$_limactl_cache" ]] || [[ -n "$(find "$_limactl_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        limactl completion bash > "$_limactl_cache"
+    fi
+    source "$_limactl_cache"
+fi
+
+# -------------------------
+# colima
+# -------------------------
+if command -v colima &>/dev/null; then
+    _colima_cache="$HOME/.cache/bash-colima-completion"
+    [[ -d "$(dirname "$_colima_cache")" ]] || mkdir -p "$(dirname "$_colima_cache")"
+    if [[ ! -s "$_colima_cache" ]] || [[ -n "$(find "$_colima_cache" -mtime +7 -print 2>/dev/null)" ]]; then
+        colima completion bash > "$_colima_cache"
+    fi
+    source "$_colima_cache"
+fi
+
+# -------------------------
 # Database CLI
 # -------------------------
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/mysql-client/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/mysql-client/bin:$PATH"
