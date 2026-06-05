@@ -13,6 +13,7 @@
       }
     ]
   },
+  "enabledPlugins": {},
   "alwaysThinkingEnabled": true,
   "theme": "dark-daltonized",
   "skipAutoPermissionPrompt": true
