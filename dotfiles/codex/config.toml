@@ -1,4 +1,4 @@
-model_provider = "OpenAI"
+#model_provider = "OpenAI"
 model = "gpt-5.5"
 review_model = "gpt-5.4"
 model_reasoning_effort = "medium"
@@ -6,34 +6,17 @@ model_context_window = 1000000
 model_auto_compact_token_limit = 900000
 service_tier = "fast"
 
-[model_providers.OpenAI]
-name = "OpenAI"
-base_url = "https://crs.hotdry.top/v1"
-wire_api = "responses"
-requires_openai_auth = false
-env_key = "OPENAI_API_KEY"
-#
-#export OPENAI_API_KEY="<OPENAI_API_KEY>"
-
 [sandbox_workspace_write]
 network_access = true
 
-#[model_providers.minimax]
-#name = "MiniMax Chat Completions API"
-#base_url = "https://api.minimaxi.com/v1"
-#env_key = "MINIMAX_API_KEY"
+#[model_providers.OpenAI]
+#name = "OpenAI"
+#base_url = "https://crs.hotdry.top/v1"
 #wire_api = "responses"
 #requires_openai_auth = false
-#request_max_retries = 4
-#stream_max_retries = 10
-#stream_idle_timeout_ms = 300000
+#env_key = "OPENAI_API_KEY"
 #
-#[profiles.minimax]
-#model = "codex-MiniMax-M2.7"
-#model_provider = "minimax"
-#
-#export MINIMAX_API_KEY="<MINIMAX_API_KEY>"
-#codex --profile minimax
+#export OPENAI_API_KEY="<OPENAI_API_KEY>"
 
 [projects."/Users/logic/Projects/automation"]
 trust_level = "trusted"
@@ -51,6 +34,9 @@ trust_level = "trusted"
 trust_level = "trusted"
 
 [projects."/Users/logic/Projects/dockerfiles"]
+trust_level = "trusted"
+
+[projects."/Users/logic/Projects/optimus"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]
