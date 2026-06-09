@@ -119,12 +119,11 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
 
-coding_agent_config: ## Install coding agent configs (claude-code / codex / kimi-cli / opencode / pi)
+coding_agent_config: ## Install coding agent configs (claude-code / codex / opencode / pi)
 	@echo "##### Install coding agent config start #####"
-	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.kimi $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
+	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
 	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
 	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	ln -svF $(DOTFILES)/kimi/config.toml $(HOME)/.kimi/config.toml
 	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
 	ln -svF $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
 	ln -svF $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
