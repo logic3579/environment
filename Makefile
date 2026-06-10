@@ -54,9 +54,10 @@ install: dependencies ## Install all packages via Homebrew (Brewfile / Brewfile-
 	@eval "$$($(BREW) shellenv)" && brew bundle --file=$(BREWFILE)
 	@echo "##### Install package end   #####"
 
-xdg_config: ## Install XDG_CONFIG symlinks (ghostty / nvim / tmux / vim / wezterm)
+xdg_config: ## Install XDG_CONFIG symlinks (alacritty / ghostty / nvim / tmux / vim / wezterm)
 	@echo "##### Install xdg_config start #####"
 	@mkdir -p $(HOME)/.config $(HOME)/.vim/bundle
+	ln -svF $(DOTFILES)/alacritty $(HOME)/.config/alacritty
 	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty
 	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim
 	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux

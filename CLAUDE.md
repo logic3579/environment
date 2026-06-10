@@ -19,7 +19,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   │       ├── config/      # Core config (option, keymap, autocmd, lib)
 │   │       └── plugins/     # Plugin specs (lazy.nvim format)
 │   ├── vim/vimrc            # Vim config (Vundle)
-│   ├── wezterm/wezterm.lua  # WezTerm terminal config
+│   ├── wezterm/wezterm.lua  # WezTerm terminal config (cross-platform: macOS + Windows)
+│   ├── alacritty/alacritty.toml # Alacritty terminal config (cross-platform: macOS + Windows)
 │   ├── ghostty/config       # Ghostty terminal config
 │   ├── claude/              # Claude Code config
 │   │   └── settings.json
