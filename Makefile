@@ -38,10 +38,10 @@ all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
 	@echo "##### Dependencies check start #####"
-	@if [ "$(OS_NAME)" = "Linux" ]; then \
-		echo ">>> Installing bootstrap packages: $(BOOTSTRAP_PKGS)"; \
-		$(CMD_PREFIX) $(PACKAGE_CMD) $(BOOTSTRAP_PKGS); \
-	fi
+ifeq ($(OS_NAME),Linux)
+	@echo ">>> Installing bootstrap packages: $(BOOTSTRAP_PKGS)"
+	@$(CMD_PREFIX) $(PACKAGE_CMD) $(BOOTSTRAP_PKGS)
+endif
 	@if ! command -v brew >/dev/null 2>&1 && [ ! -x "$(BREW)" ]; then \
 		echo ">>> Installing Homebrew"; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
