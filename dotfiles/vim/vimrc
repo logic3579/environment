@@ -1,3 +1,7 @@
+" Required by Vundle and modern vim plugins — enables line continuation (\)
+" and disables vi-compatible quirks. Must be set before sourcing any plugin.
+set nocompatible
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>  autocmd
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
