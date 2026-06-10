@@ -2,50 +2,45 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/deepseek-v4-pro"
     },
     "oracle": {
-      "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      "model": "opencode-go/deepseek-v4-pro"
     },
     "explore": {
       "model": "opencode/big-pickle"
     },
     "multimodal-looker": {
-      "model": "xiaomi/mimo-v2.5"
+      "model": "opencode-go/mimo-v2.5-pro"
     },
     "prometheus": {
-      "model": "nvidia/nemotron-3-ultra-550b-a55b:free"
+      "model": "opencode-go/deepseek-v4-pro"
     },
     "metis": {
-      "model": "opencode/deepseek-v4-flash-free",
-      "fallback_models": [
-        {
-          "model": "opencode/deepseek-v4-flash-free"
-        }
-      ]
+      "model": "zhipuai-coding-plan/glm-5.1"
     },
     "momus": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "zhipuai-coding-plan/glm-5.1"
     },
     "atlas": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/kimi-k2.6"
     },
     "sisyphus-junior": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/deepseek-v4-pro"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "xiaomi/mimo-v2.5"
+      "model": "opencode-go/mimo-v2.5-pro"
     },
     "ultrabrain": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/deepseek-v4-pro"
     },
     "deep": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/deepseek-v4-pro"
     },
     "artistry": {
-      "model": "xiaomi/mimo-v2.5"
+      "model": "zhipuai-coding-plan/glm-5.1"
     },
     "quick": {
       "model": "opencode/big-pickle"
@@ -54,10 +49,10 @@
       "model": "opencode/deepseek-v4-flash-free"
     },
     "unspecified-high": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "zhipuai-coding-plan/glm-5.1"
     },
     "writing": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "zhipuai-coding-plan/glm-5.1"
     }
   }
 }
