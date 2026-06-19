@@ -45,6 +45,7 @@ if is_windows then
 			{ label = "Bash", args = { bash, "--login" } },
 			{ label = "PowerShell", args = { "pwsh.exe" } },
 			{ label = "CMD", args = { "cmd.exe" } },
+			{ label = "WSL:Ubuntu", args = { "wsl.exe", "~" } },
 		}
 	else
 		config.default_prog = { "pwsh.exe" }
