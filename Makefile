@@ -8,6 +8,7 @@ SHELL := /bin/bash
 ifeq ($(OS_NAME),Linux)
     BREWFILE ?= $(CURDIR)/homebrew/Brewfile-linux
     BREW := $(or $(shell command -v brew 2>/dev/null),/home/linuxbrew/.linuxbrew/bin/brew)
+    LN_DIR := ln -svfn
 
     # Check sudo command
     ifeq ($(shell command -v sudo 2> /dev/null),)
@@ -28,9 +29,11 @@ ifeq ($(OS_NAME),Linux)
 else ifeq ($(OS_NAME),Darwin)
     BREWFILE ?= $(CURDIR)/homebrew/Brewfile
     BREW := $(or $(shell command -v brew 2>/dev/null),/opt/homebrew/bin/brew)
+    LN_DIR := ln -svF
 else
     $(error Unsupported operating system: $(OS_NAME))
 endif
+LN_FILE := ln -svf
 
 
 .PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config help
@@ -57,12 +60,12 @@ install: dependencies ## Install all packages via Homebrew (Brewfile / Brewfile-
 xdg_config: ## Install XDG_CONFIG symlinks (alacritty / ghostty / nvim / tmux / vim / wezterm)
 	@echo "##### Install xdg_config start #####"
 	@mkdir -p $(HOME)/.config $(HOME)/.vim/bundle
-	ln -svF $(DOTFILES)/alacritty $(HOME)/.config/alacritty
-	ln -svF $(DOTFILES)/ghostty $(HOME)/.config/ghostty
-	ln -svF $(DOTFILES)/nvim $(HOME)/.config/nvim
-	ln -svF $(DOTFILES)/tmux $(HOME)/.config/tmux
-	ln -svF $(DOTFILES)/vim $(HOME)/.config/vim
-	ln -svF $(DOTFILES)/wezterm $(HOME)/.config/wezterm
+	$(LN_DIR) $(DOTFILES)/alacritty $(HOME)/.config/alacritty
+	$(LN_DIR) $(DOTFILES)/ghostty $(HOME)/.config/ghostty
+	$(LN_DIR) $(DOTFILES)/nvim $(HOME)/.config/nvim
+	$(LN_DIR) $(DOTFILES)/tmux $(HOME)/.config/tmux
+	$(LN_DIR) $(DOTFILES)/vim $(HOME)/.config/vim
+	$(LN_DIR) $(DOTFILES)/wezterm $(HOME)/.config/wezterm
 	@test -d $(HOME)/.vim/bundle/Vundle.vim || \
 		git clone https://github.com/VundleVim/Vundle.vim.git $(HOME)/.vim/bundle/Vundle.vim
 	@if command -v nvim >/dev/null 2>&1; then \
@@ -84,7 +87,7 @@ bash: ## Install oh-my-bash and link ~/.bashrc
 	else \
 		bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	fi
-	ln -svf $(DOTFILES)/bashrc $(HOME)/.bashrc
+	$(LN_FILE) $(DOTFILES)/bashrc $(HOME)/.bashrc
 	@echo "##### Install oh-my-bash end   #####"
 	@echo ">>> Please run 'source ~/.bashrc' to apply changes."
 
@@ -99,7 +102,7 @@ zsh: ## Install oh-my-zsh and link ~/.zshrc
 		git clone https://github.com/zsh-users/zsh-autosuggestions $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting || \
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-	ln -svf $(DOTFILES)/zshrc $(HOME)/.zshrc
+	$(LN_FILE) $(DOTFILES)/zshrc $(HOME)/.zshrc
 	@echo "##### Install oh-my-zsh end   #####"
 	@echo ">>> Please run 'source ~/.zshrc' to apply changes."
 
@@ -123,12 +126,12 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 coding_agent_config: ## Install coding agent configs (claude-code / codex / opencode / pi)
 	@echo "##### Install coding agent config start #####"
 	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
-	ln -svF $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
-	ln -svF $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	ln -svF $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
-	ln -svF $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
-	ln -svF $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
-	ln -svF $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
+	$(LN_FILE) $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
+	$(LN_FILE) $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
+	$(LN_FILE) $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
+	$(LN_FILE) $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
+	$(LN_FILE) $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
+	$(LN_FILE) $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
 	@echo "##### Install coding agent config end   #####"
 
 help:

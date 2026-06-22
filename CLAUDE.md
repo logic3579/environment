@@ -57,7 +57,8 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **tmux.conf**: Section headers use `# -- section name ---...` (76 chars total)
 - **zshrc**: Section headers use `# -------------------------` / `# Title` / `# -------------------------`
 - **Commented-out code**: Always use `# ` with a space after `#`
-- **zshrc PATH pattern**: Use `export PATH="...:$PATH"` for each tool, with `typeset -U PATH` on the last line to deduplicate (no conditional `[[ ]]` checks needed)
+- **zshrc PATH pattern**: Cross-platform (macOS + Linux). Initialize Homebrew by probing `/opt/homebrew/bin/brew`, `/usr/local/bin/brew`, then `/home/linuxbrew/.linuxbrew/bin/brew`. Brew paths must be gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`; keep `typeset -U PATH` on the last line to deduplicate.
+- **nvm shell init**: zshrc loads official nvm installs first via `NVM_DIR="${NVM_DIR:-$HOME/.nvm}"`, then falls back to Homebrew nvm at `$HOMEBREW_PREFIX/opt/nvm`. This keeps Linux curl-installer nvm and macOS Homebrew nvm both working.
 - **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
 - **Shell completion cache**: `kubectl`/`helm`/`cf`/`limactl`/`colima` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf,limactl,colima}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
 - **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
@@ -77,7 +78,7 @@ Target body convention (see `coding_agent_config` as the canonical shape, mirror
 - `##` description uses `Install <name> (item1 / item2 / ...)`
 - Body opens with `@echo "##### Install <name> start #####"` and closes with `##### Install <name> end   #####` (3 trailing spaces pad `end` to align with `start`)
 - A single consolidated `@mkdir -p` line for all required parent dirs
-- Symlink rows are plain `ln -svF` lines, sorted alphabetically, with no per-row `>>> X` echo
+- Symlink rows use Makefile variables, sorted alphabetically, with no per-row `>>> X` echo. Use `$(LN_DIR)` for directory links (`ln -svfn` on Linux, `ln -svF` on macOS) and `$(LN_FILE)` for file links (`ln -svf` on both platforms).
 
 ### Coding Agent Config
 
@@ -194,9 +195,9 @@ Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `s
 
 ## Key Details
 
-- macOS only for daily use (Apple Silicon, Homebrew at `/opt/homebrew/`); `bashrc` is the only shell rc kept Linux-portable
+- Daily use targets macOS and Linux/WSL. `bashrc` and `zshrc` are both kept Linux-portable; avoid hard-coding `/opt/homebrew` outside install notes or Homebrew path probing.
 - tmux: `set -ag terminal-overrides ",*256col*:RGB"` advertises truecolor; `focus-events on` is required by gitsigns/nvim autoread; tmux-sensible plugin removed (all defaults set explicitly)
-- Dotfiles are symlinked via `ln -svF` to `~/.config/<app>/`
+- Dotfiles are symlinked via Makefile link variables so Linux uses GNU-compatible `ln` flags and macOS keeps BSD `ln -F` behavior for directory replacement.
 - tmux prefix key: `C-z`
 - Terminal font: MesloLGMDZ Nerd Font Mono, font size 17 (matches Neovide `guifont`)
 - Color scheme: Solarized Dark (across terminals and Neovim)

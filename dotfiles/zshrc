@@ -62,10 +62,15 @@ alias singbox-dns-off="sudo networksetup -setdnsservers Wi-Fi empty && sudo dsca
 
 
 # -------------------------
-# Homebrew
+# Homebrew (macOS Apple Silicon / Intel / Linuxbrew)
 # -------------------------
-eval "$(/opt/homebrew/bin/brew shellenv)" # Apple Silicon Mac
-# eval "$(/usr/local/bin/brew shellenv)" # Intel Mac
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # -------------------------
 # Golang
@@ -83,26 +88,32 @@ export PATH="$HOME/go/bin:$PATH"
 # -------------------------
 # Rust / rustup
 # -------------------------
-export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/rustup/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/rustup/bin:$PATH"
 [ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
 
 # -------------------------
 # NodeJS / nvm
 # -------------------------
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+    source "$NVM_DIR/nvm.sh"
+    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+elif [[ -n "${HOMEBREW_PREFIX:-}" && -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]]; then
+    source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+    [[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]] && source "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+fi
 
 # -------------------------
 # Bun
 # -------------------------
 # Bun runtime installed via Homebrew; global packages (`bun install -g <pkg>`) land in ~/.bun/bin.
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+[[ -d "$BUN_INSTALL/bin" ]] && export PATH="$BUN_INSTALL/bin:$PATH"
 
 # -------------------------
 # Java
 # -------------------------
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/openjdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/openjdk/bin:$PATH"
 
 # -------------------------
 # Kubectl
@@ -136,7 +147,7 @@ fi
 # -------------------------
 # gcloud
 # -------------------------
-export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:$PATH"
 
 # -------------------------
 # Cloudflare / cf
@@ -177,13 +188,13 @@ fi
 # -------------------------
 # Database CLI
 # -------------------------
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/mysql-client/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/mysql-client/bin:$PATH"
+[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/libpq/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/libpq/bin:$PATH"
 
 # -------------------------
 # Neovim / Mason
 # -------------------------
-export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
+[[ -d "$HOME/.local/share/nvim/mason/bin" ]] && export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
 
 # -------------------------
 # fzf (Ctrl-R history, Ctrl-T file, Alt-C cd)
