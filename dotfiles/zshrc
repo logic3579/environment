@@ -150,6 +150,15 @@ fi
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin" ]] && export PATH="$HOMEBREW_PREFIX/share/google-cloud-sdk/bin:$PATH"
 
 # -------------------------
+# AWS CLI
+# -------------------------
+if command -v aws &>/dev/null; then
+    command -v aws_completer &>/dev/null && complete -C aws_completer aws
+    export AWS_PROFILE=default
+    export AWS_PAGER=""
+fi
+
+# -------------------------
 # Cloudflare / cf
 # -------------------------
 if command -v cf &>/dev/null; then
