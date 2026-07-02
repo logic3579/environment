@@ -31,6 +31,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   │   └── oh-my-openagent.json   # oh-my-openagent plugin: agents/categories → model mapping
 │   ├── zshrc                # Zsh config (oh-my-zsh)
 │   ├── bashrc               # Bash config (oh-my-bash, cross-platform: macOS + Linux)
+│   ├── aws/
+│   │   └── config            # AWS CLI config (SSO profiles)
 │   └── pgpass               # libpq password template (manual install — see README)
 ├── appfiles/                # Application config backups
 ├── scripts/
@@ -69,6 +71,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
 - `make bash` / `make zsh` — Install shell framework and link rc file
 - `make coding_agent_config` — Install AI configs (claude, codex, kimi, opencode, pi) to respective directories
+- `make aws_config` — Symlink `~/.aws/config` (SSO profiles)
 - `make clean` — Remove broken symlinks in `~/.config/`
 - `make test` — Print environment variables for verification
 - `make help` — Show targets with `##` descriptions

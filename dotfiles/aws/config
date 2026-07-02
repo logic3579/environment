@@ -1,0 +1,12 @@
+[profile logic3579]
+login_session = arn:aws:iam::146259919635:root
+region = ap-southeast-1
+
+[profile logic3579-admin]
+sso_start_url = https://d-9667ad1ec0.awsapps.com/start
+sso_region = ap-southeast-1
+sso_account_id = 146259919635
+sso_role_name = AdministratorAccess
+region = ap-southeast-1
+
+# export AWS_PROFILE=xxx

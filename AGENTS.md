@@ -18,6 +18,7 @@ make install    # brew bundle (Brewfile per OS; override: BREWFILE=path)
 make zsh        # oh-my-zsh + plugins + symlink ~/.zshrc
 make bash       # oh-my-bash + symlink ~/.bashrc
 make coding_agent_config  # symlink claude/codex/opencode/pi configs
+make aws_config # symlink ~/.aws/config
 make clean      # remove broken symlinks in ~/.config
 ```
 
@@ -31,6 +32,7 @@ dotfiles/          ← symlinked to ~/.config or ~/ (by make targets)
   tmux/tmux.conf  ← prefix C-z, catppuccin macchiato v2.3.0, TPM plugins
   zshrc / bashrc  ← cross-platform shell configs
   opencode/       ← opencode.json + oh-my-openagent.json (agent→model mapping)
+  aws/config      ← AWS CLI config (SSO profiles)
 scripts/           ← misc utilities (bash/py/go), CI-linted via ShellCheck
 appfiles/          ← manual app config backups, not symlinked
 ```
