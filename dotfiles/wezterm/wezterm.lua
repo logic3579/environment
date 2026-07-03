@@ -80,29 +80,27 @@ config.font_size = 17.0
 -- Map the "primary" modifier to CTRL|SHIFT on Windows, which is the
 -- conventional terminal modifier and does not collide with the taskbar.
 local act = wezterm.action
-local mod = is_windows and "CTRL|SHIFT" or "SUPER"
-local mod_alt = is_windows and "CTRL|ALT" or "SUPER|SHIFT"
+local mod_key = is_windows and "CTRL|SHIFT" or "SUPER"
 
 config.keys = {
 	-- global
-	{ key = "o", mods = "CTRL|SHIFT", action = act.ShowLauncher },
-	{ key = "Enter", mods = mod, action = act.ToggleFullScreen },
-	{ key = "c", mods = mod, action = act.CopyTo("Clipboard") },
-	{ key = "v", mods = mod, action = act.PasteFrom("Clipboard") },
-	{ key = "Insert", mods = "SHIFT", action = act.PasteFrom("Clipboard") },
+	{ key = "o", mods = mod_key, action = act.ShowLauncher },
+	{ key = "Enter", mods = mod_key, action = act.ToggleFullScreen },
+	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
+	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
 	-- tab manage
-	{ key = "n", mods = mod, action = act.SpawnWindow },
-	{ key = "t", mods = mod, action = act.SpawnTab("CurrentPaneDomain") },
-	{ key = "w", mods = mod, action = act.CloseCurrentTab({ confirm = false }) },
+	{ key = "n", mods = mod_key, action = act.SpawnWindow },
+	{ key = "t", mods = mod_key, action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "w", mods = mod_key, action = act.CloseCurrentTab({ confirm = false }) },
 	{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
 	{ key = "Tab", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
-	{ key = "[", mods = mod_alt, action = act.ActivateTabRelative(-1) },
-	{ key = "]", mods = mod_alt, action = act.ActivateTabRelative(1) },
-	{ key = "1", mods = mod, action = act.ActivateTab(0) },
-	{ key = "2", mods = mod, action = act.ActivateTab(1) },
-	{ key = "3", mods = mod, action = act.ActivateTab(2) },
-	{ key = "4", mods = mod, action = act.ActivateTab(3) },
-	{ key = "5", mods = mod, action = act.ActivateTab(4) },
+	{ key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
+	{ key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
+	{ key = "1", mods = "ALT", action = act.ActivateTab(0) },
+	{ key = "2", mods = "ALT", action = act.ActivateTab(1) },
+	{ key = "3", mods = "ALT", action = act.ActivateTab(2) },
+	{ key = "4", mods = "ALT", action = act.ActivateTab(3) },
+	{ key = "5", mods = "ALT", action = act.ActivateTab(4) },
 	-- word jump
 	{ key = "LeftArrow", mods = "ALT", action = act.SendString("\x1bb") },
 	{ key = "RightArrow", mods = "ALT", action = act.SendString("\x1bf") },
