@@ -80,18 +80,19 @@ config.font_size = 17.0
 -- Map the "primary" modifier to CTRL|SHIFT on Windows, which is the
 -- conventional terminal modifier and does not collide with the taskbar.
 local act = wezterm.action
-local mod_key = is_windows and "CTRL|SHIFT" or "SUPER"
+local super_mod_key = is_windows and "CTRL|SHIFT" or "SUPER"
 
 config.keys = {
 	-- global
-	{ key = "o", mods = mod_key, action = act.ShowLauncher },
-	{ key = "Enter", mods = mod_key, action = act.ToggleFullScreen },
+	{ key = "o", mods = super_mod_key, action = act.ShowLauncher },
+	{ key = "Enter", mods = super_mod_key, action = act.ToggleFullScreen },
 	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
 	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
+	{ key = "Insert", mods = "SHIFT", action = act.PasteFrom("Clipboard") },
 	-- tab manage
-	{ key = "n", mods = mod_key, action = act.SpawnWindow },
-	{ key = "t", mods = mod_key, action = act.SpawnTab("CurrentPaneDomain") },
-	{ key = "w", mods = mod_key, action = act.CloseCurrentTab({ confirm = false }) },
+	{ key = "n", mods = super_mod_key, action = act.SpawnWindow },
+	{ key = "t", mods = super_mod_key, action = act.SpawnTab("CurrentPaneDomain") },
+	{ key = "w", mods = super_mod_key, action = act.CloseCurrentTab({ confirm = false }) },
 	{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
 	{ key = "Tab", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
 	{ key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
@@ -116,7 +117,7 @@ config.initial_rows = 23
 config.window_background_opacity = 0.93
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 config.window_padding = { left = 0, right = 0, top = 0, bottom = 0 }
-config.hide_tab_bar_if_only_one_tab = true
+config.hide_tab_bar_if_only_one_tab = false
 config.use_fancy_tab_bar = false
 
 -- Cursor & Bell
