@@ -87,22 +87,28 @@ bash: ## Install oh-my-bash and link ~/.bashrc
 	else \
 		bash -c "$$(curl -fsSL https://raw.githubusercontent.com/ohmybash/oh-my-bash/master/tools/install.sh)"; \
 	fi
-	$(LN_FILE) $(DOTFILES)/bashrc $(HOME)/.bashrc
+	@[ ! -L $(HOME)/.bashrc ] || rm -f $(HOME)/.bashrc
+	$(LN_FILE) $(DOTFILES)/bashrc/bashrc $(HOME)/.bashrc
 	@echo "##### Install oh-my-bash end   #####"
 	@echo ">>> Please run 'source ~/.bashrc' to apply changes."
 
-zsh: ## Install oh-my-zsh and link ~/.zshrc
+zsh: ## Install oh-my-zsh, Powerlevel10k, and link ~/.zshrc / ~/.p10k.zsh
 	@echo "##### Install oh-my-zsh start #####"
 	@if [ -d $(HOME)/.oh-my-zsh ]; then \
 		echo "oh-my-zsh already installed"; \
 	else \
 		sh -c "$$(curl -fsSL https://install.ohmyz.sh/)"; \
 	fi
+	@test -d "$${ZSH_CUSTOM:-$$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" || \
+		git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$${ZSH_CUSTOM:-$$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions || \
 		git clone https://github.com/zsh-users/zsh-autosuggestions $(HOME)/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 	@test -d $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting || \
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $(HOME)/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-	$(LN_FILE) $(DOTFILES)/zshrc $(HOME)/.zshrc
+	@[ ! -L $(HOME)/.p10k.zsh ] || rm -f $(HOME)/.p10k.zsh
+	$(LN_FILE) $(DOTFILES)/zshrc/p10k.zsh $(HOME)/.p10k.zsh
+	@[ ! -L $(HOME)/.zshrc ] || rm -f $(HOME)/.zshrc
+	$(LN_FILE) $(DOTFILES)/zshrc/zshrc $(HOME)/.zshrc
 	@echo "##### Install oh-my-zsh end   #####"
 	@echo ">>> Please run 'source ~/.zshrc' to apply changes."
 

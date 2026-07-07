@@ -29,8 +29,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── opencode/            # OpenCode CLI config
 │   │   ├── opencode.json
 │   │   └── oh-my-openagent.json   # oh-my-openagent plugin: agents/categories → model mapping
-│   ├── zshrc                # Zsh config (oh-my-zsh)
-│   ├── bashrc               # Bash config (oh-my-bash, cross-platform: macOS + Linux)
+│   ├── zshrc/               # Zsh config: zshrc + p10k.zsh (oh-my-zsh + Powerlevel10k)
+│   ├── bashrc/              # Bash config: bashrc (oh-my-bash, cross-platform: macOS + Linux)
 │   ├── aws/
 │   │   └── config            # AWS CLI config (SSO profiles)
 │   └── pgpass               # libpq password template (manual install — see README)
@@ -60,6 +60,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **zshrc**: Section headers use `# -------------------------` / `# Title` / `# -------------------------`
 - **Commented-out code**: Always use `# ` with a space after `#`
 - **zshrc PATH pattern**: Cross-platform (macOS + Linux). Initialize Homebrew by probing `/opt/homebrew/bin/brew`, `/usr/local/bin/brew`, then `/home/linuxbrew/.linuxbrew/bin/brew`. Brew paths must be gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`; keep `typeset -U PATH` on the last line to deduplicate.
+- **zshrc prompt**: Uses Powerlevel10k via `ZSH_THEME="powerlevel10k/powerlevel10k"`. Store the prompt config as `dotfiles/zshrc/p10k.zsh`; `make zsh` links it to `~/.p10k.zsh`.
 - **nvm shell init**: zshrc loads official nvm installs first via `NVM_DIR="${NVM_DIR:-$HOME/.nvm}"`, then falls back to Homebrew nvm at `$HOMEBREW_PREFIX/opt/nvm`. This keeps Linux curl-installer nvm and macOS Homebrew nvm both working.
 - **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
 - **Shell completion cache**: `kubectl`/`helm`/`cf`/`limactl`/`colima` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf,limactl,colima}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
@@ -69,7 +70,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 
 - `make install` — Install all packages (depends on `dependencies`)
 - `make xdg_config` — Symlink dotfiles to `~/.config/`
-- `make bash` / `make zsh` — Install shell framework and link rc file
+- `make bash` / `make zsh` — Install shell framework and link rc file; `make zsh` also installs Powerlevel10k and links `~/.p10k.zsh`
 - `make coding_agent_config` — Install AI configs (claude, codex, kimi, opencode, pi) to respective directories
 - `make aws_config` — Symlink `~/.aws/config` (SSO profiles)
 - `make clean` — Remove broken symlinks in `~/.config/`
@@ -82,6 +83,7 @@ Target body convention (see `coding_agent_config` as the canonical shape, mirror
 - Body opens with `@echo "##### Install <name> start #####"` and closes with `##### Install <name> end   #####` (3 trailing spaces pad `end` to align with `start`)
 - A single consolidated `@mkdir -p` line for all required parent dirs
 - Symlink rows use Makefile variables, sorted alphabetically, with no per-row `>>> X` echo. Use `$(LN_DIR)` for directory links (`ln -svfn` on Linux, `ln -svF` on macOS) and `$(LN_FILE)` for file links (`ln -svf` on both platforms).
+- Shell rc targets remove existing managed symlinks before relinking (`~/.zshrc`, `~/.p10k.zsh`, `~/.bashrc`) so file-to-directory migrations do not make `ln` place files inside the old symlink target.
 
 ### Coding Agent Config
 
