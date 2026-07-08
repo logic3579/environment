@@ -35,7 +35,7 @@ dotfiles/          ← symlinked to ~/.config or ~/ (by make targets)
   opencode/       ← opencode.json + oh-my-openagent.json (agent→model mapping)
   aws/config      ← AWS CLI config (SSO profiles)
 scripts/           ← misc utilities (bash/py/go), CI-linted via ShellCheck
-appfiles/          ← manual app config backups, not symlinked
+appfiles/          ← manual app config backups, not symlinked; may include platform-specific files (for example Windows-only AutoHotkey)
 ```
 
 ## Shell conventions

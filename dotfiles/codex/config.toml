@@ -1,42 +1,25 @@
-#model_provider = "OpenAI"
 model = "gpt-5.5"
-review_model = "gpt-5.4"
 model_reasoning_effort = "medium"
-model_context_window = 1000000
-model_auto_compact_token_limit = 900000
-service_tier = "fast"
 
-[sandbox_workspace_write]
-network_access = true
-
-#[model_providers.OpenAI]
-#name = "OpenAI"
-#base_url = "https://crs.hotdry.top/v1"
-#wire_api = "responses"
-#requires_openai_auth = false
-#env_key = "OPENAI_API_KEY"
-#
-#export OPENAI_API_KEY="<OPENAI_API_KEY>"
-
-[projects."/Users/logic/Projects/automation"]
+[projects."~/Projects/automation"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/environment"]
+[projects."~/Projects/devops-marketplace"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/terraform"]
+[projects."~/Projects/dockerfiles"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/helm-charts"]
+[projects."~/Projects/environment"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/devops-marketplace"]
+[projects."~/Projects/helm-charts"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/dockerfiles"]
+[projects."~/Projects/optimus"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/optimus"]
+[projects."~/Projects/terraform"]
 trust_level = "trusted"
 
 [tui.model_availability_nux]

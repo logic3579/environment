@@ -34,7 +34,7 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── aws/
 │   │   └── config            # AWS CLI config (SSO profiles)
 │   └── pgpass               # libpq password template (manual install — see README)
-├── appfiles/                # Application config backups
+├── appfiles/                # Application config backups (manual; may include platform-specific files)
 ├── scripts/
 │   ├── trash.sh             # Safe delete (move to system trash)
 │   ├── generate-secret.sh   # Random password + SHA256 generator

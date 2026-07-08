@@ -82,16 +82,17 @@ Format per line: `hostname:port:database:username:password` (use `*` as a wildca
 
 ## Application Config Backups
 
-Files under `appfiles/` are manual backups — restore by importing them into the respective app:
+Files under `appfiles/` are manual backups — restore by importing or copying them into the respective app:
 
-| File                                    | App                      |
-| --------------------------------------- | ------------------------ |
-| `appfiles/follow.opml`                  | Folo / RSS reader        |
-| `appfiles/Preferences.sublime-settings` | Sublime Text             |
-| `appfiles/Raycast.rayconfig`            | Raycast                  |
-| `appfiles/SecureCRT.xml`                | SecureCRT                |
-| `appfiles/vscode.settings.json`         | Visual Studio Code       |
-| `appfiles/ZeroOmegaOptions.bak`         | SwitchyOmega / ZeroOmega |
+| File                                    | App                          |
+| --------------------------------------- | ---------------------------- |
+| `appfiles/autokey.ahk`                  | AutoHotkey v2 (Windows only) |
+| `appfiles/follow.opml`                  | Folo / RSS reader            |
+| `appfiles/Preferences.sublime-settings` | Sublime Text                 |
+| `appfiles/Raycast.rayconfig`            | Raycast                      |
+| `appfiles/SecureCRT.xml`                | SecureCRT                    |
+| `appfiles/vscode.settings.json`         | Visual Studio Code           |
+| `appfiles/ZeroOmegaOptions.bak`         | SwitchyOmega / ZeroOmega     |
 
 ## Scripts
 
