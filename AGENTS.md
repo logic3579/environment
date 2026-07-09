@@ -32,6 +32,7 @@ dotfiles/          ← symlinked to ~/.config or ~/ (by make targets)
   tmux/tmux.conf  ← prefix C-z, catppuccin macchiato v2.3.0, TPM plugins
   zshrc/          ← zshrc + p10k.zsh, linked to ~/.zshrc and ~/.p10k.zsh
   bashrc/         ← bashrc, linked to ~/.bashrc
+  claude/         ← settings.json + env.example (provider/model env template)
   opencode/       ← opencode.json + oh-my-openagent.json (agent→model mapping)
   aws/config      ← AWS CLI config (SSO profiles)
 scripts/           ← misc utilities (bash/py/go), CI-linted via ShellCheck
@@ -45,7 +46,9 @@ appfiles/          ← manual app config backups, not symlinked; may include pla
 - `cf` = Cloudflare CLI, installed via `bun install -g cf` → `~/.bun/bin`.
 - fzf integration trails zshrc/bashrc (`eval "$(fzf --{zsh,bash})"`) — independent from nvim's fzf-lua.
 - zsh prompt uses Powerlevel10k (`powerlevel10k/powerlevel10k`); repo stores config as `dotfiles/zshrc/p10k.zsh`, linked by `make zsh` to `~/.p10k.zsh`.
-- nvm: zshrc loads official nvm (`~/.nvm`) first, then Homebrew nvm as fallback.
+- `~/.local/bin` is added by zshrc/bashrc after Homebrew initialization when present.
+- nvm: zshrc/bashrc load official nvm (`~/.nvm`) first, then Homebrew nvm as fallback.
+- AWS CLI: zshrc/bashrc enable `aws_completer` when present, set `AWS_PROFILE=default`, and set `AWS_PAGER=""`.
 - PATH dedup: zsh uses `typeset -U PATH`, bash uses a final `awk` dedup.
 
 ## Brewfile strategy

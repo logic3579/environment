@@ -53,8 +53,11 @@ brew update
 alias unsetbrew="unset HOMEBREW_API_DOMAIN HOMEBREW_BOTTLE_DOMAIN HOMEBREW_BREW_GIT_REMOTE HOMEBREW_CORE_GIT_REMOTE; brew update"
 alias setproxy="export {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}=socks5h://127.0.0.1:10800"
 alias unsetproxy="unset {HTTP_PROXY,HTTPS_PROXY,ALL_PROXY}"
-alias singbox-dns-on="sudo networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8 && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
-alias singbox-dns-off="sudo networksetup -setdnsservers Wi-Fi empty && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+# macOS-only: toggle DNS for sing-box transparent proxy
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias singbox-dns-on="sudo networksetup -setdnsservers Wi-Fi 1.1.1.1 8.8.8.8 && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+    alias singbox-dns-off="sudo networksetup -setdnsservers Wi-Fi empty && sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder"
+fi
 
 
 # -------------------------
@@ -67,6 +70,11 @@ elif [[ -x /usr/local/bin/brew ]]; then
 elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# -------------------------
+# User local binaries
+# -------------------------
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
 
 # -------------------------
 # Golang

@@ -23,7 +23,8 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 │   ├── alacritty/alacritty.toml # Alacritty terminal config (cross-platform: macOS + Windows)
 │   ├── ghostty/config       # Ghostty terminal config
 │   ├── claude/              # Claude Code config
-│   │   └── settings.json
+│   │   ├── settings.json
+│   │   └── env.example      # Provider/model environment template
 │   ├── codex/               # Codex CLI config
 │   │   └── config.toml
 │   ├── opencode/            # OpenCode CLI config
@@ -59,11 +60,12 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **tmux.conf**: Section headers use `# -- section name ---...` (76 chars total)
 - **zshrc**: Section headers use `# -------------------------` / `# Title` / `# -------------------------`
 - **Commented-out code**: Always use `# ` with a space after `#`
-- **zshrc PATH pattern**: Cross-platform (macOS + Linux). Initialize Homebrew by probing `/opt/homebrew/bin/brew`, `/usr/local/bin/brew`, then `/home/linuxbrew/.linuxbrew/bin/brew`. Brew paths must be gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`; keep `typeset -U PATH` on the last line to deduplicate.
+- **zshrc PATH pattern**: Cross-platform (macOS + Linux). Initialize Homebrew by probing `/opt/homebrew/bin/brew`, `/usr/local/bin/brew`, then `/home/linuxbrew/.linuxbrew/bin/brew`. Add `~/.local/bin` after Homebrew initialization when the directory exists. Brew paths must be gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`; keep `typeset -U PATH` on the last line to deduplicate.
 - **zshrc prompt**: Uses Powerlevel10k via `ZSH_THEME="powerlevel10k/powerlevel10k"`. Store the prompt config as `dotfiles/zshrc/p10k.zsh`; `make zsh` links it to `~/.p10k.zsh`.
-- **nvm shell init**: zshrc loads official nvm installs first via `NVM_DIR="${NVM_DIR:-$HOME/.nvm}"`, then falls back to Homebrew nvm at `$HOMEBREW_PREFIX/opt/nvm`. This keeps Linux curl-installer nvm and macOS Homebrew nvm both working.
-- **bashrc PATH pattern**: Cross-platform (macOS + Linux). Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
+- **nvm shell init**: zshrc/bashrc load official nvm installs first via `NVM_DIR="${NVM_DIR:-$HOME/.nvm}"`, then fall back to Homebrew nvm at `$HOMEBREW_PREFIX/opt/nvm`. This keeps Linux curl-installer nvm and macOS Homebrew nvm both working.
+- **bashrc PATH pattern**: Cross-platform (macOS + Linux). Add `~/.local/bin` after Homebrew initialization when the directory exists. Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
 - **Shell completion cache**: `kubectl`/`helm`/`cf`/`limactl`/`colima` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf,limactl,colima}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
+- **AWS CLI shell init**: zshrc/bashrc enable `aws_completer` when present, set `AWS_PROFILE=default`, and disable the pager with `AWS_PAGER=""`.
 - **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
 
 ### Makefile Targets
@@ -87,7 +89,7 @@ Target body convention (see `coding_agent_config` as the canonical shape, mirror
 
 ### Coding Agent Config
 
-- Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`)
+- Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`); `dotfiles/claude/env.example` is the provider/model env template for Anthropic-compatible endpoints such as Moonshot/Kimi and GLM.
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Kimi CLI: `~/.kimi/config.toml` (symlinked from `dotfiles/kimi/config.toml`)
 - OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
