@@ -36,7 +36,7 @@ endif
 LN_FILE := ln -svf
 
 
-.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config aws_config help
+.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config help
 all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
@@ -139,12 +139,6 @@ coding_agent_config: ## Install coding agent configs (claude-code / codex / open
 	$(LN_FILE) $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
 	$(LN_FILE) $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
 	@echo "##### Install coding agent config end   #####"
-
-aws_config: ## Symlink AWS CLI config (~/.aws/config)
-	@echo "##### Install aws config start #####"
-	@mkdir -p $(HOME)/.aws
-	$(LN_FILE) $(DOTFILES)/aws/config $(HOME)/.aws/config
-	@echo "##### Install aws config end   #####"
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
