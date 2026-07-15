@@ -1,9 +1,8 @@
-tap "anomalyco/tap"
-tap "hashicorp/tap"
-tap "oven-sh/bun"
+tap "anomalyco/tap", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "oven-sh/bun", trusted: true
 brew "python@3.14"
 brew "tree"
-brew "ansible"
 brew "argocd"
 brew "awscli"
 brew "cmake"
@@ -37,9 +36,12 @@ brew "wget"
 brew "wireguard-tools"
 brew "xray"
 brew "yq"
-brew "anomalyco/tap/opencode"
-brew "hashicorp/tap/terraform"
-brew "oven-sh/bun/bun"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# Terraform
+brew "hashicorp/tap/terraform", trusted: true
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun", trusted: true
 cask "alacritty"
 cask "chatgpt"
 cask "clash-verge-rev"

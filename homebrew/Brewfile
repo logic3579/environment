@@ -1,51 +1,93 @@
-tap "anomalyco/tap"
-tap "hashicorp/tap"
-tap "oven-sh/bun"
-brew "tree"
-brew "ansible"
+tap "anomalyco/tap", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "oven-sh/bun", trusted: true
+# Official Amazon AWS command-line interface
 brew "awscli"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
 brew "gh"
+# Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Kubernetes package manager
 brew "helm"
+# Kubernetes command-line interface
 brew "kubernetes-cli"
+# Incremental parsing library
 brew "tree-sitter"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Manage multiple Node.js versions
 brew "nvm"
+# Interpreted, interactive, object-oriented programming language
 brew "python@3.13"
+# Rsync for cloud storage
 brew "rclone"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# CLI proxy to minimize LLM token consumption
 brew "rtk"
+# Universal proxy platform
 brew "sing-box"
+# Terminal multiplexer
 brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Parser generator tool
 brew "tree-sitter-cli"
+# Extremely fast Python package installer and resolver, written in Rust
 brew "uv"
+# Internet file retriever
 brew "wget"
+# Tools for the WireGuard secure network tunnel
 brew "wireguard-tools"
+# Platform for building proxies to bypass network restrictions
 brew "xray"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-brew "anomalyco/tap/opencode"
-brew "hashicorp/tap/terraform"
-brew "oven-sh/bun/bun"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# Terraform
+brew "hashicorp/tap/terraform", trusted: true
+# Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
+brew "oven-sh/bun/bun", trusted: true
+# Continuation of Clash Verge - A Clash Meta GUI based on Tauri
 cask "clash-verge-rev"
+# Terminal-based AI coding assistant
 cask "claude-code"
+# Free app that makes your Internet safer
 cask "cloudflare-warp"
+# OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Write, edit, and chat about your code with AI
 cask "cursor"
 cask "font-meslo-lg-nerd-font"
+# Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Web browser
 cask "google-chrome"
+# Password manager app
 cask "keepassxc"
+# Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
+# Chinese music streaming application
 cask "qqmusic"
+# Control your tools with a few keystrokes
 cask "raycast"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
 cask "session-manager-plugin"
+# Open-source code editor
 cask "visual-studio-code"
+# Free messaging and calling application
 cask "wechat"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
 cask "wezterm"
 vscode "esbenp.prettier-vscode"
 vscode "github.vscode-github-actions"
 vscode "vscode-icons-team.vscode-icons"
 vscode "vscodevim.vim"
 vscode "vue.volar"
+go "github.com/golangci/golangci-lint/cmd/golangci-lint"
+go "github.com/swaggo/swag/cmd/swag"
