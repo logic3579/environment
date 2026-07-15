@@ -80,31 +80,32 @@ config.font_size = 17.0
 -- Map the "primary" modifier to CTRL|SHIFT on Windows, which is the
 -- conventional terminal modifier and does not collide with the taskbar.
 local act = wezterm.action
+local alt_mod_key = "ALT"
 local super_mod_key = is_windows and "CTRL|SHIFT" or "SUPER"
 
 config.keys = {
 	-- global
 	{ key = "o", mods = super_mod_key, action = act.ShowLauncher },
 	{ key = "Enter", mods = super_mod_key, action = act.ToggleFullScreen },
-	{ key = "c", mods = "CTRL", action = act.CopyTo("Clipboard") },
-	{ key = "v", mods = "CTRL", action = act.PasteFrom("Clipboard") },
+	{ key = "c", mods = super_mod_key, action = act.CopyTo("Clipboard") },
+	{ key = "v", mods = alt_mod_key, action = act.PasteFrom("Clipboard") },
 	{ key = "Insert", mods = "SHIFT", action = act.PasteFrom("Clipboard") },
 	-- tab manage
 	{ key = "n", mods = super_mod_key, action = act.SpawnWindow },
 	{ key = "t", mods = super_mod_key, action = act.SpawnTab("CurrentPaneDomain") },
 	{ key = "w", mods = super_mod_key, action = act.CloseCurrentTab({ confirm = false }) },
 	{ key = "Tab", mods = "CTRL", action = act.ActivateTabRelative(1) },
-	{ key = "Tab", mods = "CTRL|SHIFT", action = act.ActivateTabRelative(-1) },
-	{ key = "[", mods = "ALT", action = act.ActivateTabRelative(-1) },
-	{ key = "]", mods = "ALT", action = act.ActivateTabRelative(1) },
-	{ key = "1", mods = "ALT", action = act.ActivateTab(0) },
-	{ key = "2", mods = "ALT", action = act.ActivateTab(1) },
-	{ key = "3", mods = "ALT", action = act.ActivateTab(2) },
-	{ key = "4", mods = "ALT", action = act.ActivateTab(3) },
-	{ key = "5", mods = "ALT", action = act.ActivateTab(4) },
+	{ key = "Tab", mods = super_mod_key, action = act.ActivateTabRelative(-1) },
+	{ key = "[", mods = alt_mod_key, action = act.ActivateTabRelative(-1) },
+	{ key = "]", mods = alt_mod_key, action = act.ActivateTabRelative(1) },
+	{ key = "1", mods = alt_mod_key, action = act.ActivateTab(0) },
+	{ key = "2", mods = alt_mod_key, action = act.ActivateTab(1) },
+	{ key = "3", mods = alt_mod_key, action = act.ActivateTab(2) },
+	{ key = "4", mods = alt_mod_key, action = act.ActivateTab(3) },
+	{ key = "5", mods = alt_mod_key, action = act.ActivateTab(4) },
 	-- word jump
-	{ key = "LeftArrow", mods = "ALT", action = act.SendString("\x1bb") },
-	{ key = "RightArrow", mods = "ALT", action = act.SendString("\x1bf") },
+	{ key = "LeftArrow", mods = alt_mod_key, action = act.SendString("\x1bb") },
+	{ key = "RightArrow", mods = alt_mod_key, action = act.SendString("\x1bf") },
 }
 config.mouse_bindings = {
 	{ event = { Up = { streak = 1, button = "Left" } }, mods = "NONE", action = act.CopyTo("Clipboard") },
