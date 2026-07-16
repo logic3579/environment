@@ -26,7 +26,7 @@ make clean      # remove broken symlinks in ~/.config
 
 ```
 Makefile          ← entry point, everything flows through here
-homebrew/         ← Brewfile (macOS default), Brewfile-work (macOS DevOps), Brewfile-linux (no casks)
+homebrew/         ← Brewfile (macOS default), Brewfile-work (macOS DevOps), Brewfile-linux (Linux/WSL bundle)
 dotfiles/          ← symlinked to ~/.config or ~/ (by make targets)
   nvim/           ← lazy.nvim, LSP, treesitter, fzf-lua  (init.lua → config/* → plugins/*)
   tmux/tmux.conf  ← prefix C-z, catppuccin macchiato v2.3.0, TPM plugins
@@ -47,13 +47,14 @@ appfiles/          ← manual app config backups, not symlinked; may include pla
 - fzf integration trails zshrc/bashrc (`eval "$(fzf --{zsh,bash})"`) — independent from nvim's fzf-lua.
 - zsh prompt uses Powerlevel10k (`powerlevel10k/powerlevel10k`); repo stores config as `dotfiles/zshrc/p10k.zsh`, linked by `make zsh` to `~/.p10k.zsh`.
 - `~/.local/bin` is added by zshrc/bashrc after Homebrew initialization when present.
+- On Linux, zshrc/bashrc add Homebrew's keg-only ICU library directory (`$HOMEBREW_PREFIX/opt/icu4c/lib`) to `LD_LIBRARY_PATH` when installed; this is required by .NET tools such as the Marksman Markdown LSP.
 - nvm: zshrc/bashrc load official nvm (`~/.nvm`) first, then Homebrew nvm as fallback.
 - AWS CLI: zshrc/bashrc enable `aws_completer` when present, set `AWS_PROFILE=default`, and set `AWS_PAGER=""`.
 - PATH dedup: zsh uses `typeset -U PATH`, bash uses a final `awk` dedup.
 
 ## Brewfile strategy
 
-- `homebrew/Brewfile` — macOS default. `homebrew/Brewfile-work` — DevOps extras (k8s, helm, argocd). `homebrew/Brewfile-linux` — formulae only, no casks.
+- `homebrew/Brewfile` — macOS default. `homebrew/Brewfile-work` — DevOps extras (k8s, helm, argocd). `homebrew/Brewfile-linux` — full Linux/WSL bundle, including taps, formulae, supported casks, editor extensions, and language-installed tools.
 - Shared packages exist independently in each file (no shared base).
 - `make dependencies` bootstraps Linux: system pkgs (build-essential/fontconfig/…) + Homebrew itself. Everything beyond bootstrap goes through `brew bundle`.
 
@@ -75,6 +76,7 @@ appfiles/          ← manual app config backups, not symlinked; may include pla
 - Config load order: `init.lua` → `config/option` → `keymap` → `autocmd` → `lib` → `lazynvim` (loads `plugins/`).
 - Format-on-save via conform.nvim: `stylua` (Lua), `gofmt` (Go), `ruff` (Python), `shfmt` (Bash), `taplo` (TOML), `prettier` (Markdown/JSON/YAML/JS).
 - Treesitter requires `tree-sitter` CLI.
+- Marksman requires ICU on Linux; `Brewfile-linux` installs `icu4c@78` and the shell configs expose its keg-only libraries through `LD_LIBRARY_PATH`.
 - Neovide GUI: Option key = Meta (`<M-...>`), `<D-=>`/`<D-->`/`<D-0>` for zoom.
 
 ## OpenCode config

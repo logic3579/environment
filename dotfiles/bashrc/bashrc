@@ -97,6 +97,20 @@ elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
 fi
 
 # -------------------------
+# Homebrew keg-only libraries (Linux)
+# -------------------------
+if [[ "$OSTYPE" == linux* && -n "${HOMEBREW_PREFIX:-}" ]]; then
+    _icu_lib="$HOMEBREW_PREFIX/opt/icu4c/lib"
+    if [[ -d "$_icu_lib" ]]; then
+        case ":${LD_LIBRARY_PATH:-}:" in
+            *":$_icu_lib:"*) ;;
+            *) export LD_LIBRARY_PATH="$_icu_lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}" ;;
+        esac
+    fi
+    unset _icu_lib
+fi
+
+# -------------------------
 # User local binaries
 # -------------------------
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"

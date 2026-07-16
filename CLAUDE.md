@@ -10,7 +10,7 @@ Personal dotfiles, application configs, Homebrew packages, and utility scripts.
 ├── homebrew/
 │   ├── Brewfile             # Homebrew packages (default, macOS)
 │   ├── Brewfile-work        # Homebrew packages (Work environment, macOS)
-│   └── Brewfile-linux       # Linux-portable subset (formulae only, no casks)
+│   └── Brewfile-linux       # Full Linux/WSL Homebrew bundle
 ├── dotfiles/
 │   ├── tmux/tmux.conf       # tmux config (prefix: C-z)
 │   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
@@ -64,6 +64,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/): `type(scope
 - **zshrc prompt**: Uses Powerlevel10k via `ZSH_THEME="powerlevel10k/powerlevel10k"`. Store the prompt config as `dotfiles/zshrc/p10k.zsh`; `make zsh` links it to `~/.p10k.zsh`.
 - **nvm shell init**: zshrc/bashrc load official nvm installs first via `NVM_DIR="${NVM_DIR:-$HOME/.nvm}"`, then fall back to Homebrew nvm at `$HOMEBREW_PREFIX/opt/nvm`. This keeps Linux curl-installer nvm and macOS Homebrew nvm both working.
 - **bashrc PATH pattern**: Cross-platform (macOS + Linux). Add `~/.local/bin` after Homebrew initialization when the directory exists. Brew paths gated on `[[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/..." ]]`. Final `awk` dedup since bash has no `typeset -U`.
+- **Linux Homebrew libraries**: zshrc/bashrc add `$HOMEBREW_PREFIX/opt/icu4c/lib` to `LD_LIBRARY_PATH` when the keg-only ICU formula is installed. Keep this Linux-only, preserve existing entries, and avoid duplicates when an rc file is sourced repeatedly. This enables .NET tools such as the Marksman Markdown LSP.
 - **Shell completion cache**: `kubectl`/`helm`/`cf`/`limactl`/`colima` completion is cached at `~/.cache/{zsh,bash}-{kubectl,helm,cf,limactl,colima}-completion` (regen weekly via `find -mtime +7`) to avoid ~100ms startup penalty per tool. `rm` the file to force refresh. `cf` is the Cloudflare CLI (installed via `bun install -g cf` to `~/.bun/bin`), so bashrc relies on the `Bun` PATH section for it to be on `$PATH`.
 - **AWS CLI shell init**: zshrc/bashrc enable `aws_completer` when present, set `AWS_PROFILE=default`, and disable the pager with `AWS_PAGER=""`.
 - **fzf shell integration**: zshrc/bashrc trail with `eval "$(fzf --{zsh,bash})"` — provides `Ctrl-R` history fuzzy search, `Ctrl-T` file picker, `Alt-C` cd. Independent from nvim's fzf-lua.
@@ -102,7 +103,7 @@ All Homebrew manifests live under `homebrew/`:
 
 - `homebrew/Brewfile` — Default environment packages (macOS)
 - `homebrew/Brewfile-work` — Work environment packages, more DevOps tools: k8s, helm, argocd, etc. (macOS)
-- `homebrew/Brewfile-linux` — Linux-portable subset; formulae only (Linuxbrew does not support casks)
+- `homebrew/Brewfile-linux` — Full Linux/WSL environment, including trusted third-party taps, formulae, supported casks, VS Code extensions, and Go/uv-installed tools
 - Shared packages exist in each file independently (no shared base file)
 - `make install` runs `brew bundle` on both macOS and Linux. `BREWFILE` defaults: macOS → `homebrew/Brewfile`, Linux → `homebrew/Brewfile-linux`. Override with `make install BREWFILE=$(pwd)/homebrew/Brewfile-work`
 - **Linux bootstrap layer** (`make dependencies`): system pkgs required to install Homebrew itself plus font infra — Debian uses `build-essential procps curl file git fontconfig fonts-powerline`, Fedora uses `gcc gcc-c++ make procps-ng curl file git fontconfig powerline-fonts`. Everything beyond bootstrap (tmux, neovim, fzf, ripgrep, …) goes through `Brewfile-linux`. `zsh` stays on the system package manager (oh-my-zsh's install script depends on it being present before bash/zsh setup runs).
@@ -162,6 +163,8 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 `ansiblels`, `bashls`, `gopls`, `jsonls`, `lua_ls`, `marksman`, `pylsp`, `taplo`, `ts_ls`, `yamlls`
 
 Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `stylua`.
+
+On Linux, Marksman's bundled .NET runtime requires ICU. `Brewfile-linux` installs `icu4c@78`; zshrc/bashrc expose the keg-only library directory through `LD_LIBRARY_PATH` after Homebrew initialization.
 
 #### Formatters (via conform.nvim, format-on-save)
 
