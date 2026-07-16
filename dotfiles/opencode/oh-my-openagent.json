@@ -2,57 +2,57 @@
   "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/oh-my-opencode.schema.json",
   "agents": {
     "sisyphus": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/kimi-k2.7-code"
     },
     "oracle": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/glm-5.2"
     },
     "explore": {
-      "model": "opencode/big-pickle"
+      "model": "opencode-go/qwen3.7-plus"
     },
     "multimodal-looker": {
-      "model": "opencode-go/mimo-v2.5-pro"
+      "model": "opencode-go/qwen3.6-plus"
     },
     "prometheus": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/kimi-k2.7-code"
     },
     "metis": {
-      "model": "zhipuai-coding-plan/glm-5.1"
-    },
-    "momus": {
-      "model": "zhipuai-coding-plan/glm-5.1"
-    },
-    "atlas": {
       "model": "opencode-go/kimi-k2.6"
     },
+    "momus": {
+      "model": "opencode-go/kimi-k2.6"
+    },
+    "atlas": {
+      "model": "opencode-go/kimi-k2.7-code"
+    },
     "sisyphus-junior": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/kimi-k2.6"
     }
   },
   "categories": {
     "visual-engineering": {
-      "model": "opencode-go/mimo-v2.5-pro"
+      "model": "opencode-go/qwen3.6-plus"
     },
     "ultrabrain": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/kimi-k2.7-code"
     },
     "deep": {
-      "model": "opencode-go/deepseek-v4-pro"
+      "model": "opencode-go/kimi-k2.7-code"
     },
     "artistry": {
-      "model": "zhipuai-coding-plan/glm-5.1"
+      "model": "opencode-go/qwen3.6-plus"
     },
     "quick": {
-      "model": "opencode/big-pickle"
+      "model": "opencode-go/minimax-m2.7"
     },
     "unspecified-low": {
-      "model": "opencode/deepseek-v4-flash-free"
+      "model": "opencode-go/kimi-k2.6"
     },
     "unspecified-high": {
-      "model": "zhipuai-coding-plan/glm-5.1"
+      "model": "opencode-go/kimi-k2.7-code"
     },
     "writing": {
-      "model": "zhipuai-coding-plan/glm-5.1"
+      "model": "opencode-go/kimi-k2.6"
     }
   }
 }
