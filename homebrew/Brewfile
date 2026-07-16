@@ -1,6 +1,8 @@
 tap "anomalyco/tap", trusted: true
 tap "hashicorp/tap", trusted: true
 tap "oven-sh/bun", trusted: true
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Command-line fuzzy finder written in Go
@@ -19,8 +21,6 @@ brew "tree-sitter"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.13"
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -91,3 +91,4 @@ vscode "vscodevim.vim"
 vscode "vue.volar"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/swaggo/swag/cmd/swag"
+uv "serena-agent"
