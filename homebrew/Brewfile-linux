@@ -1,3 +1,4 @@
+tap "anomalyco/tap"
 tap "hashicorp/tap"
 tap "oven-sh/bun"
 # GitOps Continuous Delivery for Kubernetes
@@ -54,6 +55,8 @@ brew "wireguard-tools"
 brew "xray"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
 # Terraform
 brew "hashicorp/tap/terraform", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
