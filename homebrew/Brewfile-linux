@@ -2,6 +2,8 @@ tap "hashicorp/tap"
 tap "oven-sh/bun"
 # GitOps Continuous Delivery for Kubernetes
 brew "argocd"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Cross-platform make
@@ -60,6 +62,8 @@ brew "oven-sh/bun/bun", trusted: true
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# Set of tools to manage resources and applications hosted on Google Cloud
+cask "gcloud-cli"
 vscode "esbenp.prettier-vscode"
 vscode "github.vscode-github-actions"
 vscode "vscode-icons-team.vscode-icons"
