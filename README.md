@@ -90,9 +90,8 @@ Files under `appfiles/` are manual backups — restore by importing or copying t
 | `appfiles/follow.opml`                  | Folo / RSS reader            |
 | `appfiles/Preferences.sublime-settings` | Sublime Text                 |
 | `appfiles/Raycast.rayconfig`            | Raycast                      |
-| `appfiles/SecureCRT.xml`                | SecureCRT                    |
 | `appfiles/vscode.settings.json`         | Visual Studio Code           |
-| `appfiles/ZeroOmegaOptions.bak`         | SwitchyOmega / ZeroOmega     |
+| `appfiles/ZeroOmegaOptions.json`        | SwitchyOmega / ZeroOmega     |
 
 ## Scripts
 
