@@ -1,4 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "plugin": ["opencode-dynamic-context-pruning", "oh-my-openagent"]
+  "plugin": [
+    "oh-my-openagent@latest"
+  ]
 }
