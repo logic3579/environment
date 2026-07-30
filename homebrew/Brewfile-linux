@@ -21,6 +21,8 @@ brew "helm"
 brew "icu4c@78"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Run local Kubernetes cluster in Docker
+brew "kind"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Open source relational database management system
@@ -73,5 +75,6 @@ vscode "vscode-icons-team.vscode-icons"
 vscode "vscodevim.vim"
 vscode "vue.volar"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
+go "github.com/pressly/goose/v3/cmd/goose"
 go "github.com/swaggo/swag/cmd/swag"
 uv "serena-agent"
