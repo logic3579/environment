@@ -9,6 +9,14 @@ brew "python@3.14"
 brew "awscli"
 # Cross-platform make
 brew "cmake"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@78"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Isolated development environments using Docker
+brew "docker-compose"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -17,12 +25,8 @@ brew "gh"
 brew "go"
 # Kubernetes package manager
 brew "helm"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c@78"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
-# Run local Kubernetes cluster in Docker
-brew "kind"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
 # Open source relational database management system
