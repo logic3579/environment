@@ -5,6 +5,14 @@ tap "oven-sh/bun", trusted: true
 brew "python@3.14"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Container runtimes on MacOS (and Linux) with minimal setup
+brew "colima"
+# Pack, ship and run any application as a lightweight container
+brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
+brew "docker-buildx"
+# Isolated development environments using Docker
+brew "docker-compose"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -27,8 +35,6 @@ brew "rclone"
 brew "ripgrep"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
-# Universal proxy platform
-brew "sing-box"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
@@ -51,12 +57,12 @@ brew "anomalyco/tap/opencode", trusted: true
 brew "hashicorp/tap/terraform", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun", trusted: true
+# Cloud native persistent desktop virtualization
+cask "amazon-workspaces"
 # Continuation of Clash Verge - A Clash Meta GUI based on Tauri
 cask "clash-verge-rev"
 # Terminal-based AI coding assistant
 cask "claude-code"
-# Free app that makes your Internet safer
-cask "cloudflare-warp"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 # Write, edit, and chat about your code with AI
