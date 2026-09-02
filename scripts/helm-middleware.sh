@@ -44,15 +44,15 @@ function show_help() {
 
 # logging function
 function log_info() {
-  local message="$@"
+  local message="$*"
   echo "[INFO] $message"
 }
 function log_warning() {
-  local message="$@"
+  local message="$*"
   echo "[WARNING] $message" >&2
 }
 function die_exit() {
-  local message="$@"
+  local message="$*"
   echo "[ERROR] $message" 1>&2
   exit 111
 }
@@ -91,7 +91,7 @@ function pre_check() {
 
     # check -n flag and namespace exist in the namespaces
     if [[ -n "$namespace" ]]; then
-        grep -qw $namespace <<< "${namespaces[@]}" || die_exit "Kubernetes namespace must be in (${namespaces[@]})"
+        grep -qw "$namespace" <<< "${namespaces[*]}" || die_exit "Kubernetes namespace must be in (${namespaces[*]})"
     else
         show_help
     fi
@@ -103,13 +103,13 @@ function pre_check() {
     action=$1
     middleware=$2
     if [[ -z "$action" ]];then
-        die_exit "Command action cannot be null and must be in (${actions[@]})"
+        die_exit "Command action cannot be null and must be in (${actions[*]})"
     elif [[ -n "$action" ]];then
-        grep -qw $action <<< "${actions[@]}" || die_exit "Command action must be in (${actions[@]})"
+        grep -qw "$action" <<< "${actions[*]}" || die_exit "Command action must be in (${actions[*]})"
         if [[ "$action" != "list" && -z "$middleware" ]];then
-            die_exit "Middleware cannot be null and must be in (${middlewares[@]})"
+            die_exit "Middleware cannot be null and must be in (${middlewares[*]})"
         elif [[ -n "$middleware" ]];then
-            grep -qw $middleware <<< "${middlewares[@]}" || die_exit "Middleware must be in (${middlewares[@]})"
+            grep -qw "$middleware" <<< "${middlewares[*]}" || die_exit "Middleware must be in (${middlewares[*]})"
         fi
     else
         die_exit "Unknow error, check it"
@@ -117,39 +117,39 @@ function pre_check() {
 
     # check custom helm repo
     command helm &> /dev/null || die_exit "Command helm not found, install it first: https://helm.sh/docs/intro/install/"
-    helm repo list |grep -qw ${helm_reponame} || die_exit "Custom helm repo ${helm_reponame} not exist, must add it first"
+    helm repo list |grep -qw "${helm_reponame}" || die_exit "Custom helm repo ${helm_reponame} not exist, must add it first"
 }
 
 function list() {
     printf "%-15s %-15s\n" "Namespace" "Middleware"
-    for m in $(helm -n $1 list |awk '{print $1}' || echo none)
+    for m in $(helm -n "$1" list |awk '{print $1}' || echo none)
     do
-        grep -qw $m <<< "${middlewares[@]}" && printf "%-15s %-15s\n" $1 $m
+        grep -qw "$m" <<< "${middlewares[*]}" && printf "%-15s %-15s\n" "$1" "$m"
     done
     log_info "Select middleware list successfully"
 }
 
 function install() {
     # todo: --set xxx
-    install_result=$(helm -n $1 upgrade --install $2 "$helm_reponame/$2" 2>&1) || die_exit $install_result
+    install_result=$(helm -n "$1" upgrade --install "$2" "$helm_reponame/$2" 2>&1) || die_exit "$install_result"
     log_info "Install middleware [$2] successfully"
 }
 
 function uninstall() {
-    uninstall_result=$(helm -n $1 uninstall $2 2>&1) || die_exit $uninstall_result
+    uninstall_result=$(helm -n "$1" uninstall "$2" 2>&1) || die_exit "$uninstall_result"
     log_info "Uninstall middleware [$2] successfully"
 }
 
 function main() {
     case $action in
     list)
-        list $namespace
+        list "$namespace"
         ;;
     install)
-        install $namespace $middleware
+        install "$namespace" "$middleware"
         ;;
     uninstall)
-        uninstall $namespace $middleware
+        uninstall "$namespace" "$middleware"
         ;;
     *)
         die_exit "Unknow error, check it"
