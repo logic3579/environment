@@ -84,8 +84,6 @@ cask "qqmusic"
 cask "raycast"
 # Plugin for AWS CLI to start and end sessions that connect to managed instances
 cask "session-manager-plugin"
-# Open-source code editor
-cask "visual-studio-code"
 # Free messaging and calling application
 cask "wechat"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
