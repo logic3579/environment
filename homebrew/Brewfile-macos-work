@@ -42,7 +42,6 @@ brew "anomalyco/tap/opencode", trusted: true
 brew "hashicorp/tap/terraform", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
 brew "oven-sh/bun/bun", trusted: true
-cask "alacritty"
 cask "chatgpt"
 cask "clash-verge-rev"
 cask "claude-code"
@@ -61,10 +60,13 @@ cask "raycast"
 cask "session-manager-plugin"
 cask "telegram"
 cask "wezterm"
-go "github.com/air-verse/air"
+vscode "esbenp.prettier-vscode"
+vscode "github.vscode-github-actions"
+vscode "vscode-icons-team.vscode-icons"
+vscode "vscodevim.vim"
+vscode "vue.volar"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/pressly/goose/v3/cmd/goose"
-go "github.com/securego/gosec/v2/cmd/gosec"
 go "github.com/grafana/mcp-grafana/cmd/mcp-grafana"
 go "github.com/swaggo/swag/cmd/swag"
 uv "serena-agent"

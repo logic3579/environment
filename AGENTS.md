@@ -14,7 +14,8 @@ Not a software project — a machine bootstrap repo driven by a single `Makefile
 ```bash
 make all        # test → install → xdg_config → clean (full bootstrap)
 make test       # print resolved Makefile variables (also CI verification)
-make install    # brew bundle (Brewfile per OS; override: BREWFILE=path)
+make install    # brew bundle (BREW_ENV=macos|macos-work|linux-common; override: BREWFILE=path)
+make dump       # overwrite selected environment snapshot; Linux/WSL adds --no-winget
 make zsh        # oh-my-zsh + Powerlevel10k + plugins + symlink ~/.zshrc ~/.p10k.zsh
 make bash       # oh-my-bash + symlink ~/.bashrc
 make coding_agent_config  # symlink claude/codex/opencode/pi configs
@@ -26,7 +27,7 @@ make clean      # remove broken symlinks in ~/.config
 
 ```
 Makefile          ← entry point, everything flows through here
-homebrew/         ← Brewfile (macOS default), Brewfile-work (macOS DevOps), Brewfile-linux (Linux/WSL bundle)
+homebrew/         ← Brewfile-macos (macOS default), Brewfile-macos-work (macOS DevOps), Brewfile-linux-common (Linux/WSL bundle)
 dotfiles/          ← symlinked to ~/.config or ~/ (by make targets)
   nvim/           ← lazy.nvim, LSP, treesitter, fzf-lua  (init.lua → config/* → plugins/*)
   tmux/tmux.conf  ← prefix C-z, catppuccin macchiato v2.3.0, TPM plugins
@@ -54,7 +55,10 @@ appfiles/          ← manual app config backups, not symlinked; may include pla
 
 ## Brewfile strategy
 
-- `homebrew/Brewfile` — macOS default. `homebrew/Brewfile-work` — DevOps extras (k8s, helm, argocd). `homebrew/Brewfile-linux` — full Linux/WSL bundle, including taps, formulae, supported casks, editor extensions, and language-installed tools.
+- `homebrew/Brewfile-macos` — macOS default. `homebrew/Brewfile-macos-work` — DevOps extras (k8s, helm, argocd). `homebrew/Brewfile-linux-common` — full Linux/WSL bundle, including taps, formulae, supported casks, editor extensions, and language-installed tools.
+- `install` and `dump` share `BREW_ENV`: defaults are `macos` on macOS and `linux-common` on Linux/WSL. Work Macs must select `BREW_ENV=macos-work`. Reject environments incompatible with the host OS. Explicit `BREWFILE` overrides the path.
+- Dump only the current machine’s environment; Linux/WSL must use `--no-winget`. Dump overwrites the selected file: inspect the diff before committing. `dump` must not bootstrap or install packages.
+- Commands and maintenance details: [homebrew/README.md](homebrew/README.md).
 - Shared packages exist independently in each file (no shared base).
 - `make dependencies` bootstraps Linux: system pkgs (build-essential/fontconfig/…) + Homebrew itself. Everything beyond bootstrap goes through `brew bundle`.
 
@@ -76,7 +80,7 @@ appfiles/          ← manual app config backups, not symlinked; may include pla
 - Config load order: `init.lua` → `config/option` → `keymap` → `autocmd` → `lib` → `lazynvim` (loads `plugins/`).
 - Format-on-save via conform.nvim: `stylua` (Lua), `gofmt` (Go), `ruff` (Python), `shfmt` (Bash), `taplo` (TOML), `prettier` (Markdown/JSON/YAML/JS).
 - Treesitter requires `tree-sitter` CLI.
-- Marksman requires ICU on Linux; `Brewfile-linux` installs `icu4c@78` and the shell configs expose its keg-only libraries through `LD_LIBRARY_PATH`.
+- Marksman requires ICU on Linux; `Brewfile-linux-common` installs `icu4c@78` and the shell configs expose its keg-only libraries through `LD_LIBRARY_PATH`.
 - Neovide GUI: Option key = Meta (`<M-...>`), `<D-=>`/`<D-->`/`<D-0>` for zoom.
 
 ## OpenCode config

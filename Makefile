@@ -6,7 +6,6 @@ SHELL := /bin/bash
 
 # Check OS and setting package
 ifeq ($(OS_NAME),Linux)
-    BREWFILE ?= $(CURDIR)/homebrew/Brewfile-linux
     BREW := $(or $(shell command -v brew 2>/dev/null),/home/linuxbrew/.linuxbrew/bin/brew)
     LN_DIR := ln -svfn
 
@@ -27,7 +26,6 @@ ifeq ($(OS_NAME),Linux)
         $(error Unsupported operating system: $(OS_NAME))
     endif
 else ifeq ($(OS_NAME),Darwin)
-    BREWFILE ?= $(CURDIR)/homebrew/Brewfile
     BREW := $(or $(shell command -v brew 2>/dev/null),/opt/homebrew/bin/brew)
     LN_DIR := ln -svF
 else
@@ -35,8 +33,28 @@ else
 endif
 LN_FILE := ln -svf
 
+# Select the package environment; work Macs opt in with BREW_ENV=macos-work.
+ifeq ($(OS_NAME),Linux)
+    BREW_ENV ?= linux-common
+    BREW_SUPPORTED_ENVS := linux-common
+    BREW_DUMP_FLAGS := --no-winget
+else
+    BREW_ENV ?= macos
+    BREW_SUPPORTED_ENVS := macos macos-work
+    BREW_DUMP_FLAGS :=
+endif
 
-.PHONY: all application clean install test dependencies xdg_config bash zsh coding_agent_config help
+ifneq ($(words $(BREW_ENV)),1)
+    $(error BREW_ENV must name exactly one environment)
+endif
+ifeq ($(filter $(BREW_SUPPORTED_ENVS),$(BREW_ENV)),)
+    $(error Unsupported BREW_ENV '$(BREW_ENV)' for $(OS_NAME); choose $(BREW_SUPPORTED_ENVS))
+endif
+
+BREWFILE ?= $(CURDIR)/homebrew/Brewfile-$(BREW_ENV)
+
+
+.PHONY: all application clean install dump test dependencies xdg_config bash zsh coding_agent_config help
 all: test install xdg_config clean ## Step: test install xdg_config clean
 
 dependencies:
@@ -51,11 +69,20 @@ endif
 	fi
 	@echo "##### Dependencies check end   #####"
 
-install: dependencies ## Install all packages via Homebrew (Brewfile / Brewfile-work / Brewfile-linux)
+install: dependencies ## Install packages from the selected Brewfile
 	@echo "##### Install package start #####"
 	@[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }
-	@eval "$$($(BREW) shellenv)" && brew bundle --file=$(BREWFILE)
+	@echo ">>> Installing from $(BREWFILE)"
+	@test -f "$(BREWFILE)" || { echo "Brewfile not found: $(BREWFILE)"; exit 1; }
+	@eval "$$("$(BREW)" shellenv)" && brew bundle install --file="$(BREWFILE)"
 	@echo "##### Install package end   #####"
+
+dump: ## Dump installed packages into the selected Brewfile
+	@echo "##### Dump package start #####"
+	@[ -x "$(BREW)" ] || { echo "brew not found at $(BREW)"; exit 1; }
+	@echo ">>> Dumping to $(BREWFILE)"
+	@eval "$$("$(BREW)" shellenv)" && brew bundle dump -f $(BREW_DUMP_FLAGS) --file="$(BREWFILE)"
+	@echo "##### Dump package end   #####"
 
 xdg_config: ## Install XDG_CONFIG symlinks (alacritty / ghostty / nvim / tmux / vim / wezterm)
 	@echo "##### Install xdg_config start #####"
@@ -116,6 +143,8 @@ test: ## Run the tests
 	@echo "##### Test start #####"
 	@echo APPFILES is $(APPFILES)
 	@echo DOTFILES is $(DOTFILES)
+	@echo BREW_ENV is $(BREW_ENV)
+	@echo BREW_DUMP_FLAGS is $(BREW_DUMP_FLAGS)
 	@echo BREWFILE is $(BREWFILE)
 	@echo BREW is $(BREW)
 	@echo OS_NAME is $(OS_NAME)

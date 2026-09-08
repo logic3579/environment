@@ -23,7 +23,7 @@ make bash       # oh-my-bash, link ~/.bashrc
 make coding_agent_config
 ```
 
-> Pick a Brewfile: defaults are `homebrew/Brewfile` (macOS) and `homebrew/Brewfile-linux` (Linux). Override with `make install BREWFILE=$(pwd)/homebrew/Brewfile-work` for DevOps-heavy macOS work setup.
+> Homebrew defaults to `macos` on macOS and `linux-common` on Linux / WSL. On a work Mac, use `make install BREW_ENV=macos-work` (or `make all BREW_ENV=macos-work`). Use `make dump` with the same environment to update its snapshot. See [Homebrew environments](homebrew/README.md) for commands and overrides.
 
 ## Makefile Targets
 
@@ -32,7 +32,8 @@ Run `make help` for the live list. Current targets:
 | Target                | Description                                                                |
 | --------------------- | -------------------------------------------------------------------------- |
 | `all`                 | `test` → `install` → `xdg_config` → `clean`                                |
-| `install`             | Install packages via `brew bundle` (Brewfile on macOS, Brewfile-linux on Linux) |
+| `install`             | Install packages via `brew bundle` (Brewfile-macos on macOS, Brewfile-linux-common on Linux) |
+| `dump`                | Export installed packages to the selected Brewfile (overwrite)             |
 | `dependencies`        | Install Homebrew + bootstrap system packages on Linux (build tools, fontconfig, …) |
 | `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
@@ -47,9 +48,9 @@ Run `make help` for the live list. Current targets:
 .
 ├── Makefile                # Entry point — run `make help` for targets
 ├── homebrew/               # Homebrew package manifests
-│   ├── Brewfile            # Default environment (macOS)
-│   ├── Brewfile-work       # Work environment — DevOps tooling (macOS)
-│   └── Brewfile-linux      # Linux-portable subset (formulae only, no casks)
+│   ├── Brewfile-macos           # Default environment (macOS)
+│   ├── Brewfile-macos-work      # Work environment — DevOps tooling (macOS)
+│   └── Brewfile-linux-common    # Linux / WSL environment snapshot
 ├── dotfiles/               # Symlinked to ~/.config/ or $HOME
 │   ├── tmux/               # tmux.conf — prefix C-z, catppuccin macchiato
 │   ├── nvim/               # Neovim — lazy.nvim, LSP, treesitter, fzf-lua
@@ -108,7 +109,7 @@ Files under `appfiles/` are manual backups — restore by importing or copying t
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) — `type(scope): description`
 - **Shell scripts**: `#!/bin/bash` + `set -euo pipefail`, POSIX `name() {` function style
 - **Symlinks**: `ln -svF` into `~/.config/<app>/`
-- **Daily-driver platform**: macOS (Apple Silicon, Homebrew at `/opt/homebrew/`); Linux (Debian / Fedora) also goes through Homebrew via `homebrew/Brewfile-linux` after a small bootstrap layer (`build-essential`, `fontconfig`, etc.)
+- **Daily-driver platform**: macOS (Apple Silicon, Homebrew at `/opt/homebrew/`); Linux (Debian / Fedora) also goes through Homebrew via `homebrew/Brewfile-linux-common` after a small bootstrap layer (`build-essential`, `fontconfig`, etc.)
 
 ## References
 
