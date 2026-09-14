@@ -19,7 +19,7 @@ make all
 make zsh        # oh-my-zsh + plugins, link ~/.zshrc
 make bash       # oh-my-bash, link ~/.bashrc
 
-# AI coding agent configs (Claude Code / Codex / Kimi CLI / OpenCode / Pi)
+# AI coding agent configs (Claude Code / Codex / OpenCode / Pi)
 make coding_agent_config
 ```
 
@@ -35,10 +35,10 @@ Run `make help` for the live list. Current targets:
 | `install`             | Install packages via `brew bundle` (Brewfile-macos on macOS, Brewfile-linux-common on Linux) |
 | `dump`                | Export installed packages to the selected Brewfile (overwrite)             |
 | `dependencies`        | Install Homebrew + bootstrap system packages on Linux (build tools, fontconfig, …) |
-| `xdg_config`          | Symlink tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
+| `xdg_config`          | Symlink alacritty / tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
-| `zsh`                 | Install oh-my-zsh + autosuggestions + syntax-highlighting, link `~/.zshrc` |
-| `coding_agent_config` | Symlink Claude / Codex / Kimi / OpenCode / Pi configs                      |
+| `zsh`                 | Install oh-my-zsh + Powerlevel10k + plugins, link `~/.zshrc` and `~/.p10k.zsh` |
+| `coding_agent_config` | Symlink Claude / Codex / OpenCode / Pi configs                      |
 | `clean`               | Remove broken symlinks under `~/.config`                                   |
 | `test`                | Print resolved Makefile variables                                          |
 
@@ -55,13 +55,13 @@ Run `make help` for the live list. Current targets:
 │   ├── tmux/               # tmux.conf — prefix C-z, catppuccin macchiato
 │   ├── nvim/               # Neovim — lazy.nvim, LSP, treesitter, fzf-lua
 │   ├── vim/                # Vim — Vundle, fallback editor
+│   ├── alacritty/          # Alacritty terminal
 │   ├── wezterm/            # WezTerm terminal
 │   ├── ghostty/            # Ghostty terminal
 │   ├── zshrc               # Zsh — oh-my-zsh + autosuggestions + syntax-highlighting
 │   ├── bashrc              # Bash — oh-my-bash, cross-platform (macOS + Linux)
 │   ├── claude/             # Claude Code — settings.json
 │   ├── codex/              # Codex CLI — config.toml, env.example
-│   ├── kimi/               # Kimi CLI — config.toml, env.example
 │   ├── opencode/           # OpenCode — opencode.json, oh-my-openagent.json
 │   ├── pi/                 # Pi agent — settings.json, openai-proxy.ts
 │   └── pgpass              # libpq password template (manual install)
@@ -98,18 +98,15 @@ Files under `appfiles/` are manual backups — restore by importing or copying t
 
 | Script                         | Purpose                            |
 | ------------------------------ | ---------------------------------- |
-| `scripts/decorate-requests.py` | Python request decorator           |
-| `scripts/generate-secret.sh`   | Random password + SHA256           |
-| `scripts/getcdn-realip.go`     | Resolve real IP behind a CDN       |
+| `scripts/decorate-requests.py` | Incomplete requests API-wrapper example           |
+| `scripts/generate-secret.sh`   | Random password + SHA256 / JWT secret |
+| `scripts/getcdn-realip.go`     | Snapshot Cloudflare/CloudFront IP ranges       |
 | `scripts/helm-middleware.sh`   | Helm middleware utility            |
 | `scripts/trash.sh`             | Safe delete — move to system Trash |
 
-## Conventions
+## Project Conventions
 
-- **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) — `type(scope): description`
-- **Shell scripts**: `#!/bin/bash` + `set -euo pipefail`, POSIX `name() {` function style
-- **Symlinks**: `ln -svF` into `~/.config/<app>/`
-- **Daily-driver platform**: macOS (Apple Silicon, Homebrew at `/opt/homebrew/`); Linux (Debian / Fedora) also goes through Homebrew via `homebrew/Brewfile-linux-common` after a small bootstrap layer (`build-essential`, `fontconfig`, etc.)
+[AGENTS.md](AGENTS.md) is the sole project convention file for AI agents, covering cross-platform bootstrap rules, config maintenance, and verification.
 
 ## References
 
