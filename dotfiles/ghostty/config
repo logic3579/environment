@@ -6,7 +6,7 @@ theme = Solarized Dark Patched
 # ============================================================
 # Fonts
 # ============================================================
-font-family = MesloLGMDZ Nerd Font Mono
+font-family = JetBrainsMono Nerd Font Mono
 font-family = PingFang SC
 font-size = 17
 

@@ -2,7 +2,7 @@
 # Alacritty — cross-platform terminal config
 # ============================================================================
 # Mirrors the WezTerm setup (../wezterm/wezterm.lua) where Alacritty's feature
-# set allows: Solarized Dark, MesloLGMDZ Nerd Font Mono @ 17pt, 97x23 startup,
+# set allows: Solarized Dark, JetBrainsMono Nerd Font Mono @ 17pt, 97x23 startup,
 # 0.93 opacity, 10k scrollback.
 #
 # Intentional differences from WezTerm:
@@ -40,10 +40,10 @@ history = 10000
 # -- Font --------------------------------------------------------------------
 [font]
 size = 17.0
-normal      = { family = "MesloLGMDZ Nerd Font Mono", style = "Regular" }
-bold        = { family = "MesloLGMDZ Nerd Font Mono", style = "Bold" }
-italic      = { family = "MesloLGMDZ Nerd Font Mono", style = "Italic" }
-bold_italic = { family = "MesloLGMDZ Nerd Font Mono", style = "Bold Italic" }
+normal      = { family = "JetBrainsMono Nerd Font Mono", style = "Regular" }
+bold        = { family = "JetBrainsMono Nerd Font Mono", style = "Bold" }
+italic      = { family = "JetBrainsMono Nerd Font Mono", style = "Italic" }
+bold_italic = { family = "JetBrainsMono Nerd Font Mono", style = "Bold Italic" }
 
 # -- Colors (Solarized Dark — https://ethanschoonover.com/solarized/) --------
 [colors.primary]

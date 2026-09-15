@@ -45,7 +45,7 @@ if vim.g.neovide then
 	vim.g.neovide_input_macos_option_key_is_meta = "both"
 
 	-- GUI font (terminal nvim ignores guifont entirely)
-	vim.o.guifont = "MesloLGMDZ Nerd Font Mono:h17"
+	vim.o.guifont = "JetBrainsMono Nerd Font Mono:h17"
 
 	-- Dynamic zoom via scale factor
 	vim.g.neovide_scale_factor = 1.0

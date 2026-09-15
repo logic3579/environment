@@ -16,7 +16,10 @@ trust_level = "trusted"
 [projects."/Users/logic/Projects/helm-charts"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/optimus"]
+[projects."/Users/logic/Projects/optimus-fe"]
+trust_level = "trusted"
+
+[projects."/Users/logic/Projects/optimus-be"]
 trust_level = "trusted"
 
 [projects."/Users/logic/Projects/terraform"]

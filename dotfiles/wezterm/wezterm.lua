@@ -7,7 +7,7 @@ local is_windows = wezterm.target_triple:find("windows") ~= nil
 -- Colors & Appearance
 config.color_scheme = "Solarized Dark - Patched"
 config.window_frame = {
-	font = wezterm.font("MesloLGMDZ Nerd Font Mono"),
+	font = wezterm.font("JetBrainsMono Nerd Font Mono"),
 }
 
 -- Launching Programs
@@ -64,7 +64,7 @@ else
 end
 
 -- Fonts
-local font_fallbacks = { "MesloLGMDZ Nerd Font Mono" }
+local font_fallbacks = { "JetBrainsMono Nerd Font Mono" }
 if is_windows then
 	table.insert(font_fallbacks, "Microsoft YaHei")
 	table.insert(font_fallbacks, "Segoe UI Emoji")

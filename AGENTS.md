@@ -204,7 +204,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 
 `option.lua` has an `if vim.g.neovide then ... end` block (terminal nvim ignores these):
 
-- `guifont = "MesloLGMDZ Nerd Font Mono:h17"` — GUI font (matches terminal font)
+- `guifont = "JetBrainsMono Nerd Font Mono:h17"` — GUI font (matches terminal font)
 - `neovide_input_macos_option_key_is_meta = "both"` — treat macOS Option as Meta so `<M-...>` mappings work
 - `<D-c>` / `<D-x>` / `<D-v>` provide system clipboard copy, cut, and paste.
 - Dynamic zoom via `neovide_scale_factor`: `<D-=>` zoom in, `<D-->` zoom out, `<D-0>` reset
@@ -248,7 +248,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 
 ## Terminal appearance
 
-- Font: MesloLGMDZ Nerd Font Mono, size 17 (matches Neovide).
+- Font: JetBrainsMono Nerd Font Mono, size 17 (matches Neovide).
 - Color scheme: Solarized Dark across terminals and Neovim; tmux uses catppuccin macchiato.
 
 ## Utility scripts and manual files
