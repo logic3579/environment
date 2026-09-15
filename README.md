@@ -25,6 +25,11 @@ make coding_agent_config
 
 > Homebrew defaults to `macos` on macOS and `linux-common` on Linux / WSL. On a work Mac, use `make install BREW_ENV=macos-work` (or `make all BREW_ENV=macos-work`). Use `make dump` with the same environment to update its snapshot. See [Homebrew environments](homebrew/README.md) for commands and overrides.
 
+All environments install JetBrains Mono Nerd Font through Homebrew; Linux also
+refreshes the font cache after installation. Terminal configs use
+`JetBrainsMono Nerd Font Mono`. For SSH, install and select the font on the client
+machine; for a Windows-hosted WSL terminal, do so on Windows.
+
 ## Makefile Targets
 
 Run `make help` for the live list. Current targets:

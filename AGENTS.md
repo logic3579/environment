@@ -105,7 +105,7 @@ make clean      # remove broken symlinks in ~/.config
 - Dump only the current machine’s environment; Linux/WSL must use `--no-winget`. Dump overwrites the selected file: inspect the diff before committing. `dump` must not bootstrap or install packages.
 - Commands and maintenance details: [homebrew/README.md](homebrew/README.md).
 - Shared packages exist independently in each file (no shared base).
-- **Linux bootstrap layer** (`make dependencies`): system pkgs required to install Homebrew itself plus font infra — Debian uses `build-essential procps curl file git fontconfig fonts-powerline`, Fedora uses `gcc gcc-c++ make procps-ng curl file git fontconfig powerline-fonts`. Everything beyond bootstrap (tmux, neovim, fzf, ripgrep, …) goes through `Brewfile-linux-common`. The Makefile and current Brewfiles do not install `zsh`; provision it with the system package manager before `make zsh` on Linux.
+- **Linux bootstrap layer** (`make dependencies`): system pkgs required to install Homebrew itself plus font infra — Debian uses `build-essential procps curl file git fontconfig`, Fedora uses `gcc gcc-c++ make procps-ng curl file git fontconfig`. Everything beyond bootstrap (tmux, neovim, fzf, ripgrep, …) goes through `Brewfile-linux-common`. The Makefile and current Brewfiles do not install `zsh`; provision it with the system package manager before `make zsh` on Linux.
 
 ## Makefile symlink conventions
 
@@ -248,7 +248,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 
 ## Terminal appearance
 
-- Font: JetBrainsMono Nerd Font Mono, size 17 (matches Neovide).
+- Font: JetBrainsMono Nerd Font Mono, size 17 (matches Neovide). All Brewfiles install `font-jetbrains-mono-nerd-font`; Linux `make install` refreshes the font cache with `fc-cache -f` after a successful bundle install. SSH rendering uses the client terminal font; Windows-hosted WSL terminals require the font on Windows.
 - Color scheme: Solarized Dark across terminals and Neovim; tmux uses catppuccin macchiato.
 
 ## Utility scripts and manual files

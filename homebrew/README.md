@@ -18,6 +18,17 @@ environments incompatible with the host OS are rejected.
 `brew bundle install --file="..."`. This installs and, by default, upgrades
 dependencies in the selected file.
 
+All environments install `font-jetbrains-mono-nerd-font` through Homebrew.
+Linux bootstrap packages include `fontconfig`; distribution-specific Powerline
+font packages are not required. After a successful bundle install, `make install`
+refreshes the Linux font cache with `fc-cache -f`.
+
+The configured font family is `JetBrainsMono Nerd Font Mono`. On a Linux desktop,
+verify it with `fc-match 'JetBrainsMono Nerd Font Mono'`, restart the terminal,
+and select that family if the terminal is not managed by this repository.
+SSH sessions use the client terminal's font; WSL terminals running on Windows
+need the font installed and selected on Windows.
+
 `make dump` requires Homebrew to already be installed and runs the corresponding
 command below, without bootstrapping or installing packages:
 

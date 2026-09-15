@@ -77,6 +77,8 @@ brew "oven-sh/bun/bun", trusted: true
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
+# JetBrains Mono with Nerd Font icons
+cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
 go "github.com/air-verse/air"

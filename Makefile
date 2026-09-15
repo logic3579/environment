@@ -18,10 +18,10 @@ ifeq ($(OS_NAME),Linux)
 
     ifneq ($(strip $(shell grep -i debian /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := apt install -y
-        BOOTSTRAP_PKGS := build-essential procps curl file git fontconfig fonts-powerline
+        BOOTSTRAP_PKGS := build-essential procps curl file git fontconfig
     else ifneq ($(strip $(shell grep -i fedora /etc/*release 2>/dev/null)),)
         PACKAGE_CMD := dnf install -y
-        BOOTSTRAP_PKGS := gcc gcc-c++ make procps-ng curl file git fontconfig powerline-fonts
+        BOOTSTRAP_PKGS := gcc gcc-c++ make procps-ng curl file git fontconfig
     else
         $(error Unsupported operating system: $(OS_NAME))
     endif
@@ -75,6 +75,9 @@ install: dependencies ## Install packages from the selected Brewfile
 	@echo ">>> Installing from $(BREWFILE)"
 	@test -f "$(BREWFILE)" || { echo "Brewfile not found: $(BREWFILE)"; exit 1; }
 	@eval "$$("$(BREW)" shellenv)" && brew bundle install --file="$(BREWFILE)"
+ifeq ($(OS_NAME),Linux)
+	@fc-cache -f
+endif
 	@echo "##### Install package end   #####"
 
 dump: ## Dump installed packages into the selected Brewfile
