@@ -237,6 +237,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`); `dotfiles/claude/env.example` is the provider/model env template for Anthropic-compatible endpoints such as Moonshot/Kimi and GLM.
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
+- Codex config registers the `hashicorp` marketplace from `hashicorp/agent-skills` at a pinned Git revision. Plugin entries `build-web-apps@openai-curated`, `superpowers@openai-curated`, and `terraform@hashicorp` are explicitly disabled.
 - OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
 - Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)
 - Pi extension: `~/.pi/agent/extensions/openai-proxy.ts` (symlinked from `dotfiles/pi/openai-proxy.ts`).

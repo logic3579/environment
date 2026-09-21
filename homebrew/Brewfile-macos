@@ -1,10 +1,6 @@
 tap "anomalyco/tap", trusted: true
 tap "hashicorp/tap", trusted: true
 tap "oven-sh/bun", trusted: true
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
-# Official Amazon AWS command-line interface
-brew "awscli"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
 # Pack, ship and run any application as a lightweight container
@@ -29,6 +25,8 @@ brew "tree-sitter"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -59,8 +57,6 @@ brew "hashicorp/tap/terraform", trusted: true
 brew "oven-sh/bun/bun", trusted: true
 # Cloud native persistent desktop virtualization
 cask "amazon-workspaces"
-# Continuation of Clash Verge - A Clash Meta GUI based on Tauri
-cask "clash-verge-rev"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
@@ -82,8 +78,6 @@ cask "obsidian"
 cask "qqmusic"
 # Control your tools with a few keystrokes
 cask "raycast"
-# Plugin for AWS CLI to start and end sessions that connect to managed instances
-cask "session-manager-plugin"
 # Free messaging and calling application
 cask "wechat"
 # GPU-accelerated cross-platform terminal emulator and multiplexer

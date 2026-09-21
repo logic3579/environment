@@ -25,6 +25,23 @@ trust_level = "trusted"
 [projects."/Users/logic/Projects/terraform"]
 trust_level = "trusted"
 
+[projects."/private/tmp/codex-tmp-workspace"]
+trust_level = "trusted"
+
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 gpt-6-astra = 4
+
+[marketplaces.hashicorp]
+source_type = "git"
+source = "https://github.com/hashicorp/agent-skills.git"
+ref = "c2d65dfe492f74d360d35b859b88932222470bd8"
+
+[plugins."build-web-apps@openai-curated"]
+enabled = false
+
+[plugins."superpowers@openai-curated"]
+enabled = false
+
+[plugins."terraform@hashicorp"]
+enabled = false
