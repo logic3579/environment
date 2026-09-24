@@ -4,6 +4,9 @@ model_reasoning_effort = "low"
 [projects."/Users/logic/Projects/automation"]
 trust_level = "trusted"
 
+[projects."/Users/logic/Projects/burrow"]
+trust_level = "trusted"
+
 [projects."/Users/logic/Projects/devops-marketplace"]
 trust_level = "trusted"
 
@@ -16,17 +19,16 @@ trust_level = "trusted"
 [projects."/Users/logic/Projects/helm-charts"]
 trust_level = "trusted"
 
-[projects."/Users/logic/Projects/optimus-fe"]
-trust_level = "trusted"
-
-[projects."/Users/logic/Projects/optimus-be"]
+[projects."/Users/logic/Projects/optimus"]
 trust_level = "trusted"
 
 [projects."/Users/logic/Projects/terraform"]
 trust_level = "trusted"
 
-[projects."/private/tmp/codex-tmp-workspace"]
-trust_level = "trusted"
+[tui]
+screen_reader_detection_done = true
+status_line = ["model-with-reasoning", "thread-name", "project-name", "git-branch", "context-used", "five-hour-limit"]
+status_line_use_colors = true
 
 [tui.model_availability_nux]
 "gpt-5.5" = 4
