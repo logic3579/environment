@@ -18,9 +18,6 @@ make all
 # Pick your shell framework
 make zsh        # oh-my-zsh + plugins, link ~/.zshrc
 make bash       # oh-my-bash, link ~/.bashrc
-
-# AI coding agent configs (Claude Code / Codex / OpenCode / Pi)
-make coding_agent_config
 ```
 
 > Homebrew defaults to `macos` on macOS and `linux-common` on Linux / WSL. On a work Mac, use `make install BREW_ENV=macos-work` (or `make all BREW_ENV=macos-work`). Use `make dump` with the same environment to update its snapshot. See [Homebrew environments](homebrew/README.md) for commands and overrides.
@@ -36,14 +33,13 @@ Run `make help` for the live list. Current targets:
 
 | Target                | Description                                                                |
 | --------------------- | -------------------------------------------------------------------------- |
-| `all`                 | `test` → `install` → `xdg_config` → `clean`                                |
+| `all`                 | `test` → `install` → `dot_config` → `clean`                                |
 | `install`             | Install packages via `brew bundle` (Brewfile-macos on macOS, Brewfile-linux-common on Linux) |
 | `dump`                | Export installed packages to the selected Brewfile (overwrite)             |
 | `dependencies`        | Install Homebrew + bootstrap system packages on Linux (build tools, fontconfig, …) |
-| `xdg_config`          | Symlink alacritty / tmux / nvim / vim / wezterm / ghostty to `~/.config`               |
+| `dot_config`          | Symlink editor / terminal / multiplexer / coding-agent configs; install editor plugins |
 | `bash`                | Install oh-my-bash, link `~/.bashrc`                                       |
 | `zsh`                 | Install oh-my-zsh + Powerlevel10k + plugins, link `~/.zshrc` and `~/.p10k.zsh` |
-| `coding_agent_config` | Symlink Claude / Codex / OpenCode / Pi configs                      |
 | `clean`               | Remove broken symlinks under `~/.config`                                   |
 | `test`                | Print resolved Makefile variables                                          |
 

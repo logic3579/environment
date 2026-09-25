@@ -54,8 +54,8 @@ endif
 BREWFILE ?= $(CURDIR)/homebrew/Brewfile-$(BREW_ENV)
 
 
-.PHONY: all application clean install dump test dependencies xdg_config bash zsh coding_agent_config help
-all: test install xdg_config clean ## Step: test install xdg_config clean
+.PHONY: all application clean install dump test dependencies dot_config bash zsh help
+all: test install dot_config clean ## Step: test install dot_config clean
 
 dependencies:
 	@echo "##### Dependencies check start #####"
@@ -87,15 +87,12 @@ dump: ## Dump installed packages into the selected Brewfile
 	@eval "$$("$(BREW)" shellenv)" && brew bundle dump -f $(BREW_DUMP_FLAGS) --file="$(BREWFILE)"
 	@echo "##### Dump package end   #####"
 
-xdg_config: ## Install XDG_CONFIG symlinks (alacritty / ghostty / nvim / tmux / vim / wezterm)
-	@echo "##### Install xdg_config start #####"
+dot_config: ## Install dot configs (editor / terminal / multiplexer / coding-agent)
+	@echo "##### Install dot_config start #####"
+	@echo ">>> editor"
 	@mkdir -p $(HOME)/.config $(HOME)/.vim/bundle
-	$(LN_DIR) $(DOTFILES)/alacritty $(HOME)/.config/alacritty
-	$(LN_DIR) $(DOTFILES)/ghostty $(HOME)/.config/ghostty
 	$(LN_DIR) $(DOTFILES)/nvim $(HOME)/.config/nvim
-	$(LN_DIR) $(DOTFILES)/tmux $(HOME)/.config/tmux
 	$(LN_DIR) $(DOTFILES)/vim $(HOME)/.config/vim
-	$(LN_DIR) $(DOTFILES)/wezterm $(HOME)/.config/wezterm
 	@test -d $(HOME)/.vim/bundle/Vundle.vim || \
 		git clone https://github.com/VundleVim/Vundle.vim.git $(HOME)/.vim/bundle/Vundle.vim
 	@if command -v nvim >/dev/null 2>&1; then \
@@ -108,7 +105,21 @@ xdg_config: ## Install XDG_CONFIG symlinks (alacritty / ghostty / nvim / tmux / 
 	else \
 		echo ">>> vim not installed, skipping PluginInstall"; \
 	fi
-	@echo "##### Install xdg_config end   #####"
+	@echo ">>> terminal"
+	$(LN_DIR) $(DOTFILES)/alacritty $(HOME)/.config/alacritty
+	$(LN_DIR) $(DOTFILES)/ghostty $(HOME)/.config/ghostty
+	$(LN_DIR) $(DOTFILES)/wezterm $(HOME)/.config/wezterm
+	@echo ">>> multiplexer"
+	$(LN_DIR) $(DOTFILES)/tmux $(HOME)/.config/tmux
+	@echo ">>> coding-agent"
+	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
+	$(LN_FILE) $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
+	$(LN_FILE) $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
+	$(LN_FILE) $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
+	$(LN_FILE) $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
+	$(LN_FILE) $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
+	$(LN_FILE) $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
+	@echo "##### Install dot_config end   #####"
 
 bash: ## Install oh-my-bash and link ~/.bashrc
 	@echo "##### Install oh-my-bash start #####"
@@ -160,17 +171,6 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@echo "##### Clean start #####"
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
-
-coding_agent_config: ## Install coding agent configs (claude-code / codex / opencode / pi)
-	@echo "##### Install coding agent config start #####"
-	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
-	$(LN_FILE) $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
-	$(LN_FILE) $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	$(LN_FILE) $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
-	$(LN_FILE) $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
-	$(LN_FILE) $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json
-	$(LN_FILE) $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
-	@echo "##### Install coding agent config end   #####"
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

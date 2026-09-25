@@ -14,20 +14,19 @@ This is the sole project convention file for all AI agents. Maintain project-spe
 ## Commands
 
 ```bash
-make all        # test → install → xdg_config → clean (packages + editor/terminal setup)
+make all        # test → install → dot_config → clean (packages + editor/terminal/agent configs)
 make dependencies # Homebrew and Linux bootstrap packages
 make test       # print resolved Makefile variables (also CI verification)
 make install    # dependencies → brew bundle (BREW_ENV=macos|macos-work|linux-common; override: BREWFILE=path)
 make dump       # overwrite selected environment snapshot; Linux/WSL adds --no-winget
 make zsh        # oh-my-zsh + Powerlevel10k + plugins + symlink ~/.zshrc ~/.p10k.zsh
 make bash       # oh-my-bash + symlink ~/.bashrc
-make coding_agent_config  # symlink claude/codex/opencode/pi configs
-make xdg_config  # symlink editor/terminal configs to ~/.config and install editor plugins
+make dot_config # symlink editor/terminal/multiplexer/coding-agent configs + editor plugins
 make help       # list targets with ## descriptions
 make clean      # remove broken symlinks in ~/.config
 ```
 
-`make all` does not run the shell or coding-agent targets; invoke them separately. Avoid `make -j all`: its prerequisites are not dependency-chained. Use `make -n <target>` to preview machine-changing commands.
+`make all` does not run the shell targets (`bash` / `zsh`); invoke them separately. Avoid `make -j all`: its prerequisites are not dependency-chained. Use `make -n <target>` to preview machine-changing commands.
 
 ## Architecture
 
@@ -112,11 +111,12 @@ make clean      # remove broken symlinks in ~/.config
 - `$(LN_DIR)` = `ln -svF` (macOS) or `ln -svfn` (Linux) — for directory symlinks.
 - `$(LN_FILE)` = `ln -svf` on both platforms — for file symlinks.
 - Shell rc targets remove existing managed symlinks before relinking (`~/.zshrc`, `~/.p10k.zsh`, `~/.bashrc`) so old file-to-directory migrations do not make `ln` treat the target as a directory.
-- New targets follow `coding_agent_config` (also mirrored by `xdg_config`):
+- New targets follow `dot_config`:
   - `##` description uses `Install <name> (item1 / item2 / ...)`.
   - Open with `@echo "##### Install <name> start #####"`; close with `@echo "##### Install <name> end   #####"` (three spaces after `end` align the banners).
-  - Use one consolidated `@mkdir -p` line for parent directories.
-  - Sort symlink rows alphabetically, use Makefile variables, and omit per-row `>>> X` echoes.
+  - Multi-category targets print `@echo ">>> <category>"` before each group (e.g. editor / terminal / multiplexer / coding-agent).
+  - Use one consolidated `@mkdir -p` line per category for parent directories.
+  - Sort symlink rows alphabetically within each category, use Makefile variables, and omit per-row `>>> X` echoes.
 
 ## Tmux config (`dotfiles/tmux/tmux.conf`)
 
@@ -160,8 +160,6 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 - tmux-sensible was removed; defaults are set explicitly.
 
 ## Neovim config (`dotfiles/nvim/`)
-
-#`make all` does not run the shell or coding-agent targets; invoke them separately. Avoid `make -j all`: its prerequisites are not dependency-chained. Use `make -n <target>` to preview machine-changing commands.
 
 ## Architecture
 
@@ -245,7 +243,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 - Pi’s extension overrides the built-in `openai` provider URL only when `OPENAI_BASE_URL` is set; use `OPENAI_API_KEY` for the relay key. Pi uses Bun for package commands; installed extension packages are listed in `dotfiles/pi/settings.json`.
 - Claude settings include the `rtk hook claude` Bash hook and a custom status line using `jq`.
 - Provider `env.example` files are manual examples, not loaded or symlinked by Makefile. Select the relevant provider block rather than sourcing all examples together.
-- Usage: `make coding_agent_config`. It links individual settings and the Pi extension; it does not install the agent CLIs. There is no managed AWS config or Kimi CLI config in the current tree.
+- Linked by `make dot_config` (coding-agent category). It links individual settings and the Pi extension; it does not install the agent CLIs. There is no managed AWS config or Kimi CLI config in the current tree.
 
 ## Terminal appearance
 
