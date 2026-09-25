@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.75.5",
+  "lastChangelogVersion": "0.87.1",
   "npmCommand": [
     "bun"
   ],
@@ -14,5 +14,6 @@
     "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer"
   ],
-  "defaultThinkingLevel": "high"
+  "defaultThinkingLevel": "high",
+  "theme": "dark"
 }
