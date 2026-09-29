@@ -19,6 +19,8 @@ brew "go"
 brew "helm"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
+# Postgres C API library
+brew "libpq"
 # Incremental parsing library
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -89,7 +91,6 @@ vscode "github.vscode-github-actions"
 vscode "vscode-icons-team.vscode-icons"
 vscode "vscodevim.vim"
 vscode "vue.volar"
-go "github.com/air-verse/air"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/pressly/goose/v3/cmd/goose"
 go "github.com/swaggo/swag/cmd/swag"
