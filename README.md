@@ -11,6 +11,8 @@ Personal dotfiles, Homebrew packages, application configs, and utility scripts. 
 
 ## Quick Start
 
+Running `make` without a target displays help. Use `make all` to bootstrap the machine.
+
 ```bash
 # macOS / Linux — bootstrap deps, install Homebrew packages, link dotfiles, clean
 make all

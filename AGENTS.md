@@ -14,6 +14,7 @@ This is the sole project convention file for all AI agents. Maintain project-spe
 ## Commands
 
 ```bash
+make            # default: display help
 make all        # test → install → dot_config → clean (packages + editor/terminal/agent configs)
 make dependencies # Homebrew and Linux bootstrap packages
 make test       # print resolved Makefile variables (also CI verification)

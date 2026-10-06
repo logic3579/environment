@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := help
+
 APPFILES := $(CURDIR)/appfiles
 DOTFILES := $(CURDIR)/dotfiles
 OS_NAME := $(shell uname -s)
@@ -172,5 +174,5 @@ clean: ## Clean up broken symlinks in XDG_CONFIG directory.
 	@find $(HOME)/.config -maxdepth 1 -type l ! -exec test -e {} \; -print -delete 2>/dev/null || true
 	@echo "##### Clean end   #####"
 
-help:
+help: ## Show available commands
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
