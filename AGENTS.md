@@ -186,7 +186,7 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 
 JSON/YAML schemas come from SchemaStore.nvim; the YAML server’s built-in schema store is disabled. `mason-tool-installer` is the single install list; mason-lspconfig automatic installation is disabled.
 
-Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shfmt`, `stylua`.
+Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shellcheck`, `shfmt`, `stylua`.
 
 On Linux, Marksman's bundled .NET runtime requires ICU. `Brewfile-linux-common` installs `icu4c@78`; zshrc/bashrc expose the keg-only library directory through `LD_LIBRARY_PATH` after Homebrew initialization.
 

@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "1.0.3",
   "npmCommand": [
     "bun"
   ],
@@ -11,9 +11,11 @@
     "npm:pi-hermes-memory",
     "npm:pi-ask-user",
     "npm:@gotgenes/pi-permission-system",
-    "npm:pi-mcp-adapter",
     "npm:pi-powerline-footer"
   ],
   "defaultThinkingLevel": "high",
-  "theme": "dark"
+  "theme": "dark",
+  "deviceId": "401a3758-8873-4c92-a1db-9538fc22fbb4",
+  "defaultProvider": "openai",
+  "defaultModel": "gpt-5.5"
 }

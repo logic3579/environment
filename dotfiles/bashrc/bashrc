@@ -96,32 +96,20 @@ elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# Register Homebrew Docker Compose as a Docker CLI plugin.
-if command -v brew &>/dev/null; then
-    _docker_compose_plugin="$(brew --prefix)/opt/docker-compose/bin/docker-compose"
-    if [[ -x "$_docker_compose_plugin" ]]; then
-        mkdir -p "$HOME/.docker/cli-plugins"
-        if [[ "$OSTYPE" == darwin* ]]; then
-            ln -sF "$_docker_compose_plugin" "$HOME/.docker/cli-plugins/docker-compose"
-        elif [[ "$OSTYPE" == linux* ]]; then
-            ln -sfn "$_docker_compose_plugin" "$HOME/.docker/cli-plugins/docker-compose"
-        fi
-    fi
-    unset _docker_compose_plugin
-fi
+# Register Homebrew Docker Compose and Buildx as Docker CLI plugins.
+if [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt" &&
+      ( "$OSTYPE" == darwin* || "$OSTYPE" == linux* ) ]]; then
+    _docker_link_flags=(-sfn)
+    [[ "$OSTYPE" == darwin* ]] && _docker_link_flags=(-sF)
 
-# Register Homebrew Docker Buildx as a Docker CLI plugin.
-if command -v brew &>/dev/null; then
-    _docker_buildx_plugin="$(brew --prefix)/opt/docker-buildx/bin/docker-buildx"
-    if [[ -x "$_docker_buildx_plugin" ]]; then
-        mkdir -p "$HOME/.docker/cli-plugins"
-        if [[ "$OSTYPE" == darwin* ]]; then
-            ln -sF "$_docker_buildx_plugin" "$HOME/.docker/cli-plugins/docker-buildx"
-        elif [[ "$OSTYPE" == linux* ]]; then
-            ln -sfn "$_docker_buildx_plugin" "$HOME/.docker/cli-plugins/docker-buildx"
-        fi
-    fi
-    unset _docker_buildx_plugin
+    for _docker_plugin in compose buildx; do
+        _docker_source="$HOMEBREW_PREFIX/opt/docker-$_docker_plugin/bin/docker-$_docker_plugin"
+        [[ -x "$_docker_source" ]] || continue
+
+        [[ -d "$HOME/.docker/cli-plugins" ]] || mkdir -p "$HOME/.docker/cli-plugins"
+        ln "${_docker_link_flags[@]}" "$_docker_source" "$HOME/.docker/cli-plugins/docker-$_docker_plugin"
+    done
+    unset _docker_plugin _docker_source _docker_link_flags
 fi
 
 # -------------------------
