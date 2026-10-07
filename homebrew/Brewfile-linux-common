@@ -47,8 +47,6 @@ brew "pgcli"
 brew "ripgrep"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
-# Static analysis and lint tool, for (ba)sh scripts
-brew "shellcheck"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
@@ -81,7 +79,6 @@ cask "codex"
 cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
-go "github.com/air-verse/air"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/pressly/goose/v3/cmd/goose"
 go "github.com/swaggo/swag/cmd/swag"
