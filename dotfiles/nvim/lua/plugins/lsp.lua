@@ -139,7 +139,7 @@ return {
 			"L3MON4D3/LuaSnip", -- for luasnip
 		},
 		config = function()
-			require("config.mycmpconfig")
+			require("core.mycmpconfig")
 		end,
 	},
 	-- neovim lua development

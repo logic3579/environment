@@ -41,9 +41,9 @@ make clean      # remove broken symlinks in ~/.config
 ├── dotfiles/
 │   ├── tmux/tmux.conf       # tmux config (prefix: C-z)
 │   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
-│   │   ├── init.lua         # Entry: loads config/* and bootstraps lazy.nvim
+│   │   ├── init.lua         # Entry: loads core/* and bootstraps lazy.nvim
 │   │   └── lua/
-│   │       ├── config/      # Core config (option, keymap, autocmd, lib)
+│   │       ├── core/        # Core config (option, keymap, autocmd, lazynvim, mycmpconfig)
 │   │       └── plugins/     # Plugin specs (lazy.nvim format)
 │   ├── vim/vimrc            # Vim config (Vundle)
 │   ├── wezterm/wezterm.lua  # WezTerm terminal config (cross-platform: macOS + Windows)
@@ -164,10 +164,10 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 
 ## Architecture
 
-- **Plugin manager**: lazy.nvim (bootstrapped in `config/lazynvim.lua`); plugin fetches use `git.filter = false` and `git.timeout = 1200` for slow links. The initial lazy.nvim bootstrap itself still uses `--filter=blob:none --branch=stable`
+- **Plugin manager**: lazy.nvim (bootstrapped in `core/lazynvim.lua`); plugin fetches use `git.filter = false` and `git.timeout = 1200` for slow links. The initial lazy.nvim bootstrap itself still uses `--filter=blob:none --branch=stable`
 - **Leader key**: `<Space>`, local leader: `\`
 - **Color scheme**: solarized.nvim (`autumn` variant, transparent background enabled)
-- **Config loading order**: `init.lua` → `config/lib.lua` (provides `safeRequire`) → `config/option.lua` → `config/keymap.lua` → `config/autocmd.lua` → `config/lazynvim.lua` (loads `plugins/`). `safeRequire` suppresses module errors; inspect individual modules when startup silently skips configuration. Completion loads `config/mycmpconfig.lua` from the nvim-cmp spec
+- **Config loading order**: `init.lua` → `core/option.lua` → `core/keymap.lua` → `core/autocmd.lua` → `core/lazynvim.lua` (loads `plugins/`), using native `require` so module errors are reported directly. Completion loads `core/mycmpconfig.lua` from the nvim-cmp spec
 
 ### Plugin Specs (`lua/plugins/`)
 
@@ -198,15 +198,6 @@ On Linux, Marksman's bundled .NET runtime requires ICU. `Brewfile-linux-common` 
 - Markdown/JSON/YAML/JavaScript: `prettier`
 
 Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly calls LSP formatting. Completion sources are LSP, LuaSnip, and buffer; `/` and `?` use buffer completion, while `:` keeps native command-line completion.
-
-### Neovide GUI
-
-`option.lua` has an `if vim.g.neovide then ... end` block (terminal nvim ignores these):
-
-- `guifont = "JetBrainsMono Nerd Font Mono:h17"` — GUI font (matches terminal font)
-- `neovide_input_macos_option_key_is_meta = "both"` — treat macOS Option as Meta so `<M-...>` mappings work
-- `<D-c>` / `<D-x>` / `<D-v>` provide system clipboard copy, cut, and paste.
-- Dynamic zoom via `neovide_scale_factor`: `<D-=>` zoom in, `<D-->` zoom out, `<D-0>` reset
 
 ### Treesitter Languages
 
@@ -248,7 +239,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 
 ## Terminal appearance
 
-- Font: JetBrainsMono Nerd Font Mono, size 17 (matches Neovide). All Brewfiles install `font-jetbrains-mono-nerd-font`; Linux `make install` refreshes the font cache with `fc-cache -f` after a successful bundle install. SSH rendering uses the client terminal font; Windows-hosted WSL terminals require the font on Windows.
+- Font: JetBrainsMono Nerd Font Mono, size 17. All Brewfiles install `font-jetbrains-mono-nerd-font`; Linux `make install` refreshes the font cache with `fc-cache -f` after a successful bundle install. SSH rendering uses the client terminal font; Windows-hosted WSL terminals require the font on Windows.
 - Color scheme: Solarized Dark across terminals and Neovim; tmux uses catppuccin macchiato.
 
 ## Utility scripts and manual files

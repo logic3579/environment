@@ -57,6 +57,10 @@ Run `make help` for the live list. Current targets:
 ├── dotfiles/               # Symlinked to ~/.config/ or $HOME
 │   ├── tmux/               # tmux.conf — prefix C-z, catppuccin macchiato
 │   ├── nvim/               # Neovim — lazy.nvim, LSP, treesitter, fzf-lua
+│   │   ├── init.lua        # Entry point — native require
+│   │   └── lua/
+│   │       ├── core/       # Options, keymaps, autocmds, lazy.nvim, completion
+│   │       └── plugins/    # Plugin specs
 │   ├── vim/                # Vim — Vundle, fallback editor
 │   ├── alacritty/          # Alacritty terminal
 │   ├── wezterm/            # WezTerm terminal
