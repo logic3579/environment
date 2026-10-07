@@ -133,7 +133,7 @@ make clean      # remove broken symlinks in ~/.config
 
 ### Status Bar Architecture
 
-- Theme: **catppuccin macchiato** (`@catppuccin_flavor "macchiato"`). Visually deliberately different from the Solarized terminal + nvim palette — accepted color-clash.
+- Theme: **catppuccin macchiato** (`@catppuccin_flavor "macchiato"`). Visually deliberately different from the Solarized terminal and TokyoNight nvim palettes — accepted color-clash.
 - Window pill style: `@catppuccin_window_status_style "rounded"` (default; explicit for clarity).
 - Position: top, left-justified (explicit `status-position` / `status-justify` settings).
 - Widget composition is done via append-mode `set -ag`/`set -agF` on `status-left` and `status-right` referencing `#{E:@catppuccin_status_<name>}`. The `E:` prefix expands the format twice — needed for catppuccin to interpolate its color slots.
@@ -166,14 +166,14 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 
 - **Plugin manager**: lazy.nvim (bootstrapped in `core/lazynvim.lua`); plugin fetches use `git.filter = false` and `git.timeout = 1200` for slow links. The initial lazy.nvim bootstrap itself still uses `--filter=blob:none --branch=stable`
 - **Leader key**: `<Space>`, local leader: `\`
-- **Color scheme**: solarized.nvim (`autumn` variant, transparent background enabled)
+- **Color scheme**: tokyonight.nvim (`night` style, transparent background / sidebars / floats); lualine uses the `tokyonight` theme
 - **Config loading order**: `init.lua` → `core/option.lua` → `core/keymap.lua` → `core/autocmd.lua` → `core/lazynvim.lua` (loads `plugins/`), using native `require` so module errors are reported directly. Completion loads `core/mycmpconfig.lua` from the nvim-cmp spec
 
 ### Plugin Specs (`lua/plugins/`)
 
 | File         | Plugins                                                                                                     | Purpose                                                                              |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `ui.lua`     | snacks.nvim, solarized.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
+| `ui.lua`     | snacks.nvim, tokyonight.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
 | `lsp.lua`    | mason, mason-lspconfig, mason-tool-installer, SchemaStore.nvim, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                                  |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
 | `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
@@ -240,7 +240,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly c
 ## Terminal appearance
 
 - Font: JetBrainsMono Nerd Font Mono, size 17. All Brewfiles install `font-jetbrains-mono-nerd-font`; Linux `make install` refreshes the font cache with `fc-cache -f` after a successful bundle install. SSH rendering uses the client terminal font; Windows-hosted WSL terminals require the font on Windows.
-- Color scheme: Solarized Dark across terminals and Neovim; tmux uses catppuccin macchiato.
+- Color scheme: Solarized Dark in terminals, TokyoNight (`night`) in Neovim, and catppuccin macchiato in tmux.
 
 ## Utility scripts and manual files
 

@@ -1,4 +1,24 @@
 return {
+	-- colorscheme
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		---@type tokyonight.Config
+		opts = {
+			style = "night",
+			transparent = true,
+			styles = {
+				comments = { italic = true, bold = false },
+				sidebars = "transparent",
+				floats = "transparent",
+			},
+		},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
+			vim.cmd.colorscheme("tokyonight")
+		end,
+	},
 	-- QoL: vim.ui.input/notify UI, bigfile/quickfile perf guards
 	{
 		"folke/snacks.nvim",
@@ -61,38 +81,6 @@ return {
 			},
 		},
 	},
-	-- colorscheme
-	{
-		"maxmx03/solarized.nvim",
-		lazy = false,
-		priority = 1000,
-		---@type solarized.config
-		opts = {
-			transparent = {
-				enabled = true,
-				pmenu = true,
-				normal = true,
-				normalfloat = true,
-				neotree = true,
-				nvimtree = true,
-				whichkey = true,
-				telescope = true,
-				lazy = true,
-			},
-			variant = "autumn",
-			styles = {
-				comments = { italic = true, bold = false },
-				-- functions = { italic = true },
-				-- variables = { italic = false },
-			},
-		},
-		config = function(_, opts)
-			-- vim.o.termguicolors = true
-			-- vim.o.background = "light"
-			require("solarized").setup(opts)
-			vim.cmd.colorscheme("solarized")
-		end,
-	},
 	-- tabline
 	{
 		"akinsho/bufferline.nvim",
@@ -135,7 +123,7 @@ return {
 		config = function()
 			require("lualine").setup({
 				options = {
-					theme = "solarized_dark",
+					theme = "tokyonight",
 				},
 				extensions = { "nvim-tree" },
 			})
