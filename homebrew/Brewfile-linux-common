@@ -1,18 +1,20 @@
 tap "anomalyco/tap"
 tap "hashicorp/tap"
-tap "oven-sh/bun"
-# GitOps Continuous Delivery for Kubernetes
-brew "argocd"
+tap "oven-sh/bun", trusted: true
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@78"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.14"
 # Checks ansible playbooks for practices and behaviour
 brew "ansible-lint"
+# GitOps Continuous Delivery for Kubernetes
+brew "argocd"
 # Official Amazon AWS command-line interface
 brew "awscli"
+# Language Server for Bash
+brew "bash-language-server"
 # Cross-platform make
 brew "cmake"
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c@78"
 # Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
 # Pack, ship and run any application as a lightweight container
@@ -27,6 +29,8 @@ brew "fzf"
 brew "gh"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Language server for the Go language
+brew "gopls"
 # Kubernetes package manager
 brew "helm"
 # Lightweight and flexible command-line JSON processor
@@ -35,22 +39,20 @@ brew "jq"
 brew "kubernetes-cli"
 # Postgres C API library
 brew "libpq"
+# Language Server for the Lua language
+brew "lua-language-server"
 # Open source relational database management system
 brew "mysql-client"
 # Incremental parsing library
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Language servers for Neovim's native LSP client
-brew "bash-language-server"
-brew "gopls"
-brew "lua-language-server"
-brew "python-lsp-server"
-brew "typescript"
 # Manage multiple Node.js versions
 brew "nvm"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
+# Python Language Server for the Language Server Protocol
+brew "python-lsp-server"
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -59,6 +61,8 @@ brew "ripgrep"
 brew "rtk"
 # Extremely fast Python linter, written in Rust
 brew "ruff"
+# Rust toolchain installer
+brew "rustup"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Autoformat shell script source code
@@ -73,6 +77,8 @@ brew "tmux"
 brew "tree"
 # Parser generator tool
 brew "tree-sitter-cli"
+# Language for application scale JavaScript development
+brew "typescript"
 # Extraction utility for .zip compressed archives
 brew "unzip"
 # Extremely fast Python package installer and resolver, written in Rust
@@ -97,7 +103,6 @@ brew "oven-sh/bun/bun", trusted: true
 cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
-# JetBrains Mono with Nerd Font icons
 cask "font-jetbrains-mono-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
