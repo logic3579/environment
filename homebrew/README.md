@@ -47,6 +47,10 @@ Dump records the current machine's installed packages and overwrites the selecte
 file. Only dump into the matching environment's snapshot, then inspect its Git
 diff before committing. Linux / WSL always excludes WinGet packages from dump.
 
+For personal needs, `@earendil-works/pi-coding-agent`, `cf`, and `prettier` are
+installed manually via `bun install -g` and are not recorded by `brew bundle dump`,
+which currently does not support Bun-installed packages.
+
 For a custom file, `BREWFILE` takes precedence over the environment's default path:
 
 ```bash

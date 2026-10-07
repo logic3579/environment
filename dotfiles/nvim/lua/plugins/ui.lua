@@ -32,7 +32,6 @@ return {
 			quickfile = { enabled = true },
 			words = { enabled = true },
 			rename = { enabled = true },
-			terminal = { enabled = true },
 			scope = { enabled = true },
 			indent = { enabled = false },
 		},
@@ -64,13 +63,6 @@ return {
 					Snacks.words.jump(-1, true)
 				end,
 				desc = "Prev Reference",
-			},
-			{
-				"<leader>tt",
-				function()
-					Snacks.terminal()
-				end,
-				desc = "Toggle Terminal",
 			},
 			{
 				"<leader>cr",
@@ -183,10 +175,8 @@ return {
 				{ "<leader>c", group = " Code", mode = { "n", "x" } },
 				{ "<leader>d", group = " Diagnosis", mode = { "n", "v" } },
 				{ "<leader>f", group = " Find | File" },
-				{ "<leader>g", group = " Git" },
 				{ "<leader>s", group = " Session" },
 				{ "<leader><tab>", group = " Tab" },
-				{ "<leader>t", group = " Terminal" },
 				{ "<leader>w", group = " Windows" },
 			},
 		},

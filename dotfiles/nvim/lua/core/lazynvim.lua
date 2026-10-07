@@ -19,7 +19,6 @@ require("lazy").setup({
 	-- plugins.lsp is loaded directly by init.lua; import only lazy.nvim specs.
 	{ import = "plugins.editor" },
 	{ import = "plugins.format" },
-	{ import = "plugins.git" },
 	{ import = "plugins.nav" },
 	{ import = "plugins.ui" },
 }, {

@@ -157,7 +157,7 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 - `M-1`…`M-9` select tmux windows; prefix + digits select panes. `M-c` creates a window, `M-q` kills a pane, `M-z` zooms, and prefix + `v` / `s` splits.
 - `M-h/j/k/l` detects Vim/Neovim and forwards keys, otherwise moves tmux panes; keep this paired with vim-tmux-navigator mappings.
 - `set -ag terminal-overrides ",*256col*:RGB"` advertises truecolor.
-- `set -g focus-events on` is required for nvim autoread/gitsigns refresh.
+- `set -g focus-events on` is required for nvim autoread.
 - tmux-sensible was removed; defaults are set explicitly.
 
 ## Neovim config (`dotfiles/nvim/`)
@@ -174,12 +174,11 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 
 | File         | Plugins                                                                                                     | Purpose                                                                              |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `ui.lua`     | snacks.nvim, tokyonight.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
+| `ui.lua`     | snacks.nvim, tokyonight.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
 | `format.lua` | conform.nvim                                                                                               | External formatters, save and manual formatting                                      |
 | `lsp.lua`    | Native configuration (required directly by `init.lua`)                                                       | Native LSP server configuration, completion attachment, and buffer keymaps            |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
 | `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
-| `git.lua`    | gitsigns, neogit (+ diffview, fzf-lua integration)                                                          | Git signs, magit-like UI, diff viewer                                                |
 
 `lazy-lock.json` records plugin revisions. This is a custom lazy.nvim configuration; the LazyVim distribution is not loaded, and its old `lazyvim.json` metadata has been removed. Auto-session disables automatic saves and suppresses `/`, `~/`, `~/Projects`, and `~/Downloads`.
 
@@ -212,10 +211,8 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Confor
 | `<leader>c`       | Code (LSP)          | `ca` action, `cd` declaration, `cD` definition, `cn` rename symbol (LSP), `cr` rename file (snacks, LSP-aware), `cf` format |
 | `<leader>d`       | Diagnostics         | `dof` show diagnostics message, `dqf` open diagnostics location list          |
 | `<leader>f`       | Find / File         | `ff` find files, `fg` live grep, `fb` buffers, `fh` help, `fn` new file  |
-| `<leader>g`       | Git                 | `gg` neogit, `gc` commit, `gk` preview hunk                              |
 | `<leader>n`       | Notifications       | `nh` history, `nd` dismiss (snacks.notifier)                             |
 | `<leader>s`       | Session             | `ss` search, `sw` save, `sq` quit all                                    |
-| `<leader>t`       | Terminal            | `tt` toggle floating terminal (snacks.terminal)                          |
 | `<leader>w`       | Windows             | `ws` split below, `wv` split right, `wd` close                           |
 | `<leader><tab>`   | Jumplist / Tab      | `h` jump back, `l` jump forward, `j` first tab, `k` last tab             |
 | `<leader>e`       | Explorer            | Toggle nvim-tree |
