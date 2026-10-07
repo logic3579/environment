@@ -260,11 +260,6 @@ fi
 [[ -n "${HOMEBREW_PREFIX:-}" && -d "$HOMEBREW_PREFIX/opt/libpq/bin" ]] && export PATH="$HOMEBREW_PREFIX/opt/libpq/bin:$PATH"
 
 # -------------------------
-# Neovim / Mason
-# -------------------------
-[[ -d "$HOME/.local/share/nvim/mason/bin" ]] && export PATH="$HOME/.local/share/nvim/mason/bin:$PATH"
-
-# -------------------------
 # fzf (Ctrl-R history, Ctrl-T file, Alt-C cd)
 # -------------------------
 command -v fzf &>/dev/null && eval "$(fzf --bash)"

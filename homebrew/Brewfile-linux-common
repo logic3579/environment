@@ -5,6 +5,8 @@ tap "oven-sh/bun"
 brew "argocd"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.14"
+# Checks ansible playbooks for practices and behaviour
+brew "ansible-lint"
 # Official Amazon AWS command-line interface
 brew "awscli"
 # Cross-platform make
@@ -39,14 +41,32 @@ brew "mysql-client"
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Language servers for Neovim's native LSP client
+brew "bash-language-server"
+brew "gopls"
+brew "lua-language-server"
+brew "python-lsp-server"
+brew "typescript"
 # Manage multiple Node.js versions
 brew "nvm"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
+# Rsync for cloud storage
+brew "rclone"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # CLI proxy to minimize LLM token consumption
 brew "rtk"
+# Extremely fast Python linter, written in Rust
+brew "ruff"
+# Static analysis and lint tool, for (ba)sh scripts
+brew "shellcheck"
+# Autoformat shell script source code
+brew "shfmt"
+# Opinionated Lua code formatter
+brew "stylua"
+# TOML toolkit written in Rust
+brew "taplo"
 # Terminal multiplexer
 brew "tmux"
 # Display directories as trees (with optional color/HTML output)
@@ -59,6 +79,8 @@ brew "unzip"
 brew "uv"
 # Command-line client for WebSockets
 brew "websocat"
+# Internet file retriever
+brew "wget"
 # Tools for the WireGuard secure network tunnel
 brew "wireguard-tools"
 # Platform for building proxies to bypass network restrictions

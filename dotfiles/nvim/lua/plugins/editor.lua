@@ -102,6 +102,7 @@ return {
 		event = "InsertEnter",
 		config = function()
 			require("nvim-autopairs").setup({
+				map_cr = false, -- core.completion handles native completion and paired newlines
 				fast_wrap = {},
 				disable_filetype = { "TelescopePrompt", "vim" },
 			})

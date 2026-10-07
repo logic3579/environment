@@ -15,7 +15,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup("plugins", {
+require("lazy").setup({
+	-- plugins.lsp is loaded directly by init.lua; import only lazy.nvim specs.
+	{ import = "plugins.editor" },
+	{ import = "plugins.format" },
+	{ import = "plugins.git" },
+	{ import = "plugins.nav" },
+	{ import = "plugins.ui" },
+}, {
 	git = {
 		-- Disable partial clone: blob:none defers blob fetch to checkout,
 		-- which can exceed the 120s default timeout on slow links (snacks.nvim case).

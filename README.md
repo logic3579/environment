@@ -77,6 +77,37 @@ Run `make help` for the live list. Current targets:
 └── .github/workflows/      # CI — make test + ShellCheck
 ```
 
+## Neovim
+
+Requires Neovim 0.12+. Plugins use lazy.nvim; LSP and completion use Neovim's
+built-in APIs. Server definitions, activation, and buffer keymaps are all in
+`dotfiles/nvim/lua/plugins/lsp.lua`, required directly by `init.lua`;
+completion is in `lua/core/completion.lua`.
+
+All three Brewfiles include the five language servers. To install them directly:
+
+```bash
+brew install bash-language-server lua-language-server python-lsp-server gopls typescript
+```
+
+Open a Bash, Lua, Python, Go, or TypeScript/JavaScript file; use
+`:checkhealth vim.lsp` to check attachment and `:lsp restart` to restart servers.
+Completion appears automatically. Ctrl-Space opens the menu, Tab / Shift-Tab
+select candidates or jump snippet placeholders, Enter / Ctrl-Y accept, and
+Ctrl-E dismisses. LuaLS uses bundled Neovim types unless the project has its own
+`.luarc.json` or `.luarc.jsonc`.
+
+TypeScript requires version 7+ and uses its own `tsc --lsp --stdio` server.
+Ensure PATH resolves `tsc` to that version; the older `typescript-language-server`
+wrapper requires TypeScript <= 6 and is not used here.
+
+Conform uses external formatters from PATH on save and via `<leader>cf`.
+Brewfiles include `stylua`, `shfmt`, `ruff`, and `taplo`; install `prettier` with
+`bun add --global prettier` (Go provides `gofmt`). `:ConformInfo` shows availability.
+Installed linters require an LSP
+integration or a separate runner to publish diagnostics; BashLS uses ShellCheck.
+After removing Mason, restart the terminal so its old PATH entry is dropped.
+
 ## PostgreSQL Credentials
 
 `dotfiles/pgpass` is a manual template for the libpq password file. Not symlinked by `make` — install by hand when needed:

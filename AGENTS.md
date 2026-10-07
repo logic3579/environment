@@ -43,8 +43,8 @@ make clean      # remove broken symlinks in ~/.config
 │   ├── nvim/                # Neovim config (lazy.nvim plugin manager)
 │   │   ├── init.lua         # Entry: loads core/* and bootstraps lazy.nvim
 │   │   └── lua/
-│   │       ├── core/        # Core config (option, keymap, autocmd, lazynvim, mycmpconfig)
-│   │       └── plugins/     # Plugin specs (lazy.nvim format)
+│   │       ├── core/        # Core config (option, keymap, autocmd, completion, lazynvim)
+│   │       └── plugins/     # Plugin specs (lazy.nvim format) and native LSP config
 │   ├── vim/vimrc            # Vim config (Vundle)
 │   ├── wezterm/wezterm.lua  # WezTerm terminal config (cross-platform: macOS + Windows)
 │   ├── alacritty/alacritty.toml # Alacritty terminal config (cross-platform: macOS + Windows)
@@ -88,7 +88,7 @@ make clean      # remove broken symlinks in ~/.config
 
 - Bash skips noninteractive sessions. Optional ble.sh loads from `~/.local/share/blesh/ble.sh` with `--attach=none` before oh-my-bash and attaches last; installation is manual and requires Bash 4+, unlike macOS system Bash 3.2.
 - Both shell configs register installed Homebrew Docker Compose/Buildx binaries under `~/.docker/cli-plugins/`, using platform-specific symlink flags.
-- Both expose Go, Bun, Rust, Java, database-client, and Mason executable paths when applicable. Keep Homebrew-dependent additions conditional.
+- Both expose Go, Bun, Rust, Java, and database-client executable paths when applicable. Keep Homebrew-dependent additions conditional. Neovim uses tools from PATH; do not add Mason's bin directory.
 - `setproxy` / `unsetproxy` manage proxy environment variables; `setbrew` / `unsetbrew` manage Homebrew mirrors. `singbox-dns-on/off` are macOS-only Wi-Fi DNS helpers.
 
 ## Comment style
@@ -167,37 +167,39 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 - **Plugin manager**: lazy.nvim (bootstrapped in `core/lazynvim.lua`); plugin fetches use `git.filter = false` and `git.timeout = 1200` for slow links. The initial lazy.nvim bootstrap itself still uses `--filter=blob:none --branch=stable`
 - **Leader key**: `<Space>`, local leader: `\`
 - **Color scheme**: tokyonight.nvim (`night` style, transparent background / sidebars / floats); lualine uses the `tokyonight` theme
-- **Config loading order**: `init.lua` → `core/option.lua` → `core/keymap.lua` → `core/autocmd.lua` → `core/lazynvim.lua` (loads `plugins/`), using native `require` so module errors are reported directly. Completion loads `core/mycmpconfig.lua` from the nvim-cmp spec
+- **Minimum Neovim**: 0.12 (native `autocomplete` and completion sources). TUI uses `vim._core.ui2`.
+- **Config loading order**: `init.lua` → `core/option.lua` → `core/keymap.lua` → `core/autocmd.lua` → `core/completion.lua` → `plugins/lsp.lua` → `core/lazynvim.lua`, using native `require` so module errors are reported directly. Native server definitions and activation live in `plugins/lsp.lua`. lazy.nvim explicitly imports the other plugin spec modules; register new spec modules in `core/lazynvim.lua`.
 
 ### Plugin Specs (`lua/plugins/`)
 
 | File         | Plugins                                                                                                     | Purpose                                                                              |
 | ------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | `ui.lua`     | snacks.nvim, tokyonight.nvim, bufferline, lualine, outline.nvim, render-markdown.nvim, which-key             | QoL (input/notifier/bigfile/quickfile/words/rename/terminal/scope), colorscheme, tabline, statusline, outline, markdown rendering, keybinding hints |
-| `lsp.lua`    | mason, mason-lspconfig, mason-tool-installer, SchemaStore.nvim, nvim-lspconfig, nvim-cmp + sources, LuaSnip, lazydev.nvim, conform.nvim             | LSP, completion, Lua dev, formatter                                                  |
+| `format.lua` | conform.nvim                                                                                               | External formatters, save and manual formatting                                      |
+| `lsp.lua`    | Native configuration (required directly by `init.lua`)                                                       | Native LSP server configuration, completion attachment, and buffer keymaps            |
 | `editor.lua` | nvim-treesitter (`main` branch), treesitter-textobjects (`main` branch), nvim-surround, nvim-autopairs      | Syntax, textobjects, surround, autopairs (requires `tree-sitter` CLI)                |
 | `nav.lua`    | fzf-lua, nvim-tree, vim-tmux-navigator, auto-session                                                        | Fuzzy finder, file explorer, seamless nvim/tmux navigation, session management       |
 | `git.lua`    | gitsigns, neogit (+ diffview, fzf-lua integration)                                                          | Git signs, magit-like UI, diff viewer                                                |
 
-`lazy-lock.json` records plugin revisions. This is a custom lazy.nvim configuration; the retained `lazyvim.json` metadata does not mean the LazyVim distribution is loaded. Auto-session disables automatic saves and suppresses `/`, `~/`, `~/Projects`, and `~/Downloads`.
+`lazy-lock.json` records plugin revisions. This is a custom lazy.nvim configuration; the LazyVim distribution is not loaded, and its old `lazyvim.json` metadata has been removed. Auto-session disables automatic saves and suppresses `/`, `~/`, `~/Projects`, and `~/Downloads`.
 
-### LSP Servers (via mason-tool-installer)
+### LSP Servers (native API, tools installed with Homebrew)
 
-`ansiblels`, `bashls`, `gopls`, `jsonls`, `lua_ls`, `marksman`, `pylsp`, `taplo`, `ts_ls`, `yamlls`
+`plugins/lsp.lua` defines `bashls`, `lua_ls`, `pylsp`, `gopls`, and `tsc` with `vim.lsp.config()` and activates them with `vim.lsp.enable()`. Each definition specifies the executable, filetypes, and project root markers. `init.lua` requires this module directly, and lazy.nvim excludes it from its spec imports to avoid duplicate configuration. No external LSP or completion dependencies are required.
 
-JSON/YAML schemas come from SchemaStore.nvim; the YAML server’s built-in schema store is disabled. `mason-tool-installer` is the single install list; mason-lspconfig automatic installation is disabled.
+All three Brewfiles include `bash-language-server`, `lua-language-server`, `python-lsp-server` (`pylsp`), `gopls`, and `typescript`. LuaLS reads Neovim's bundled API/type definitions from `VIMRUNTIME`, while projects with `.luarc.json` / `.luarc.jsonc` keep their own settings. TypeScript 7+ runs its own server with `tsc --lsp --stdio`, covering JavaScript and JSX/TSX; the older `typescript-language-server` wrapper needs TypeScript <= 6 and is not configured.
 
-Additional tools auto-installed: `ansible-lint`, `prettier`, `ruff`, `shellcheck`, `shfmt`, `stylua`.
-
-On Linux, Marksman's bundled .NET runtime requires ICU. `Brewfile-linux-common` installs `icu4c@78`; zshrc/bashrc expose the keg-only library directory through `LD_LIBRARY_PATH` after Homebrew initialization.
+Formatters and linters are installed externally with Homebrew/Bun and resolved from PATH. Neovim does not install tools. BashLS uses installed ShellCheck for diagnostics; other standalone linters are not automatically run just because they are installed.
 
 ### Formatters (via conform.nvim, format-on-save)
 
-- Lua: `stylua` | Go: `gofmt` | Python: `ruff`
-- Bash: `shfmt` | TOML: `taplo`
-- Markdown/JSON/YAML/JavaScript: `prettier`
+- Lua: `stylua` | Go: `gofmt` | Python: `ruff_fix` followed by `ruff_format`
+- Shell (`sh` / `bash`): `shfmt` | TOML: `taplo`
+- Markdown/JSON/JSONC/YAML/JavaScript/TypeScript (including JSX/TSX): `prettier`
 
-Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` explicitly calls LSP formatting. Completion sources are LSP, LuaSnip, and buffer; `/` and `?` use buffer completion, while `:` keeps native command-line completion.
+Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Conform (document or visual selection) with the same LSP fallback, including buffers without an attached server.
+
+`core/completion.lua` enables native `autocomplete`, sourcing LSP via `omnifunc` (`o`) and current/loaded buffers (`.`, `w`, `b`). `LspAttach` enables `vim.lsp.completion` to apply completion edits/imports and expand snippets through `vim.snippet`. Ctrl-Space triggers completion; Tab / Shift-Tab select candidates or jump snippet placeholders; Enter accepts the first/selected candidate, Ctrl-Y also accepts, and Ctrl-E dismisses. nvim-autopairs leaves Enter to this mapping and still handles paired newlines. Command-line/search completion uses Neovim defaults.
 
 ### Treesitter Languages
 
