@@ -51,6 +51,10 @@ brew "neovim"
 brew "nvm"
 # CLI for Postgres with auto-completion and syntax highlighting
 brew "pgcli"
+# AI agent toolkit
+brew "pi-coding-agent"
+# Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
+brew "prettier"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
 # Rsync for cloud storage

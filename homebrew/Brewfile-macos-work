@@ -49,6 +49,10 @@ brew "wget"
 brew "wireguard-tools"
 brew "xray"
 brew "yq"
+# AI agent toolkit
+brew "pi-coding-agent"
+# Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
+brew "prettier"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
 # Terraform

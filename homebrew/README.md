@@ -47,9 +47,15 @@ Dump records the current machine's installed packages and overwrites the selecte
 file. Only dump into the matching environment's snapshot, then inspect its Git
 diff before committing. Linux / WSL always excludes WinGet packages from dump.
 
-For personal needs, `@earendil-works/pi-coding-agent`, `cf`, and `prettier` are
-installed manually via `bun install -g` and are not recorded by `brew bundle dump`,
-which currently does not support Bun-installed packages.
+`prettier` and `pi-coding-agent` are installed through Homebrew and included in
+all three Brewfiles. To install them directly:
+
+```bash
+brew install prettier pi-coding-agent
+```
+
+Only the `cf` CLI is installed manually via `bun install -g cf`; it is not
+recorded in the Brewfiles.
 
 For a custom file, `BREWFILE` takes precedence over the environment's default path:
 

@@ -102,8 +102,8 @@ Ensure PATH resolves `tsc` to that version; the older `typescript-language-serve
 wrapper requires TypeScript <= 6 and is not used here.
 
 Conform uses external formatters from PATH on save and via `<leader>cf`.
-Brewfiles include `stylua`, `shfmt`, `ruff`, and `taplo`; install `prettier` with
-`bun add --global prettier` (Go provides `gofmt`). `:ConformInfo` shows availability.
+All three Brewfiles include `stylua`, `shfmt`, `ruff`, `taplo`, and `prettier`.
+Go provides `gofmt`. `:ConformInfo` shows availability.
 Installed linters require an LSP
 integration or a separate runner to publish diagnostics; BashLS uses ShellCheck.
 After removing Mason, restart the terminal so its old PATH entry is dropped.

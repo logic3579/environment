@@ -188,7 +188,7 @@ The catppuccin repo is `catppuccin/tmux`, which TPM clones to `~/.tmux/plugins/t
 
 All three Brewfiles include `bash-language-server`, `lua-language-server`, `python-lsp-server` (`pylsp`), `gopls`, and `typescript`. LuaLS reads Neovim's bundled API/type definitions from `VIMRUNTIME`, while projects with `.luarc.json` / `.luarc.jsonc` keep their own settings. TypeScript 7+ runs its own server with `tsc --lsp --stdio`, covering JavaScript and JSX/TSX; the older `typescript-language-server` wrapper needs TypeScript <= 6 and is not configured.
 
-Formatters and linters are installed externally with Homebrew/Bun and resolved from PATH. Neovim does not install tools. BashLS uses installed ShellCheck for diagnostics; other standalone linters are not automatically run just because they are installed.
+Formatters and linters are installed externally with Homebrew and resolved from PATH. All three Brewfiles include `prettier`. Neovim does not install tools. BashLS uses installed ShellCheck for diagnostics; other standalone linters are not automatically run just because they are installed.
 
 ### Formatters (via conform.nvim, format-on-save)
 
@@ -228,7 +228,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Confor
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Codex config registers the `hashicorp` marketplace from `hashicorp/agent-skills` at a pinned Git revision. Plugin entries `build-web-apps@openai-curated`, `superpowers@openai-curated`, and `terraform@hashicorp` are explicitly disabled.
 - OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
-- Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`)
+- Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`); `pi-coding-agent` is installed through Homebrew and included in all three Brewfiles.
 - Pi extension: `~/.pi/agent/extensions/openai-proxy.ts` (symlinked from `dotfiles/pi/openai-proxy.ts`).
 - OpenCode currently enables only `oh-my-openagent@latest`; `oh-my-openagent.json` maps agents and categories to models.
 - Pi’s extension overrides the built-in `openai` provider URL only when `OPENAI_BASE_URL` is set; use `OPENAI_API_KEY` for the relay key. Pi uses Bun for package commands; installed extension packages are listed in `dotfiles/pi/settings.json`.

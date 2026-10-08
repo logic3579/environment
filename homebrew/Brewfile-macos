@@ -37,6 +37,10 @@ brew "tree-sitter"
 brew "neovim"
 # Manage multiple Node.js versions
 brew "nvm"
+# AI agent toolkit
+brew "pi-coding-agent"
+# Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
+brew "prettier"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
 # Rsync for cloud storage
