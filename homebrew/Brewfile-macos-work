@@ -2,7 +2,6 @@ tap "anomalyco/tap", trusted: true
 tap "hashicorp/tap", trusted: true
 tap "oven-sh/bun", trusted: true
 brew "python@3.14"
-brew "ansible-lint"
 brew "tree"
 brew "argocd"
 brew "awscli"

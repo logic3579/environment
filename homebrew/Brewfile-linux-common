@@ -5,8 +5,6 @@ tap "oven-sh/bun", trusted: true
 brew "icu4c@78"
 # Interpreted, interactive, object-oriented programming language
 brew "python@3.14"
-# Checks ansible playbooks for practices and behaviour
-brew "ansible-lint"
 # GitOps Continuous Delivery for Kubernetes
 brew "argocd"
 # Official Amazon AWS command-line interface
