@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.2.0",
   "npmCommand": [
     "bun"
   ],
@@ -17,5 +17,5 @@
   "theme": "dark",
   "deviceId": "401a3758-8873-4c92-a1db-9538fc22fbb4",
   "defaultProvider": "openai",
-  "defaultModel": "gpt-5.5"
+  "defaultModel": "gpt-6.1-sol"
 }
