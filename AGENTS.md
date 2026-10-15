@@ -248,7 +248,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Confor
 - `helm-middleware.sh`: operates on the preconfigured `my-repo` Helm repository, namespaces `dev/test/uat`, and middleware `kafka/redis/redis-cluster/rocketmq`. Install/uninstall affect the selected Kubernetes cluster.
 - `decorate-requests.py` is an incomplete requests API-wrapper example with an existing syntax error in `action_post`, not a runnable utility. `getcdn-realip.go` fetches provider IP ranges, reads/writes `realip.json` in the working directory, and appends `all.log`; it requires initialized JSON and contains placeholder integration settings. CI does not validate Python or Go scripts.
 - `dotfiles/pgpass` is installed manually as `~/.pgpass` with mode `600`; Makefile does not link it.
-- `appfiles/` contains manual backups (AutoHotkey v2 on Windows, Folo OPML, Sublime Text, Raycast, VS Code, and ZeroOmega). Do not treat these as bootstrap-managed configs.
+- `appfiles/` contains manual backups (AutoHotkey v2 on Windows, Folo OPML, Sublime Text, VS Code, and ZeroOmega). Do not treat these as bootstrap-managed configs.
 
 ## Verification
 

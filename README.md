@@ -128,7 +128,6 @@ Files under `appfiles/` are manual backups — restore by importing or copying t
 | `appfiles/autokey.ahk`                  | AutoHotkey v2 (Windows only) |
 | `appfiles/follow.opml`                  | Folo / RSS reader            |
 | `appfiles/Preferences.sublime-settings` | Sublime Text                 |
-| `appfiles/Raycast.rayconfig`            | Raycast                      |
 | `appfiles/vscode.settings.json`         | Visual Studio Code           |
 | `appfiles/ZeroOmegaOptions.json`        | SwitchyOmega / ZeroOmega     |
 
