@@ -102,8 +102,6 @@ cask "keepassxc"
 cask "obsidian"
 # Chinese music streaming application
 cask "qqmusic"
-# Control your tools with a few keystrokes
-cask "raycast"
 # Free messaging and calling application
 cask "wechat"
 # GPU-accelerated cross-platform terminal emulator and multiplexer
@@ -118,4 +116,3 @@ vscode "vue.volar"
 go "github.com/golangci/golangci-lint/cmd/golangci-lint"
 go "github.com/pressly/goose/v3/cmd/goose"
 go "github.com/swaggo/swag/cmd/swag"
-uv "serena-agent"
