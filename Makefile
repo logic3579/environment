@@ -117,7 +117,6 @@ dot_config: ## Install dot configs (editor / terminal / multiplexer / coding-age
 	@mkdir -p $(HOME)/.claude $(HOME)/.codex $(HOME)/.config/opencode $(HOME)/.pi/agent/extensions
 	$(LN_FILE) $(DOTFILES)/claude/settings.json $(HOME)/.claude/settings.json
 	$(LN_FILE) $(DOTFILES)/codex/config.toml $(HOME)/.codex/config.toml
-	$(LN_FILE) $(DOTFILES)/opencode/oh-my-openagent.json $(HOME)/.config/opencode/oh-my-openagent.json
 	$(LN_FILE) $(DOTFILES)/opencode/opencode.json $(HOME)/.config/opencode/opencode.json
 	$(LN_FILE) $(DOTFILES)/pi/openai-proxy.ts $(HOME)/.pi/agent/extensions/openai-proxy.ts
 	$(LN_FILE) $(DOTFILES)/pi/settings.json $(HOME)/.pi/agent/settings.json

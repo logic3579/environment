@@ -69,7 +69,7 @@ Run `make help` for the live list. Current targets:
 │   ├── bashrc              # Bash — oh-my-bash, cross-platform (macOS + Linux)
 │   ├── claude/             # Claude Code — settings.json
 │   ├── codex/              # Codex CLI — config.toml, env.example
-│   ├── opencode/           # OpenCode — opencode.json, oh-my-openagent.json
+│   ├── opencode/           # OpenCode — opencode.json
 │   ├── pi/                 # Pi agent — settings.json, openai-proxy.ts
 │   └── pgpass              # libpq password template (manual install)
 ├── appfiles/               # Manual app-config backups (not symlinked)

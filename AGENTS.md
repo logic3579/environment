@@ -56,8 +56,7 @@ make clean      # remove broken symlinks in ~/.config
 │   │   ├── config.toml
 │   │   └── env.example      # Manual provider environment examples
 │   ├── opencode/            # OpenCode CLI config
-│   │   ├── opencode.json
-│   │   └── oh-my-openagent.json   # oh-my-openagent plugin: agents/categories → model mapping
+│   │   └── opencode.json
 │   ├── zshrc/               # Zsh config: zshrc + p10k.zsh (oh-my-zsh + Powerlevel10k)
 │   ├── bashrc/              # Bash config: bashrc (oh-my-bash, cross-platform: macOS + Linux)
 │   ├── pi/                 # settings.json + openai-proxy.ts
@@ -227,10 +226,10 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Confor
 - Claude Code: `~/.claude/settings.json` (symlinked from `dotfiles/claude/settings.json`); `dotfiles/claude/env.example` is the provider/model env template for Anthropic-compatible endpoints such as Moonshot/Kimi and GLM.
 - Codex: `~/.codex/config.toml` (symlinked from `dotfiles/codex/config.toml`)
 - Codex config registers the `hashicorp` marketplace from `hashicorp/agent-skills` at a pinned Git revision. Plugin entries `build-web-apps@openai-curated`, `superpowers@openai-curated`, and `terraform@hashicorp` are explicitly disabled.
-- OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`); `oh-my-openagent` plugin config at `~/.config/opencode/oh-my-openagent.json` (symlinked from `dotfiles/opencode/oh-my-openagent.json`)
+- OpenCode: `~/.config/opencode/opencode.json` (symlinked from `dotfiles/opencode/opencode.json`)
 - Pi: `~/.pi/agent/settings.json` (symlinked from `dotfiles/pi/settings.json`); `pi-coding-agent` is installed through Homebrew and included in all three Brewfiles.
 - Pi extension: `~/.pi/agent/extensions/openai-proxy.ts` (symlinked from `dotfiles/pi/openai-proxy.ts`).
-- OpenCode currently enables only `oh-my-openagent@latest`; `oh-my-openagent.json` maps agents and categories to models.
+- OpenCode currently enables no plugins (the `oh-my-openagent@latest` plugin was removed from the global config).
 - Pi’s extension overrides the built-in `openai` provider URL only when `OPENAI_BASE_URL` is set; use `OPENAI_API_KEY` for the relay key. Pi uses Bun for package commands; installed extension packages are listed in `dotfiles/pi/settings.json`.
 - Claude settings include the `rtk hook claude` Bash hook and a custom status line using `jq`.
 - Provider `env.example` files are manual examples, not loaded or symlinked by Makefile. Select the relevant provider block rather than sourcing all examples together.
