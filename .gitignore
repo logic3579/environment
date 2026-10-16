@@ -1,46 +1,41 @@
-# === AI Coding Assistants ===
-
-# Claude Code
-.claude/settings.local.json
-.claude/memory/
-.claude/sessions/
-
-# Serena
-.serena/
-
-# Cursor
-.cursorignore
-.cursorindexingignore
-
-# === OS ===
-.DS_Store
-Thumbs.db
-Desktop.ini
-._*
-
-# === Editors & IDEs ===
-*.swp
-*.swo
-*~
-.vscode/
-.idea/
-*.sublime-project
-*.sublime-workspace
-
-# === Logs & Temp ===
-*.log
-tmp/
-.tmp/
-
-# === Testing artifacts ===
-coverage/
-.nyc_output/
-junit-*.xml
-
-# === Environment & Secrets ===
+# Local environment and secrets
 .env
 .env.*
 !.env.example
 *.pem
 *.key
 credentials.json
+
+# Local tools and caches
+.claude/settings.local.json
+.claude/memory/
+.claude/sessions/
+.serena/
+.omo/
+.cursorignore
+.cursorindexingignore
+
+# Editors & IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+._*
+
+# Logs and temp files
+*.log
+tmp/
+.tmp/
+*.swp
+*.swo
+*~
+
+# Testing artifacts
+coverage/
+.nyc_output/
+junit-*.xml
