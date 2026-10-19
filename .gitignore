@@ -14,6 +14,7 @@ credentials.json
 .omo/
 .cursorignore
 .cursorindexingignore
+.cloudflare/
 
 # Editors & IDEs
 .vscode/
