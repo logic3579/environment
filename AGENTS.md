@@ -126,18 +126,16 @@ make clean      # remove broken symlinks in ~/.config
 | ------ | ------- |
 | `tmux-plugins/tpm` | Plugin manager (auto-bootstrapped via `if "test ! -d ..."` block at bottom) |
 | `tmux-plugins/tmux-resurrect` | Session save / restore |
-| `tmux-plugins/tmux-cpu` | Provides `#{cpu_*}` / `#{ram_*}` format vars consumed by catppuccin's cpu and ram modules |
-| `tmux-plugins/tmux-battery` | Provides `#{battery_*}` format vars consumed by catppuccin's battery module |
-| `catppuccin/tmux#v2.3.0` | Theme + widget framework (pinned to v2.3.0; bumps require manually editing tag) |
+| `catppuccin/tmux#v2.3.2` | Theme + widget framework (pinned to v2.3.2; bumps require manually editing tag) |
 
 ### Status Bar Architecture
 
-- Theme: **catppuccin macchiato** (`@catppuccin_flavor "macchiato"`). Visually deliberately different from the Solarized terminal and TokyoNight nvim palettes — accepted color-clash.
+- Theme: **catppuccin mocha** (`@catppuccin_flavor "mocha"`). Visually deliberately different from the Solarized terminal and TokyoNight nvim palettes — accepted color-clash.
 - Window pill style: `@catppuccin_window_status_style "rounded"` (default; explicit for clarity).
 - Position: top, left-justified (explicit `status-position` / `status-justify` settings).
 - Widget composition is done via append-mode `set -ag`/`set -agF` on `status-left` and `status-right` referencing `#{E:@catppuccin_status_<name>}`. The `E:` prefix expands the format twice — needed for catppuccin to interpolate its color slots.
 - **Left**: `session` only. Session module has a built-in prefix indicator (`#{?client_prefix,#{E:@thm_red},#{E:@thm_green}}`) — the session pill turns red when `C-z` is held; no separate prefix-highlight needed.
-- **Right**: `cpu` → `ram` → `load` → `battery` → `date_time`. Each pill self-colors via theme slots (thm_yellow / thm_blue / thm_pink etc.).
+- **Right**: `application` → `date_time`. Each pill self-colors via theme slots (thm_maroon / thm_pink etc.). The `application` module reads `#{pane_current_command}` and needs no extra plugin.
 - **Window pills**: `@catppuccin_window_text " #W"` + `@catppuccin_window_current_text " #W"` are explicitly set so the window LABEL (set by `rename-window` / `automatic-rename`) shows — catppuccin's default is `#T` (pane title), a different concept entirely. `@catppuccin_window_flags "icon"` enables Nerd Font glyphs for zoom/bell/activity flags.
 - Module configs live in `~/.tmux/plugins/tmux/status/<name>.conf` after TPM clones the plugin; customize by setting `@catppuccin_<module>_*` vars BEFORE the TPM run line at the bottom of `tmux.conf`.
 
@@ -238,7 +236,7 @@ Format-on-save has a 500 ms timeout with LSP fallback. `<leader>cf` calls Confor
 ## Terminal appearance
 
 - Font: JetBrainsMono Nerd Font Mono, size 17. All Brewfiles install `font-jetbrains-mono-nerd-font`; Linux `make install` refreshes the font cache with `fc-cache -f` after a successful bundle install. SSH rendering uses the client terminal font; Windows-hosted WSL terminals require the font on Windows.
-- Color scheme: Solarized Dark in terminals, TokyoNight (`night`) in Neovim, and catppuccin macchiato in tmux.
+- Color scheme: Solarized Dark in terminals, TokyoNight (`night`) in Neovim, and catppuccin mocha in tmux.
 
 ## Utility scripts and manual files
 
