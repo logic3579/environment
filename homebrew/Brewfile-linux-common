@@ -1,10 +1,5 @@
-tap "anomalyco/tap"
 tap "hashicorp/tap"
 tap "oven-sh/bun", trusted: true
-# C/C++ and Java libraries for Unicode and globalization
-brew "icu4c@78"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
 # GitOps Continuous Delivery for Kubernetes
 brew "argocd"
 # Official Amazon AWS command-line interface
@@ -13,14 +8,6 @@ brew "awscli"
 brew "bash-language-server"
 # Cross-platform make
 brew "cmake"
-# Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima"
-# Pack, ship and run any application as a lightweight container
-brew "docker"
-# Docker CLI plugin for extended build capabilities with BuildKit
-brew "docker-buildx"
-# Isolated development environments using Docker
-brew "docker-compose"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -31,6 +18,8 @@ brew "go"
 brew "gopls"
 # Kubernetes package manager
 brew "helm"
+# C/C++ and Java libraries for Unicode and globalization
+brew "icu4c@78"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Kubernetes command-line interface
@@ -55,6 +44,8 @@ brew "pi-coding-agent"
 brew "prettier"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -95,8 +86,6 @@ brew "wireguard-tools"
 brew "xray"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode", trusted: true
 # Terraform
 brew "hashicorp/tap/terraform", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
