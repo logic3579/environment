@@ -37,10 +37,10 @@ brew "nvm"
 brew "pi-coding-agent"
 # Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
 brew "prettier"
-# Interpreted, interactive, object-oriented programming language
-brew "python@3.14"
 # Python Language Server for the Language Server Protocol
 brew "python-lsp-server"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.14"
 # Rsync for cloud storage
 brew "rclone"
 # Search tool like grep and The Silver Searcher
@@ -75,8 +75,8 @@ brew "wireguard-tools"
 brew "xray"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode", trusted: true
+# OpenCode V2 - the AI coding agent for the terminal
+brew "anomalyco/tap/opencode-v2", trusted: true
 # Terraform
 brew "hashicorp/tap/terraform", trusted: true
 # Incredibly fast JavaScript runtime, bundler, transpiler and package manager - all in one.
