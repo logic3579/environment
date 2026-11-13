@@ -40,16 +40,15 @@ status_line_use_colors = true
 [tui.model_availability_nux]
 "gpt-6.1-sol" = 4
 
+[marketplaces.context7-marketplace]
+source_type = "git"
+source = "https://github.com/upstash/context7.git"
+
 [marketplaces.hashicorp]
 source_type = "git"
 source = "https://github.com/hashicorp/agent-skills.git"
 ref = "c2d65dfe492f74d360d35b859b88932222470bd8"
 
-[plugins."build-web-apps@openai-curated"]
-enabled = false
-
-[plugins."superpowers@openai-curated"]
-enabled = false
-
-[plugins."terraform@hashicorp"]
-enabled = false
+[marketplaces.mem0-plugins]
+source_type = "git"
+source = "https://github.com/mem0ai/mem0.git"
